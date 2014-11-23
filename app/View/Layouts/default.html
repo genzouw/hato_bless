@@ -7,9 +7,9 @@
 <!--<link rel="apple-touch-icon-precomposed" href="/ico_spicon01.png" />-->
 
 <!-- css読み込み -->
-<?php $this->Html->css(array(
+<?php echo $this->Html->css(array(
 	'/common/css/import',
-)) ?>
+)); ?>
 
 <!-- jquery -->
 <script src="/common/js/jquery-1.10.2.min.js" type="text/javascript"></script>
@@ -50,7 +50,10 @@
 <ul>
 <li><a href=""><span>TOP</span></a></li>
 <li<?php if($this->name === 'Juchu') echo ' class="active"'; ?>><a href="/juchu/kihon"><span>基本登録</span></a></li>
-<li><a href="/data/"><span>データ検索</span></a></li>
+<li><?php echo $this->Html->link('データ検索', array(
+	'controller' => 'data_search',
+	'action' => 'index',
+)); ?></li>
 <li><a href=""><span>配車管理</span></a></li>
 <li><a href=""><span>求貨・求車</span></a></li>
 <li><a href=""><span>フリー請求</span></a></li>

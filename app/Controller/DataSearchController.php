@@ -38,7 +38,9 @@ class DataSearchController extends AppController {
     public $uses = array('M_AREA');
 
     public function index() {
-
+        $this->redirect(array(
+            'action' => 'data_search',
+        ));
     }
 
 /**
