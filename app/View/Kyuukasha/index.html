@@ -1,0 +1,162 @@
+<h2 class="contentsTitle01 icoTehai01 openTitle01">求貨登録</h2>
+
+<!-- sectionBase01 -->
+<section class="sectionBase01">
+
+<?php echo $this->Form->create(false, array('method'=>'post', 'action'=>'save', 'name'=>'form1')); ?>
+<!-- ftBox -->
+<div class="ftBox mB10">
+<!-- flL -->
+<div class="flL mR10 pL10 w700">
+<!-- tablePt01 -->
+<?php foreach( $err as $errrow ): ?>
+<?php echo $errrow[0]; ?><br />
+<?php endforeach; ?>
+<?php echo $this->Form->error('tkyukakyusya.t1'); ?>
+<table class="tablePt01" style="width:50%">
+	<tr>
+		<th style="width:30%">種別</th>
+		<td style="width:70%"><?php /*echo $this->Form->input('Ky.syubetu', array('type'=>'text', 'size'=>'20', 'class'=>'fText w160 mr20', 'label'=>false, 'div'=>false, 'error'=>false))*/ ?></td>
+	</tr>
+</table>
+<table class="tablePt01">
+	<tr>
+		<th>発地域<span class="required">※</span></th>
+		<td>
+			<?php echo $this->Form->input( '', array(
+										    'type' => 'select',
+										    'multiple'=> false,  // 複数選択を可能にする場合true
+										    'options' => $select_area,
+										    'class'=> 'requiredContents',
+										    'name'=>'hatu_area'
+										));
+			?>
+		</td>
+		<th>着地域<span class="required">※</span></th>
+		<td>
+			<?php echo $this->Form->input( '', array(
+										    'type' => 'select',
+										    'multiple'=> false,  // 複数選択を可能にする場合true
+										    'options' => $select_area,
+										    'class'=> 'requiredContents'
+										));
+			?>
+		</td>
+	</tr>
+</table>
+<table class="tablePt01">
+	<tr>
+		<th>発日<span class="required">※</span></th>
+		<td>
+		</td>
+		<th>着日<span class="required">※</span></th>
+		<td>
+		</td>
+	</tr>
+</table>
+<table class="tablePt01">
+	<tr>
+		<th style="width:20%">発時刻<span class="required">※</span></th>
+		<td style="width:15%">
+		<?php echo $this->Form->input(false, array('name'=>'t1', 'type'=>'text', 'size'=>'5', 'class'=>'fTw200 flL requiredContents', 'label'=>false, 'div'=>false, 'error'=>false, 'required'=>false)); ?>
+		</td>
+		<td style="width:5%">～</td>
+		<td style="width:30%">
+		<?php echo $this->Form->input(false, array('name'=>'t2', 'type'=>'text', 'size'=>'5', 'class'=>'fTw200 flL requiredContents', 'label'=>false, 'div'=>false, 'error'=>false, 'required'=>false)); ?>
+		</td>
+		<th style="width:20%">着時刻<span class="required">※</span></th>
+		<td style="width:15%">
+		<?php echo $this->Form->input(false, array('name'=>'t3', 'type'=>'text', 'size'=>'5', 'class'=>'fTw200 flL requiredContents', 'label'=>false, 'div'=>false, 'error'=>false, 'required'=>false)); ?>
+		</td>
+		<td style="width:50%">～</td>
+		<td style="width:15%">
+		<?php echo $this->Form->input(false, array('name'=>'t4', 'type'=>'text', 'size'=>'5', 'class'=>'fTw200 flL requiredContents', 'label'=>false, 'div'=>false, 'error'=>false, 'required'=>false)); ?>
+		</td>
+	</tr>
+</table>
+<table class="tablePt01">
+	<tr>
+		<th>m3</th>
+		<td><?php echo $this->Form->input(false, array('name'=>'center', 'type'=>'text', 'size'=>'10', 'class'=>'fTw200 flL requiredContents', 'label'=>false, 'div'=>false, 'error'=>false, 'required'=>false)); ?>
+
+		</td>
+		<th>t車</th>
+		<td><?php echo $this->Form->input( '', array(
+										    'type' => 'select',
+										    'multiple'=> false,  // 複数選択を可能にする場合true
+										    'options' => $select_syaryo,
+										    'class'=> 'requiredContents'
+										));
+			?>
+		</td>
+	</tr>
+</table>
+<table class="tablePt01" style="width:50%">
+	<tr>
+		<th style="width:30%">センター</th>
+		<td style="width:70%"><?php echo $this->Form->input(false, array('name'=>'center', 'type'=>'text', 'size'=>'15', 'class'=>'fTw200 flL requiredContents', 'label'=>false, 'div'=>false, 'error'=>false, 'required'=>false)); ?></td>
+	</tr>
+</table>
+<table class="tablePt01">
+	<tr>
+		<th>担当者</th>
+		<td><?php echo $this->Form->input(false, array('name'=>'center', 'type'=>'text', 'size'=>'15', 'class'=>'fTw200 flL requiredContents', 'label'=>false, 'div'=>false, 'error'=>false, 'required'=>false)); ?></td>
+		<td><?php echo $this->Form->input(false, array('name'=>'center', 'type'=>'text', 'size'=>'15', 'class'=>'fTw200 flL requiredContents', 'label'=>false, 'div'=>false, 'error'=>false, 'required'=>false)); ?></td>
+		<td>参照</td>
+	</tr>
+</table>
+<table class="tablePt01" style="width:50%">
+	<tr>
+		<th style="width:30%">希望金額</th>
+		<td style="width:70%"><?php echo $this->Form->input(false, array('name'=>'center', 'type'=>'text', 'size'=>'15', 'class'=>'fTw200 flL requiredContents', 'label'=>false, 'div'=>false, 'error'=>false, 'required'=>false)); ?></td>
+	</tr>
+</table>
+<?php echo $this->Form->submit('確認', array(
+    'div'=>false,
+    'class' => 'btn btn-primary',
+    'name' => 'submit')); ?>
+<!-- /tablePt01 -->
+
+<!--
+<h3 class="hPt01">必須の場合</h3>
+<ol>
+<li>以下のコードを入れる<br>
+<pre class="codeBox01"><code>&lt;span class="required"&gt;※&lt;/span&gt;</code></pre></li>
+<li>inputのclassにrequiredContentsを指定する<br>
+<pre class="codeBox01"><code>class="requiredContents"</code></pre></li>
+</ol>
+
+<input type="text" value="テキストインプット" class="w200">
+<br>
+<label for="id_1"><input type="checkbox" id="id_1">チェックボックス</label>
+<label for="radio01_1"><input type="radio" name="radio01" value="" id="radio01_1">ラジオボタン</label>
+<label for="radio01_2"><input type="radio" name="radio01" value="" id="radio01_2">ラジオボタン</label>
+<br>
+-->
+</div>
+<!-- flR -->
+<div class="flR w300 shinkoBox01">
+<div class="title01">登録履歴</div>
+<div class="scroll01">
+<ul>
+<?php $helpers = array('Date'); ?>
+<?php foreach( $record as $rec ): ?>
+
+
+	<li>
+	<?php if($rec["Tkyukakyusya"]["KYUKAKYUSYA_KBN"]=="1"){ echo "求貨"; } else { echo "求車"; } ?>　<?php echo $rec["ms"]["SYARYO_NAME"];?><br />
+	<?php echo mb_substr($rec["Tkyukakyusya"]["UPDATE_DT"],0,8);?>　<?php echo $rec["ch"]["CHIIKI_MEI"];?>　　名前<img src="./img/ico_bell01.png" width="17" height="18" alt="" class="iconImg01"></li>
+
+<?php endforeach; ?>
+</ul>
+</div>
+</div>
+<!-- /flR -->
+<?php echo $this->Form->end(); ?>
+</section>
+<!-- /sectionBase01 -->
+
+
+<?php echo $this->element('sql_dump'); ?>
+
+

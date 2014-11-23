@@ -1,0 +1,23 @@
+USE [HATO2]
+GO
+
+/****** Object:  UserDefinedFunction [dbo].[GET_BEFORE_TAX]    Script Date: 07/31/2014 11:56:28 ******/
+SET ANSI_NULLS OFF
+GO
+
+SET QUOTED_IDENTIFIER OFF
+GO
+
+CREATE FUNCTION [dbo].[GET_BEFORE_TAX] (@TAX_INCLUDE AS decimal(12),@TAX_RT AS decimal(5))  
+RETURNS decimal(12) AS  
+BEGIN
+DECLARE
+	--税込価格と税率を元に、税抜き価格を返却するＳＰ
+	--2004/07/08 K.EBISUI@KOS
+	@BEFORE_TAX		decimal(12)
+	SET @BEFORE_TAX = ROUND((@TAX_INCLUDE / ( 100 + @TAX_RT)) * 100,0)
+	RETURN @BEFORE_TAX
+END
+
+GO
+

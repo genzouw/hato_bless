@@ -1,0 +1,134 @@
+
+
+<!-- mainContents -->
+<section id="mainContents">
+
+
+
+<h2 class="contentsTitle01 icoKihontouroku01">精算受注確定取消</h2>
+<section class="sectionBase01">
+
+<?php echo $this->Session->flash(); ?>
+
+<table class="tablePt01 mT50 mB50 mL20 w680">
+	<tr>
+    	<th class="w180">精算月</th>
+    	<td class="w150">
+            <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w150',
+                                                  'value' => '')) ?>
+        </td>
+        <td class="no_border w200"  colspan="2"></td>
+
+    </tr>
+	<tr>
+    	<th >受付番号</th>
+    	<td>
+            <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w150',
+                                                  'value' => '')) ?>
+        </td>
+        <td class="no_border w50 pd0" colspan="2">
+				<input type="submit" value="参照"> 
+        </td>
+    </tr>
+    <tr>
+    	<th >清算元組織コード</th>
+    	<td>
+            <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w150',
+                                                  'value' => '')) ?>
+        </td>
+        <td><?php echo  $this->Form->label('xxxxxxxxxxxxx') ?></td>
+        
+        <td  class="no_border pd0">
+        	<input type="submit" value="参照"> 
+        </td>
+    </tr>
+    <tr>
+    	<th >清算先組織コード</th>
+    	<td  class="w150">
+            <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w150',
+                                                  'value' => '')) ?>
+        </td>
+        <td><?php echo  $this->Form->label('xxxxxxxxxxxxxx') ?></td>
+        
+        <td class="no_border w50 pd0">
+        	<input type="submit" value="参照"> 
+        </td>
+    </tr>
+</table>
+
+
+<div align="center"  class="mB20" >
+	<input class = "w200" type="submit" value="クリア">
+    <input class = "w200" type="submit" value="検索">
+
+</div>
+
+<h2 class="contentsTitle01 icoKihontouroku01">精算受注確定取消結果</h2>
+<table   class="tablePt01 mT50 mB50 mL20 w700">
+	<tr>
+    	<th class="w150">受付日</th>
+    	<td class="w200">
+            <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w150',
+                                                  'value' => '')) ?>
+        </td>
+        <th class="w150">取扱区分名称</th>
+        <td class="w200">
+            <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w150',
+                                                  'value' => '')) ?>
+        </td>
+    </tr>
+	<tr>
+    	<th >法人名</th>
+    	<td><?php echo  $this->Form->label('xxxxxxxxxxxxxx') ?></td>
+        <td class="no_border" colspan="2"></td>   
+    </tr>
+    <tr>
+    	<th >顧客名</th>
+    	<td><?php echo  $this->Form->label('xxxxxxxxxxxxxx') ?></td>
+        <td class="no_border" colspan="2"></td>   
+    </tr>
+    <tr>
+    	<th >請求金額</th>
+    	<td><?php echo  $this->Form->label('xxxxxxxxxxxxxx') ?></td>
+        <td class="no_border" colspan="2"></td>   
+
+    </tr>
+    <tr>
+    	<th >卸日</th>
+    	<td><?php echo  $this->Form->label('xxxxxxxxxxxxxx') ?></td>
+        <th >清算日</th>
+        <td><?php echo  $this->Form->label('xxxxxxxxxxxxxx') ?></td>
+    </tr>
+</table>
+
+<div class="ftBox mT10 mB20 taR pR20">
+	<input class = "w200" type="submit" value="精算取消">
+</div>
+
+</section>
+</section>
+<!-- /mainContents -->

@@ -1,0 +1,45 @@
+<!-- contents_Start -->
+<script>
+    initRollovers();
+</script>
+<?php
+if ($result != 0) {
+    echo $this->CustomJs->linkAfterConfirm((($result != 0) ? $this->Html->image('user/bt_follow_on.gif', array(
+        'alt' => '＋フォローする',
+        'class' => 'on'
+    )) : $this->Html->image('user/bt_follow.gif', array(
+        'alt' => '＋フォローする'
+    ))), array(
+        'controller' => 'friends',
+        'action' => 'follow',
+        $this->Userid
+    ), array(
+        'escape' => false,
+        'buffer' => false
+    ), array(
+        'description' => 'フォロー解除しますか？',
+        'type' => 'confirm'
+    ), array(
+        'complete' => "function(data,textStatus,xhr) {follows(xhr," . $this->Userid . ",0)}"
+    ));
+} else {
+    echo $this->CustomJs->link($result != 0 ? $this->Html->image('user/bt_follow_on.gif', array(
+        'alt' => '＋フォローする',
+        'class' => 'on'
+    )) : $this->Html->image('user/bt_follow.gif', array(
+        'alt' => '＋フォローする'
+    )), array(
+        'controller' => 'friends',
+        'action' => 'follow/' . $this->Userid
+    ), array(
+        'before' => ($result != null) ? "if(!window.confirm('フォロー解除しますか？')){return false}" : true,
+        'escape' => false,
+        'method' => 'POST',
+        'update' => null,
+        'complete' => "follows(XMLHttpRequest," . $this->Userid . ",0);",
+        'buffer' => false
+    ));
+}
+
+?>
+<!-- contents_End -->

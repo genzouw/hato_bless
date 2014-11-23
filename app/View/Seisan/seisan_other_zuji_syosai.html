@@ -1,0 +1,132 @@
+
+<!-- mainContents -->
+<section id="mainContents">
+
+<?php echo  $this->Form->create('T_SEISAN_SONOTA_HIYOU', 
+    array( 'id' => 'form1', 'url' => '/seisan/other_zuji_syosai/')); ?>
+
+<?php echo  $this->Form->input('ID',array('type'=>'hidden', 'value' => $arrData['T_SEISAN_SONOTA_HIYOU']['ID'])) ?>
+<?php echo  $this->Form->input('SEIKYU_YM',array('type'=>'hidden', 'value' => $arrData['T_SEISAN_SONOTA_HIYOU']['SEIKYU_YM'])) ?>
+<?php echo  $this->Form->input('MOTO_SOSHIKI_CD',array('type'=>'hidden', 'value' => $arrData['T_SEISAN_SONOTA_HIYOU']['MOTO_SOSHIKI_CD'])) ?>
+<?php echo  $this->Form->input('SAKI_SOSHIKI_CD',array('type'=>'hidden', 'value' => $arrData['T_SEISAN_SONOTA_HIYOU']['SAKI_SOSHIKI_CD'])) ?>
+<?php echo  $this->Form->input('SEIKYU_SIHARAI_CD',array('type'=>'hidden', 'value' => $arrData['T_SEISAN_SONOTA_HIYOU']['SEIKYU_SIHARAI_CD'])) ?>
+<?php echo  $this->Form->input('HIYOKOMOKU_CD',array('type'=>'hidden', 'value' => $arrData['T_SEISAN_SONOTA_HIYOU']['HIYOKOMOKU_CD'])) ?>
+
+<?php echo  $this->Form->input('mode',array('id' => 'mode', 'type'=>'hidden', 'value' => 'post')) ?>
+<?php echo  $this->Form->input('fileup_name',array('id' => 'fileup_name', 'type'=>'hidden', 'value' => '')) ?>
+
+<h2 class="contentsTitle01 icoKihontouroku01">その他随時費用料金詳細入力</h2>
+<section class="sectionBase01">
+
+<?php echo $this->Session->flash(); ?>
+
+<table   class="tablePt01 mT50 mL20 mB10 w450" >
+    <tr>
+        <th class = "w150">取引先名</td>
+        <td class = "w180">
+            <?php echo  $this->Form->input('SYOSAI_TRI_MEI', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w200',
+                                                  'value' => $arrData['T_SEISAN_SONOTA_HIYOU']['SYOSAI_TRI_MEI'])) ?>
+        </td>
+        <td class = "w120"></td>
+    </tr>
+    <tr>
+        <th>備考</th>
+        <td class="w300" colspan="2">
+            <?php echo  $this->Form->input('SYOSAI_BIKO', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w100per',
+                                                  'cols' => 60,
+                                                  'rows' => 4,
+                                                  'value' => $arrData['T_SEISAN_SONOTA_HIYOU']['SYOSAI_BIKO'])) ?>
+        </td>
+        
+    </tr>
+
+</table>
+</section>
+
+
+
+<h2 class="contentsTitle01 icoKihontouroku01">軽油料金詳細入力</h2>
+<section class="sectionBase01">
+<table class="tablePt01 mT50 mB30 mL20 w400">
+    <tr>
+        <th class="w150">軽油料金</th>
+        <td class="w200">
+            <?php echo  $this->Form->input('SYOSAI_KEIYU_GK', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w190',
+                                                  'value' => $arrData['T_SEISAN_SONOTA_HIYOU']['SYOSAI_KEIYU_GK'])) ?>
+        </td>
+        <td class="w40 taC">円</td>
+    </tr>
+    <tr>
+        <th>引取税</th>
+        <td>
+            <?php echo  $this->Form->input('SYOSAI_HIKITORIZEI_GK', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w190',
+                                                  'value' => $arrData['T_SEISAN_SONOTA_HIYOU']['SYOSAI_HIKITORIZEI_GK'])) ?>
+        </td>
+        <td class="w40 no_border taC">円</td>
+    </tr>
+    <tr>
+        <th>その他料金</th>
+        <td>
+            <?php echo  $this->Form->input('SYOSAI_SONOTA_GK', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w190',
+                                                  'value' => $arrData['T_SEISAN_SONOTA_HIYOU']['SYOSAI_SONOTA_GK'])) ?>
+        </td>
+        <td class="no_border taC">円</td>
+    </tr>
+    <tr>
+        <th>消費税</th>
+        <td>
+            <?php echo  $this->Form->input('SYOSAI_SYOHIZEI_GK', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w190',
+                                                  'value' => $arrData['T_SEISAN_SONOTA_HIYOU']['SYOSAI_SYOHIZEI_GK'])) ?>
+        </td>
+        <td class="no_border taC">円</td>
+    </tr>
+    <tr>
+        <th>合計料金</th>
+        <td>
+            <?php echo  $this->Form->input('SYOSAI_GOKEI_GK', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w190',
+                                                  'value' => $arrData['T_SEISAN_SONOTA_HIYOU']['SYOSAI_GOKEI_GK'])) ?>
+        </td>
+        <td class="no_border taC">円</td>
+    </tr>
+</table>
+
+<div class="ftBox mT10 mB20 taC">
+    <input class = "w200" type="reset" value="クリア">
+    <input class = "w200" type="submit" value="登録">
+    <input class = "w200" type="submit" value="閉じる">
+</div>
+</section>
+
+<?php echo  $this->Form->end(); ?>
+
+
+</section>
+<!-- /mainContents -->

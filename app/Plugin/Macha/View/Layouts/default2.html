@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="user-scalable=yes">
+    <meta name="format-detection" content="telephone=no">
+    <!--<link rel="apple-touch-icon-precomposed" href="/ico_spicon01.png" />-->
+
+    <!-- css読み込み -->
+    <link href="/img/import.css" rel="stylesheet" type="text/css"/>
+
+    <!-- jquery -->
+    <script src="/img/jquery-1.10.2.min.js" type="text/javascript"></script>
+    <!-- Pagetop -->
+    <script type="text/javascript" src="/js/scrolltopcontrol.js"></script>
+    <!-- ロールオーバー -->
+    <script src="/img/roll_over_v2.js" type="text/javascript" charset="UTF-8"></script>
+    <!-- CSS Browser Selector -->
+    <script src="/img/css_browser_selector.js" type="text/javascript"></script>
+
+
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+
+    <title>サンプルパーツ｜ハトのマークの引越センター</title>
+</head>
+
+<body id="juchu">
+
+<!-- wrapper -->
+<div id="wrapper">
+    <!-- container -->
+    <div id="container">
+        <!-- header -->
+        <header>
+            <div id="headerContents">
+                <h1 id="logo"><a href=""><img src="/img/img_logo01.png" width="318" height="38"
+                                              alt="ハトのマークの引越センター"/></a></h1>
+                <nav id="headerMenu">
+                    <a href="" class="account"><img src="/img/img_account01.png" width="28" height="28" alt=""
+                                                    class="accountImg01"/>Saikyoさん</a>
+                </nav>
+            </div>
+        </header>
+        <!-- /header -->
+
+        <!-- naviContents -->
+        <section id="naviContents">
+            <nav id="globalNavi">
+                <ul>
+                    <li><a href=""><span>TOP</span></a></li>
+                    <li class="active"><a href=""><span>新規登録</span></a></li>
+                    <li><a href=""><span>データ検索</span></a></li>
+                    <li><a href=""><span>配車管理</span></a></li>
+                    <li><a href=""><span>求貨・求車</span></a></li>
+                    <li><a href=""><span>フリー請求</span></a></li>
+                    <li><a href=""><span>請求・清算</span></a></li>
+                    <li><a href=""><span>現場</span></a></li>
+                    <li><a href=""><span>資材発注</span></a></li>
+                    <li><a href=""><span>フォーラム</span></a></li>
+                    <li><a href=""><span>マスター</span></a></li>
+                </ul>
+            </nav>
+            <nav id="localNavi">
+                <ul>
+                    <li class="active"><a href=""><span>基本登録</span></a></li>
+                    <li><a href=""><span>家財</span></a></li>
+                    <li><a href=""><span>手配</span></a></li>
+                    <li><a href=""><span>重要事項相互確認</span></a></li>
+                    <li><a href=""><span>料金</span></a></li>
+                    <li><a href=""><span>指図書</span></a></li>
+                    <li><a href=""><span>帳票出力</span></a></li>
+                </ul>
+            </nav>
+        </section>
+        <!-- /naviContents -->
+
+        <!-- contents -->
+        <section id="contents">
+
+            <!-- mainContents -->
+            <section id="mainContents">
+
+                <?php echo $this->fetch('content'); ?>
+
+            </section>
+            <!-- /mainContents -->
+
+        </section>
+        <!-- /contents -->
+
+    </div>
+    <!-- /container -->
+</div>
+<!-- /wrapper -->
+
+
+<!-- footer -->
+<footer>
+    <!-- footerContents -->
+    <div id="footerContents">
+        <div class="btnAreaL01"><a href="" class="btnPt01">削除</a></div>
+        <!-- gopagetop -->
+        <div id="gopagetop">
+            <a onclick="backToTop(); return false" href="#"><img src="/img/ico_pagetop01.png" width="19" height="12"
+                                                                 alt="↑"/>ページ上部へ</a>
+        </div>
+        <!-- /gopagetop -->
+        <div class="btnAreaR01"><a href="" class="btnPt02">保存終了</a></div>
+
+
+    </div>
+    <!-- /footerContents -->
+</footer>
+<!-- /footer -->
+
+</body>
+</html>

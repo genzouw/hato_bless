@@ -1,0 +1,79 @@
+﻿<!-- mainContents -->
+<section id="mainContents">
+
+<h2 class="contentsTitle01 icoKihontouroku01">精算明細情報照会(資材発注)</h2>
+<section class="sectionBase01">
+
+<table   class="tablePt01 mT50 mB50 mL20">
+	<tr>
+    	<th  class = "w100">請求月</td>
+    	<td class = "w160">201410</td>
+       	<td   class = "w100">請求先</td>
+       	<td class = "w100">00000</td>
+       	<td class = "w100">ｘｘｘｘｘｘ</td>
+    
+    </tr>
+	<tr>
+    	<th  class = "w100">費用名称</td>
+    	<td class = "w200">ｘｘｘｘｘｘ</td>
+       	<td colspan="3"></td>
+
+    
+    </tr>
+</table>
+
+<h2 class="contentsTitle01 icoKihontouroku01">精算詳細</h2>
+<section class="sectionBase01">
+
+<?php echo $this->Session->flash(); ?>
+
+<!-- pagerContents -->
+<div class="pagerContents">
+<p><?php echo $arrData['current_pg'] ?>/<?php echo $arrData['pg_total'] ?>ページ を表示</p>
+<?php echo $this->Paging->list_navi($arrData, $pg_url) ?>
+</div>
+<!-- /pagerContents -->
+
+
+<table   class="tablePt01 mT50 mB50 mL20"  class=" mT5  mB5 ">
+
+    <tr>
+    	<th >発生日</th>
+    	<th >発注番号</th>
+        <th >費用金額</th>
+        <th >消費税</th>
+    	<th >値引額</th>
+        <th >請求合計額</th>
+        <th >&nbsp;</th>
+    </tr>
+<?php if(!empty($arrData['list'])): ?>
+<?php foreach($arrData['list'] as $row): ?>
+    <tr>
+    	<td><?php echo $row[0]['SEIKYU_YM'] ?></td>
+    	<td><?php echo $row[0]['UKETSUKE_NO'] ?></td>
+        <td><?php echo number_format($row[0]['ZEINUKI_TANKA_GK'] * $row[0]['SURYO']) ?></td>
+        <td><?php echo number_format($row[0]['SHOHIZEI_GK']) ?></td>
+    	<td><?php echo number_format($row[0]['NEBIKI']) ?></td>
+        <td><?php echo number_format(($row[0]['ZEINUKI_TANKA_GK'] * $row[0]['SURYO']) + $row[0]['SHOHIZEI_GK'] - $row[0]['NEBIKI']) ?></td>
+        <td>
+            <input type="button" value="詳細">
+        </td>
+    </tr>
+<?php endforeach;?>
+<?php endif; ?>
+</table>
+
+<!-- pagerContents -->
+<div class="pagerContents">
+<?php echo $this->Paging->list_navi($arrData, $pg_url) ?>
+</div>
+<!-- /pagerContents -->
+
+
+<div align="right" class=" mB20  mR20 no_border">
+	<input class = "w50" type="submit" value="戻る">
+</div>
+
+
+</section>
+<!-- /mainContents -->

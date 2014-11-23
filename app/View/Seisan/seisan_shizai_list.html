@@ -1,0 +1,36 @@
+﻿<!-- mainContents -->
+<section id="mainContents">
+
+<h2 class="contentsTitle01 icoKihontouroku01">資材発注購買品一覧</h2>
+<section class="sectionBase01">
+
+<table   class="tablePt01 mT50 mB50 mL20">
+
+    <tr>
+        <th >仕入業者名</th>
+        <th >発注番号</th>
+        <th >納品先名</th>
+        <th >購買品名</th>
+        <th >単価×数量</th>
+        <th >税抜金額</th>
+    </tr>
+<?php if(!empty($arrData['list'])): ?>
+<?php foreach($arrData['list'] as $row): ?>
+    <tr>
+        <td><?php echo  $this->Form->label('仕入業者名') ?></td>
+        <td><?php echo  $this->Form->label('発注番号') ?></td>
+        <td><?php echo  $this->Form->label('納品先名') ?></td>
+        <td><?php echo  $this->Form->label('購買品名') ?></td>
+        <td><?php echo  $this->Form->label('単価') ?>×<?php echo  $this->Form->label('数量') ?></td>
+        <td><?php echo  $this->Form->label('税抜金額') ?></td>
+    </tr>
+<?php endforeach;?>
+<?php endif; ?>
+</table>
+
+<div class="ftBox mT10 mB20 taC">
+	<input class = "w200" type="button" value="閉じる">
+</div>
+
+</section>
+<!-- /mainContents -->

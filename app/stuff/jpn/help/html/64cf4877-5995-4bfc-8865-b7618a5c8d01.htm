@@ -1,0 +1,30 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:MSHelp="http://msdn.microsoft.com/mshelp" xmlns:mshelp="http://msdn.microsoft.com/mshelp" xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:msxsl="urn:schemas-microsoft-com:xslt"><head><META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" /><META NAME="save" CONTENT="history" /><title>更新数があるストアド プロシージャの使用</title><meta name="Language" content="ja-jp" /><meta name="Microsoft.Help.Id" content="64cf4877-5995-4bfc-8865-b7618a5c8d01" /><meta name="Description" content="SQL Server データベース内のデータをストアド プロシージャを使用して変更する用途向けに、Microsoft JDBC Driver for SQL Server には、SQLServerCallableStatement クラスが用意されています。SQLServerCallableStatement クラスを使用すると、データベースに格納されているデータに変更を加え、影響を受けた行数 (更新数) を返すストアド プロシージャを呼び出すことができます。" /><meta name="Microsoft.Help.ContentType" content="Concepts" /><link rel="stylesheet" type="text/css" href="../local/Classic.css" /><script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script><script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script><script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script><script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script><script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script><script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script><script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script><script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script></head><body><div id="header"><table id="bottomTable" cellpadding="0" cellspacing="0"><tr><td align="left"><span id="headerBold">更新数があるストアド プロシージャの使用</span></td></tr></table><table id="gradientTable"><tr><td class="nsrBottom" background="../icons/gradient.gif" /></tr></table></div><div id="mainSection"><div id="mainBody"><div class="introduction"><p>SQL Server データベース内のデータをストアド プロシージャを使用して変更する用途向けに、Microsoft JDBC Driver for SQL Server には、<a href="30710a63-c05d-47d9-9cf9-c087a1c76373.htm">SQLServerCallableStatement</a> クラスが用意されています。<b>SQLServerCallableStatement</b> クラスを使用すると、データベースに格納されているデータに変更を加え、影響を受けた行数 (更新数) を返すストアド プロシージャを呼び出すことができます。</p><p><b>SQLServerCallableStatement</b> クラスを使用してストアド プロシージャに対する呼び出しを設定すると、<a href="e1367f39-23d7-4e26-b160-6d988d7e6988.htm">execute</a> メソッドまたは <a href="10ae662a-ce3c-4b24-875c-5c2df319d93b.htm">executeUpdate</a> メソッドのいずれかを使用して、ストアド プロシージャを呼び出すことができます。<b>executeUpdate</b> メソッドではストアド プロシージャの影響を受けた行数を示す <span sdata="langKeyword" value="int"><span class="keyword">int</span></span> 値が返されますが、<b>execute</b> メソッドではこの値が返されません。<b>execute</b> メソッドを使用して影響を受けた行数を取得する場合は、ストアド プロシージャの実行後に <a href="e9570228-4500-44b6-b2f1-84ac050b5112.htm">getUpdateCount</a> メソッドを呼び出すことができます。</p><div style="margin: .5em 1.5em .5em 1.5em"><b></b><p>JDBC ドライバーで、発生した可能性があるすべてのトリガーが返した更新数を含む、すべての更新数を返す場合、lastUpdateCount 接続文字列プロパティを "false" に設定します。lastUpdateCount プロパティの詳細については、「<span sdata="link"><a href="f1b62700-f046-488d-bd6b-a5cd8fc345b7.htm">接続プロパティの設定</a></span>」を参照してください。</p></div><p>たとえば、SQL Server 2005 AdventureWorks サンプル データベースで、次に示すテーブルおよびストアド プロシージャを作成し、サンプル データを挿入します。</p><div class="sampleCode"><span codeLanguage="other"><pre>CREATE TABLE TestTable 
+   (Col1 int IDENTITY, 
+    Col2 varchar(50), 
+    Col3 int);
+
+CREATE PROCEDURE UpdateTestTable
+   @Col2 varchar(50),
+   @Col3 int
+AS
+BEGIN
+   UPDATE TestTable
+   SET Col2 = @Col2, Col3 = @Col3
+END;
+INSERT INTO dbo.TestTable (Col2, Col3) VALUES ('b', 10);</pre></span></div><p>次の例は、AdventureWorks サンプル データベースに対して開いている接続を関数に渡し、<b>execute</b> メソッドを使用して UpdateTestTable ストアド プロシージャを呼び出し、次に <b>getUpdateCount</b> メソッドを使用して、ストアド プロシージャによって影響を受けた行数を取得しています。 </p><div name="snippetGroup"><div class="sampleCode"><span codeLanguage="Java"><pre>public static void executeUpdateStoredProcedure(Connection con) {
+   try {
+      CallableStatement cstmt = con.prepareCall("{call dbo.UpdateTestTable(?, ?)}");
+      cstmt.setString(1, "A");
+      cstmt.setInt(2, 100);
+      cstmt.execute();
+      int count = cstmt.getUpdateCount();
+      cstmt.close();
+
+      System.out.println("ROWS AFFECTED: " + count);
+   }
+   catch (Exception e) {
+      e.printStackTrace();
+   }
+}
+
+</pre></span></div></div></div><span id="seeAlsoSpan"><h1 class="heading">関連項目</h1></span><div id="seeAlsoSection" class="section" name="collapseableSection" style=""><div class="seeAlsoStyle"><span sdata="link"><a href="0041f9e1-09b6-4487-b052-afd636c8e89a.htm">ストアド プロシージャでのステートメントの使用</a></span></div></div></div><div id="footer" class="section"><span id="feedbackarea">このトピックに関する<a href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\dフィードバックありがとうございます。開発チームは、皆様からのフィードバックに基づいてドキュメントを改善しています。フィードバックを確認中、内容の確認または解決策に関するご意見をうかがうために電子メールをお送りする場合があります。お客様の電子メール アドレスをそれ以外の目的で使用することはありません。また、確認完了後はお客様の電子メール アドレス情報を削除させていただきます。%0\Aマイクロソフトのプライバシーに関する声明の詳細については、http://privacy.microsoft.com/ja-jp/default.aspx を参照してください。%0\A%0\d','カスタマー フィードバック');">フィードバック</a>を Microsoft にお送りください。</span><span id="copyrightarea"><p><a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012 Microsoft.All rights reserved.</a></p></span></div></div></body></html>

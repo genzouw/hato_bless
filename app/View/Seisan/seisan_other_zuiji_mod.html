@@ -1,0 +1,291 @@
+
+<!-- mainContents -->
+<section id="mainContents">
+
+<h2 class="contentsTitle01 icoKihontouroku01">その他随時費用登録</h2>
+<section class="sectionBase01">
+
+<p class="caution">メッセージ</p>
+
+<table   class="tablePt01 mB10 mL20 w800">
+	<tr>
+    	<th  class = "w200">請求月　※</td>
+        <td class = "w200">
+
+            <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w200',
+                                                  'value' => '')) ?>
+
+        </td>
+        <th  class = "w200">発生日　※</td>
+        <td class = "w200">
+            <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w200',
+                                                  'value' => '')) ?>
+        </td>
+    </tr>
+
+</table>
+
+
+<table   class="tablePt01 mB10 mL20 mR20 w800 ">
+	<tr>
+    	<th  class = "w200">費用コード　※</td>
+        <td class = "w200">
+            <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w200',
+                                                  'value' => '')) ?>
+        </td>
+        <td  class = "w200">
+            <?php echo  $this->Form->label('NO_FIELD') ?>
+        </td>
+        <td class = "w200">
+            <input class = "w100" type="button" value="参照">
+        </td>
+    </tr>
+
+</table>
+
+
+<table   class="tablePt01 mB10 mL20 w500">
+	<tr>
+    	<th  class = "w200">費用金額　※</td>
+        <td class = "w200">
+            <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w200',
+                                                  'value' => '')) ?>
+        </td>
+        <td>円</td>
+    </tr>
+</table>
+
+
+
+<table   class="tablePt01 mB10 mL20 w980">
+    <tr>
+        <th  class = "w200">消費税区分※</th>
+        <td class = "w80">
+            <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'select', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w80',
+                                                  'value' => '')) ?>
+        </td>
+        <th  class = "w200">消費税率※</th>
+        <td class = "w80">
+            <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w80',
+                                                  'value' => '')) ?>
+        </td>
+        <td class = "w30">％</td>
+        <th  class = "w200">消費税金額</td>
+        <td class = "w80">
+            <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w80',
+                                                  'value' => '')) ?>
+        </td>
+        <td class = "w200">
+            <input class = "w100" type="submit" value="消費税算出">
+        </td>
+    </tr>
+</table>
+
+
+<table   class="tablePt01 mB10 mL20 w980">
+    <tr>
+        <th  class = "w200">手数料率</td>
+        <td class = "w100">
+            <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w80',
+                                                  'value' => '')) ?>
+        </td>
+        <td class = "w100">％</td>
+        <th  class = "w200">手数料計算</td>
+        <td class = "w200">
+            <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'select', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w80',
+                                                  'value' => '')) ?>
+        </td>
+    </tr>
+</table>
+
+<table   class="tablePt01 mB10 mL20 w980">
+    <tr>
+        <th  class = "w220">手数料消費税区分※</th>
+        <td class = "w80">
+            <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'select', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w80',
+                                                  'value' => '')) ?>
+        </td>
+        <th  class = "w200">手数料消費税金額</th>
+        <td class = "w100">
+            <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w100',
+                                                  'value' => '')) ?>
+        </td>
+        <td class = "w30">円</td>
+        <th  class = "w140">手数料金額</th>
+        <td class = "w100">
+            <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w100',
+                                                  'value' => '')) ?>
+        </td>
+        <td class = "w100">
+            <input class = "w100" type="submit" value="手数料算出">
+        </td>
+    </tr>
+</table>
+
+
+<table   class="tablePt01 mB10 mL20 w980">
+	<tr>
+    	<th  class = "w200">合計金額</th>
+        <td class = "w200">
+            <?php echo  $this->Form->label('￥000,000') ?>
+        </td>
+        <td class = "w200"><input class = "w150" type="submit" value="合計額算出"></td>
+    </tr>
+</table>
+
+<h2 class="contentsTitle01 icoKihontouroku01 mT50">請求先入力</h2>
+
+<div class="mL20 mT20 mB20">請求先を追加します。請求先選択ボタンを押下してください</div>
+
+
+
+<table   class="tablePt01 mB10 mL20 w990">
+
+    <tr>
+    	<th>請求先</th>
+    	<th class = "w100" colspan="2">費用金額</th>
+        <th class = "w100" colspan="2">消費税</th>
+        <th class = "w100" colspan="2">合計金額</th>
+    	<th class = "w100" colspan="2">手数料</th>
+        <th class = "w100" colspan="2">請求合計額</th>
+        <th>&nbsp;</th>
+    </tr>
+    
+    <tr>
+    	<td >
+            <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w80',
+                                                  'value' => '')) ?>
+        </td>
+        <td>
+            <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w80',
+                                                  'value' => '')) ?>
+        </td>
+        <td>円</td>
+        <td>
+            <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w80',
+                                                  'value' => '')) ?>
+        </td>
+    	<td>円</td>
+        <td>
+            <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w80',
+                                                  'value' => '')) ?>
+        </td>
+        <td>円</td>
+        <td>
+            <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w80',
+                                                  'value' => '')) ?>
+        </td>
+    	<td>円</td>
+        <td>
+            <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w80',
+                                                  'value' => '')) ?>
+        </td>
+        <td>円</td>
+    	<td>
+        	<input class = "w80" type="submit" value="詳細">
+        </td>
+    </tr>
+</table>
+<div align="left" class=" mL20  mB20  mT20 ">
+	<input class = "w200" type="button" value="請求先選択">
+    <input class = "w200" type="button" value="料金自動設定">
+</div>
+
+<h2 class="contentsTitle01 icoKihontouroku01">備考入力</h2>
+
+<table   class="tablePt01 mT20 mB10 mL20 w960">
+	<tr>
+    	<th  class=" w200 text-align:center;">備考</th>
+    	<td>
+            <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'cols' => 40,
+                                                  'rows' => 4,
+                                                  'value' => '')) ?>
+        </td>
+    </tr>
+</table>
+
+<div align="right" class=" mL20  mB20  mT20 ">
+	<input class = "w200" type="reset" value="クリア">
+    <input class = "w200" type="submit" value="登録">
+	<input class = "w200" type="button" value="戻る">
+
+</div>
+</section>
+</section>
+<!-- /mainContents -->

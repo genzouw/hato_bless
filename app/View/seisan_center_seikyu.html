@@ -1,0 +1,36 @@
+<!-- mainContents -->
+<section id="mainContents">
+
+    <h2 class="contentsTitle01 icoKihontouroku01">タイトル</h2>
+    <section class="sectionBase01">
+
+<?php echo $this->Session->flash(); ?>
+
+<?php echo  $this->Form->create('', 
+    array( 'id' => 'form1', 'url' => '/juchu/')); ?>
+
+        <table class="tablePt01 mT50 mB50 mL20 w400">
+            <tr>
+                <th class="w200">清算月</th>
+                <td class="w200">
+                    <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w200',
+                                                  'placeholder' => 'yyyymm',
+                                                  'value' => '')) ?>
+                </td>
+            </tr>
+        </table>
+
+        <div align="center" class="mB20 w1024" >
+            <input class="w200" type="submit" value="CSV出力">
+        </div>
+
+<?php echo  $this->Form->end(); ?>
+
+    </section>
+
+</section>
+<!-- /mainContents -->

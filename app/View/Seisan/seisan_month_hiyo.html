@@ -1,0 +1,111 @@
+﻿<!-- mainContents -->
+<section id="mainContents">
+
+<h2 class="contentsTitle01 icoKihontouroku01">月額固定費用検索</h2>
+<section class="sectionBase01">
+
+<?php echo $this->Session->flash(); ?>
+
+<table   class="tablePt01 mT50 mB50 mL20 w720">
+	<tr>
+    	<th class="w200">請求年月</th>
+    	<td class="w300">
+                    <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w100',
+                                                  'placeholder' => 'yyyymm',
+                                                  'value' => '')) ?>
+        </td>
+        <td class="w130"></td>
+        <td class="w130"></td>
+    </tr>
+	<tr>
+    	<th>精算元組織コード</th>
+    	<td>
+                    <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w200',
+                                                  'value' => '')) ?>
+        </td>
+        <td>
+                    <?php echo  $this->Form->label('NO_FIELD') ?>
+        </td>
+        <td>
+				<input type="button" value="参照"> 
+        </td>
+    </tr>
+    <tr>
+    	<th >定額費用コード</th>
+    	<td>
+                    <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w200',
+                                                  'value' => '')) ?>
+        </td>
+        <td>
+                    <?php echo  $this->Form->label('NO_FIELD') ?>
+        </td>
+        
+        <td>
+        	<input type="submit" value="参照"> 
+        </td>
+    </tr>
+</table>
+
+<div class="ftBox mT10 mB20 taC">
+    <input class = "w200" type="reset" value="クリア">
+    <input class = "w200" type="button" value="検索">
+    <input class = "w200" type="button" value="新規登録">
+</div>
+
+<h2 class="contentsTitle01 icoKihontouroku01">月額固定費用検索結果</h2>
+
+<p　class="caution"><?php echo $arrData['rec_total'] ?>件該当しました。</p>
+
+<!-- pagerContents -->
+<div class="pagerContents">
+<p><?php echo $arrData['current_pg'] ?>/<?php echo $arrData['pg_total'] ?>ページ を表示</p>
+<?php echo $this->Paging->list_navi($arrData, $pg_url) ?>
+</div>
+<!-- /pagerContents -->
+
+<table id="mTable" class="tablePt01 mT50 mB50 mL20 w980">
+
+    <tr>
+    	<th class="w150">定額費用名称</th>
+    	<th class="w150">請求先件数</th>
+        <th class="w150">請求先</th>
+        <th class="w150">請求合計額</th>
+    	<th class="w50">&nbsp;</th>
+        <th class="w50">&nbsp;</th>
+
+    </tr>
+<?php if(!empty($arrData['list'])): ?>
+<?php foreach($arrData['list'] as $row): ?>
+    <tr>
+    	<td>定額費用名称</td>
+    	<td>清算名称</td>
+        <td>請求先</td>
+        <td><p class="pdPt01 taR">￥00000</p></td>
+    	<td><input class="w100 " type="button" value="修正"></td>
+        <td><input class="w100 " type="button" value="削除"></td>
+    </tr>
+<?php endforeach;?>
+<?php endif; ?>
+</table>
+
+<!-- pagerContents -->
+<div class="pagerContents">
+<?php echo $this->Paging->list_navi($arrData, $pg_url) ?>
+</div>
+<!-- /pagerContents -->
+
+</section>
+</section>
+<!-- /mainContents -->

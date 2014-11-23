@@ -1,0 +1,581 @@
+USE [HATO2]
+GO
+
+/****** Object:  StoredProcedure [dbo].[SP_AF0350]    Script Date: 07/31/2014 11:43:22 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+CREATE PROCEDURE [dbo].[SP_AF0350](
+    @SESSION_CD     AS CHAR(30),
+	@KBN_IN 		AS INT,
+	@NENGETSU_IN 	AS CHAR(7),
+	@SHIME_DT_IN 	AS CHAR(2),
+	@HOJIN_CD_IN	AS CHAR(9),
+	@SOSHIKI_CD_IN	AS CHAR(5),
+	@CT_OUT			AS INT OUTPUT
+)
+AS
+DECLARE
+	@W_NENGETSU_1 	            AS VARCHAR(8),
+	@W_NENGETSU_11 	            AS VARCHAR(8),
+	@W_NENGETSU_2 	            AS VARCHAR(8),
+	@W_SHIME_DT 	            AS VARCHAR(3),
+	@W_HOJIN_CD 	            AS VARCHAR(9),
+	@W_SOSHIKI_CD	            AS CHAR(5),
+	@W_SEIKYU_PRINT_FLG			AS CHAR(1),
+
+    @m_JYUCHU_DT			    AS CHAR(8),
+    @m_SOSHIKI_CD			    AS CHAR(5),
+    @m_KESSAI_KBN			    AS CHAR(1),
+    @m_HOJIN_CD				    AS CHAR(9),
+    @m_HOJIN_RYAKU_MEI		    AS VARCHAR(20),
+    @m_HOJIN_TNT_MEI		    AS VARCHAR(20),
+    @m_UKETSUKE_NO			    AS CHAR(8),
+    @m_KOKYAKUMEI			    AS VARCHAR(40),
+    @m_TSUMI_DT				    AS CHAR(8),
+    @m_TUMI_JUSHO			    AS VARCHAR(30),
+    @m_OROSHI_DT			    AS CHAR(8),
+    @m_OROSHI_JUSHO			    AS VARCHAR(30),
+    @m_RYOKIN_KEI_1			    AS DECIMAL(10,0),
+    @m_TATEKAE_GK			    AS DECIMAL(10,0),
+    @m_UKETORI_TESURYO_RT	    AS DECIMAL(7,5),
+    @m_UKETORI_TESURYO_KBN	    AS CHAR(1),
+    @m_RYOKIN_TESURYO_GK	    AS DECIMAL(10,0),
+    @m_RYOKIN_KEI_2			    AS DECIMAL(10,0),
+    @m_SHIHARAI_TESURYO_RT	    AS DECIMAL(7,5),
+    @m_SHIHARAI_TESURYO_KBN	    AS CHAR(1),
+    @m_SHOHIZEI_RT			    AS DECIMAL(7,5),
+
+    @m_UKETORI_TESURYO          AS DECIMAL(10,0),
+    @m_SHIHARAI_TESURYO         AS DECIMAL(10,0),
+
+    @m_RYOKIN_KEI_1_MAX         AS DECIMAL(10,0),
+    @m_TATEKAE_GK_MAX		    AS DECIMAL(10,0),
+    @m_UKETORI_TESURYO_MAX      AS DECIMAL(10,0),
+    @m_SHIHARAI_TESURYO_MAX     AS DECIMAL(10,0),
+    @m_RYOKIN_TESURYO_GK_MAX    AS DECIMAL(10,0),
+    @m_RYOKIN_KEI_2_MAX         AS DECIMAL(10,0),
+
+    @m_EXPDT                    AS CHAR(6),
+    @m_IDX                      AS INT,
+    @m_IDX2                     AS INT,
+    @m_START                    AS INT,
+	@m_TITLE					AS VARCHAR(20),
+    @m_OLD_HOJIN_CD             AS CHAR(9), 
+    @m_OLD_HOJIN_TNT_MEI		AS VARCHAR(20),
+	@m_BUF                      AS VARCHAR(1024)
+
+BEGIN
+    SET @CT_OUT = -10
+
+	SET @CT_OUT =0
+
+    SET @m_EXPDT = CASE LEN(REPLACE(@NENGETSU_IN,'/','')) 
+                            WHEN 4 THEN '20' + REPLACE(@NENGETSU_IN,'/','')
+                            WHEN 6 THEN REPLACE(@NENGETSU_IN,'/','') END
+--    SET @W_HOJIN_CD = RTRIM(@HOJIN_CD_IN) + '%'
+    SET @W_HOJIN_CD = RTRIM(@HOJIN_CD_IN)
+    SET @W_SOSHIKI_CD = RTRIM(@SOSHIKI_CD_IN)
+    IF @KBN_IN = 1
+    BEGIN
+        SET @W_NENGETSU_1 = RTRIM(@m_EXPDT) + '%'
+        SET @W_NENGETSU_11 = LEFT(CONVERT(VARCHAR,DATEADD(MM,-1,CONVERT(DATETIME,RTRIM(@m_EXPDT)+'01')),112),6) + '%'
+        SET @W_NENGETSU_2 = '%'
+        SET @W_SHIME_DT = RTRIM(@SHIME_DT_IN) + '%'
+		SET @W_SEIKYU_PRINT_FLG = '1'
+		SET @m_TITLE = '法人別売上一覧表'
+
+		INSERT INTO W_COM_SEARCH(SESSION_CD, UKETSUKE_NO)
+		SELECT DISTINCT @SESSION_CD, JS.UKETSUKE_NO
+			FROM T_JUCHU_KIHON JK
+			INNER JOIN T_JUCHU_SYOSAI JS
+				ON  JS.UKETSUKE_NO = JK.UKETSUKE_NO
+				AND JS.DELETE_FLG = '0'
+		    	AND JS.SOSHIKI_CD = @W_SOSHIKI_CD
+			LEFT JOIN M_HOJIN MH
+				ON  MH.HOJIN_CD = JK.HOJIN_CD
+				AND MH.DELETE_FLG = '0'
+--				AND JK.HOJIN_CD LIKE @W_HOJIN_CD 
+			WHERE JK.DELETE_FLG ='0' AND JK.JUCHU_STS_CD = '05'
+			AND JK.HOJIN_CD IS NOT NULL
+			AND JK.UKETSUKE_SOSHIKI_CD = @W_SOSHIKI_CD
+			AND JK.HOJIN_CD = CASE 
+								WHEN @W_HOJIN_CD IS NULL THEN JK.HOJIN_CD
+								WHEN RTRIM(@W_HOJIN_CD) = '' THEN JK.HOJIN_CD
+								ELSE @W_HOJIN_CD
+							  END
+			AND (LEFT(JK.KOKYAKU_SEIKYU_DT, 6) LIKE @W_NENGETSU_1 
+					AND RIGHT(JK.KOKYAKU_SEIKYU_DT,2) 
+						<= CASE WHEN MH.SHIME_DT IS NULL THEN '99'
+			      			    WHEN RTRIM(MH.SHIME_DT) = '' THEN '99'
+			      			    ELSE MH.SHIME_DT END 
+				OR LEFT(JK.KOKYAKU_SEIKYU_DT, 6) LIKE @W_NENGETSU_11
+					AND RIGHT(JK.KOKYAKU_SEIKYU_DT,2) 
+						>  CASE WHEN MH.SHIME_DT IS NULL THEN '99'
+			      			 	WHEN RTRIM(MH.SHIME_DT) = '' THEN '99'
+			      			    ELSE MH.SHIME_DT END
+				) 
+			AND CASE 
+			      WHEN MH.SHIME_DT IS NULL THEN '99'
+			      WHEN RTRIM(MH.SHIME_DT) = '' THEN '99'
+			      ELSE MH.SHIME_DT
+			    END LIKE @W_SHIME_DT
+			AND JK.SEIKYU_PRINT_FLG = '1'
+
+    END
+    ELSE
+    BEGIN
+        SET @W_NENGETSU_1 = '%'
+        SET @W_NENGETSU_2 = RTRIM(@m_EXPDT) + '%'
+        SET @W_SHIME_DT = '%'
+		SET @W_SEIKYU_PRINT_FLG = '0'
+		SET @m_TITLE = '法人別実績一覧表'
+
+		INSERT INTO W_COM_SEARCH(SESSION_CD, UKETSUKE_NO)
+		SELECT DISTINCT @SESSION_CD, JS.UKETSUKE_NO
+			FROM T_JUCHU_KIHON JK
+			INNER JOIN T_JUCHU_SYOSAI JS
+				ON  JS.UKETSUKE_NO = JK.UKETSUKE_NO
+				AND JS.DELETE_FLG = '0'
+		    	AND JS.SOSHIKI_CD = @W_SOSHIKI_CD
+			INNER JOIN T_JUCHU_GYOMU JG
+				ON	JG.UKETSUKE_NO = JK.UKETSUKE_NO
+				AND JG.GYOMU_KBN = '2'
+			    AND JG.DELETE_FLG = '0'
+			LEFT JOIN M_HOJIN MH
+				ON  MH.HOJIN_CD = JK.HOJIN_CD
+				AND MH.DELETE_FLG = '0'
+--				AND JK.HOJIN_CD LIKE @W_HOJIN_CD 
+			WHERE JK.DELETE_FLG ='0' AND JK.JUCHU_STS_CD = '05'
+			AND JK.HOJIN_CD IS NOT NULL
+			AND JK.HOJIN_CD = CASE 
+								WHEN @W_HOJIN_CD IS NULL THEN JK.HOJIN_CD
+								WHEN RTRIM(@W_HOJIN_CD) = '' THEN JK.HOJIN_CD
+								ELSE @W_HOJIN_CD
+							  END
+			AND JK.UKETSUKE_SOSHIKI_CD = @W_SOSHIKI_CD
+			AND LEFT(JG.SAGYO_DT, 6) LIKE @W_NENGETSU_2
+			--GROUP BY JS.UKETSUKE_NO HAVING LEFT(MAX(JG.SAGYO_DT),6) LIKE @W_NENGETSU_2
+    END
+
+    SET @CT_OUT = -20
+    --ワークテーブルに書き込み
+    INSERT INTO W_AF0350 (
+        SESSION_CD,
+        JYUCHU_DT,
+        SOSHIKI_CD,
+        KESSAI_KBN,
+        HOJIN_CD,
+        HOJIN_RYAKU_MEI,
+        HOJIN_TNT_MEI,
+        UKETSUKE_NO,
+        KOKYAKUMEI,
+        RYOKIN_KEI_1,
+        TATEKAE_GK,
+        UKETORI_TESURYO_RT,
+        UKETORI_TESURYO_KBN,
+        RYOKIN_TESURYO_GK,
+        RYOKIN_KEI_2,
+        SHIHARAI_TESURYO_RT,
+        SHIHARAI_TESURYO_KBN,
+        SHOHIZEI_RT)
+    SELECT @SESSION_CD,
+		JS.JYUCHU_DT,
+		JS2.SOSHIKI_CD,
+		JK.KESSAI_KBN,
+		JK.HOJIN_CD,
+		MH.HOJIN_RYAKU_MEI,
+--		JK.HOJIN_TNT_MEI,
+		MT.SHAIN_MEI,
+		JK.UKETSUKE_NO,
+		JK.KOKYAKUMEI,
+		JR2.RYOKIN_KEI,
+		SUM(CASE JRM.RYOKIN_KBN
+				WHEN '1101' THEN 1
+				WHEN '1102' THEN 1
+				WHEN '2006' THEN 1
+                ELSE 0 
+            END * URIAGE_GK) +
+		SUM(CASE JRM.RYOKIN_SHUBETSU_CD
+				WHEN '40' THEN 1
+				WHEN '70' THEN 1
+                ELSE 0 
+            END * URIAGE_GK) +
+		JR.SHOHIZEI_GK,
+		MH.UKETORI_TESURYO_RT,
+		MH.UKETORI_TESURYO_KBN,
+		JR.RYOKIN_TESURYO_GK,
+		JR.RYOKIN_KEI,
+		MH.SHIHARAI_TESURYO_RT,
+		MH.SHIHARAI_TESURYO_KBN,
+		(MZ.SHOHIZEI_RT + 100) / 100
+	FROM W_COM_SEARCH W
+	INNER JOIN T_JUCHU_KIHON JK
+		ON  JK.UKETSUKE_NO = W.UKETSUKE_NO
+		AND JK.DELETE_FLG ='0'
+	INNER JOIN T_JUCHU_SYOSAI JS
+		ON  JS.UKETSUKE_NO = W.UKETSUKE_NO
+		AND JS.DELETE_FLG = '0'
+    	AND JS.SOSHIKI_CD = @W_SOSHIKI_CD
+	INNER JOIN M_ZEIRITU MZ
+		
+		-- ========== Str 2014/02/13 Upd SYS_Ohki ==========
+		-- ON  MZ.TEKIYO_KAISI_DT <= JS.JYUCHU_DT
+		-- AND MZ.TEKIYO_SHURYO_DT >= JS.JYUCHU_DT
+		ON  MZ.TEKIYO_KAISI_DT <= JK.KOKYAKU_SEIKYU_DT
+		AND MZ.TEKIYO_SHURYO_DT >= JK.KOKYAKU_SEIKYU_DT
+		-- ========== End 2014/02/13 Upd SYS_Ohki ==========
+		
+	LEFT JOIN M_HOJIN MH
+		ON  MH.HOJIN_CD = JK.HOJIN_CD
+		AND MH.DELETE_FLG = '0'
+	LEFT JOIN T_JUCHU_SYOSAI JS2
+		ON  JS2.UKETSUKE_NO = W.UKETSUKE_NO
+		AND JS2.DELETE_FLG = '0'
+		AND JS2.IRAIMOTO_SOSHIKI_CD = JS.SOSHIKI_CD
+	LEFT JOIN T_JUCHU_RYOKIN JR
+		ON  JR.UKETSUKE_NO = JK.UKETSUKE_NO
+		AND JR.SOSHIKI_CD = JS.SOSHIKI_CD
+		AND JR.DELETE_FLG = '0'
+	LEFT JOIN T_JUCHU_RYOKIN JR2
+		ON  JR2.UKETSUKE_NO = JK.UKETSUKE_NO
+		AND JR2.SOSHIKI_CD = JS2.SOSHIKI_CD
+		AND JR2.DELETE_FLG = '0'
+	LEFT JOIN T_JUCHU_RYOKIN_M JRM
+		ON  JRM.UKETSUKE_NO = JK.UKETSUKE_NO
+		AND JRM.SOSHIKI_CD = JS.SOSHIKI_CD
+		AND JRM.DELETE_FLG = '0'
+	LEFT JOIN M_TANTOSHA MT
+		ON  MT.TANTOSHA_CD = MH.EIGYO_TNT_CD
+		AND MT.DELETE_FLG = '0'
+	WHERE W.SESSION_CD = @SESSION_CD
+	GROUP BY
+		JS.JYUCHU_DT,
+		JS2.SOSHIKI_CD,
+		JK.KESSAI_KBN,
+		JK.HOJIN_CD,
+		MH.HOJIN_RYAKU_MEI,
+		--JK.HOJIN_TNT_MEI,
+		MT.SHAIN_MEI,
+		JK.UKETSUKE_NO,
+		JK.KOKYAKUMEI,
+		JR2.RYOKIN_KEI,
+		JR.RYOKIN_5,
+		JR.RYOKIN_6,
+		JR.SHOHIZEI_GK,
+		MH.UKETORI_TESURYO_RT,
+		MH.UKETORI_TESURYO_KBN,
+		JR.RYOKIN_TESURYO_GK,
+		JR.RYOKIN_KEI,
+		MH.SHIHARAI_TESURYO_RT,
+		MH.SHIHARAI_TESURYO_KBN,
+		MZ.SHOHIZEI_RT
+	ORDER BY JK.HOJIN_CD, JS.JYUCHU_DT,JS2.SOSHIKI_CD
+
+    SET @CT_OUT = -30
+    --最小の積日情報を取得
+    UPDATE W_AF0350 SET
+	    TSUMI_DT = TM.SAGYO_DT,
+	    TUMI_JUSHO = TM.SAGYOCHI_JYUSHO_1
+    FROM 
+	    (SELECT UKETSUKE_NO,
+	    REPLACE(LEFT(MIN(ISNULL(RTRIM(SAGYO_DT), '99999999') 
+				    + ISNULL(SAGYOCHI_JYUSHO_1, '')), 8), '99999999', '') SAGYO_DT,
+	    SUBSTRING(MIN(ISNULL(RTRIM(SAGYO_DT), '99999999') 
+					    + ISNULL(SAGYOCHI_JYUSHO_1, '')), 9,
+				    LEN(MIN(ISNULL(RTRIM(SAGYO_DT), '99999999') 
+					    + ISNULL(SAGYOCHI_JYUSHO_1, ''))) - 8) SAGYOCHI_JYUSHO_1
+	    FROM T_JUCHU_GYOMU 
+	    WHERE GYOMU_KBN = '1'
+	    AND DELETE_FLG = '0'
+	    GROUP BY UKETSUKE_NO) TM
+    WHERE TM.UKETSUKE_NO = W_AF0350.UKETSUKE_NO
+    AND W_AF0350.SESSION_CD = @SESSION_CD
+
+    SET @CT_OUT = -40
+    --最大の卸日情報を取得
+    UPDATE W_AF0350 SET
+	    OROSHI_DT = TM.SAGYO_DT,
+	    OROSHI_JUSHO = TM.SAGYOCHI_JYUSHO_1
+    FROM 
+	    (SELECT UKETSUKE_NO,
+	    REPLACE(LEFT(MAX(ISNULL(RTRIM(SAGYO_DT), '00000000') 
+				    + ISNULL(SAGYOCHI_JYUSHO_1, '')), 8), '00000000', '') SAGYO_DT,
+	    SUBSTRING(MAX(ISNULL(RTRIM(SAGYO_DT), '00000000') 
+					    + ISNULL(SAGYOCHI_JYUSHO_1, '')), 9,
+				    LEN(MAX(ISNULL(RTRIM(SAGYO_DT), '00000000') 
+					    + ISNULL(SAGYOCHI_JYUSHO_1, ''))) - 8) SAGYOCHI_JYUSHO_1
+	    FROM T_JUCHU_GYOMU 
+	    WHERE GYOMU_KBN = '2'
+	    AND DELETE_FLG = '0'
+	    GROUP BY UKETSUKE_NO) TM
+    WHERE TM.UKETSUKE_NO = W_AF0350.UKETSUKE_NO
+    AND W_AF0350.SESSION_CD = @SESSION_CD
+
+    SET @m_OLD_HOJIN_CD = ''
+	SET @m_OLD_HOJIN_TNT_MEI = ''
+
+    SET @m_UKETORI_TESURYO = 0 
+    SET @m_SHIHARAI_TESURYO = 0          
+
+    SET @m_RYOKIN_KEI_1_MAX = 0          
+	SET @m_TATEKAE_GK_MAX = 0
+    SET @m_UKETORI_TESURYO_MAX = 0      
+    SET @m_SHIHARAI_TESURYO_MAX = 0      
+    SET @m_RYOKIN_TESURYO_GK_MAX = 0     
+    SET @m_RYOKIN_KEI_2_MAX = 0          
+
+
+    SET @m_IDX = 0
+    SET @m_IDX2 = 1
+    SET @m_START = 1
+
+    SET @CT_OUT = -50
+    --計算してＣＳＶデータ作成
+    DECLARE c_W_AF0350 CURSOR FOR
+        SELECT  ISNULL(JYUCHU_DT,'        '),
+                MIN(ISNULL(SOSHIKI_CD,'     ')),
+                ISNULL(KESSAI_KBN,'9'),
+                ISNULL(HOJIN_CD,'         '),
+                ISNULL(HOJIN_RYAKU_MEI,' '),
+                ISNULL(HOJIN_TNT_MEI,' '),
+                ISNULL(UKETSUKE_NO,'        '),
+                ISNULL(KOKYAKUMEI,' '),
+                ISNULL(TSUMI_DT,'        '),
+                ISNULL(TUMI_JUSHO,' '),
+                ISNULL(OROSHI_DT,'        '),
+                ISNULL(OROSHI_JUSHO,' '),
+                SUM(RYOKIN_KEI_1),
+                TATEKAE_GK,
+                UKETORI_TESURYO_RT,
+                UKETORI_TESURYO_KBN,
+                RYOKIN_TESURYO_GK,
+                RYOKIN_KEI_2,
+                SHIHARAI_TESURYO_RT,
+                SHIHARAI_TESURYO_KBN,
+                SHOHIZEI_RT
+        FROM W_AF0350
+        WHERE SESSION_CD = @SESSION_CD
+        AND ISNULL(OROSHI_DT,'99999999') LIKE @W_NENGETSU_2
+		GROUP BY
+			JYUCHU_DT,
+			KESSAI_KBN,
+			HOJIN_CD,
+			HOJIN_RYAKU_MEI,
+			HOJIN_TNT_MEI,
+			UKETSUKE_NO,
+			KOKYAKUMEI,
+			TSUMI_DT,
+			TUMI_JUSHO,
+			OROSHI_DT,
+			OROSHI_JUSHO,
+            TATEKAE_GK,
+            UKETORI_TESURYO_RT,
+			UKETORI_TESURYO_KBN,
+            RYOKIN_TESURYO_GK,
+            RYOKIN_KEI_2,
+			SHIHARAI_TESURYO_RT,
+			SHIHARAI_TESURYO_KBN,
+			SHOHIZEI_RT
+		ORDER BY HOJIN_CD, UKETSUKE_NO, JYUCHU_DT
+    OPEN c_W_AF0350
+    FETCH NEXT FROM c_W_AF0350 INTO 
+        @m_JYUCHU_DT,
+        @m_SOSHIKI_CD,
+        @m_KESSAI_KBN,
+        @m_HOJIN_CD,
+        @m_HOJIN_RYAKU_MEI,
+        @m_HOJIN_TNT_MEI,
+        @m_UKETSUKE_NO,
+        @m_KOKYAKUMEI,
+        @m_TSUMI_DT,
+        @m_TUMI_JUSHO,
+        @m_OROSHI_DT,
+        @m_OROSHI_JUSHO,
+        @m_RYOKIN_KEI_1,
+        @m_TATEKAE_GK,
+        @m_UKETORI_TESURYO_RT,
+        @m_UKETORI_TESURYO_KBN,
+        @m_RYOKIN_TESURYO_GK,
+        @m_RYOKIN_KEI_2,
+        @m_SHIHARAI_TESURYO_RT,
+        @m_SHIHARAI_TESURYO_KBN,
+        @m_SHOHIZEI_RT
+
+	    WHILE @@FETCH_STATUS = 0
+	    BEGIN
+            SET @m_IDX = @m_IDX + 1
+
+        --見出し行のINSERT
+	    IF @m_START =1
+	    BEGIN
+	        SET @m_START = 0
+            SET @m_BUF = '[' + LEFT(@m_EXPDT,4) + '年' + SUBSTRING(@m_EXPDT,5,2) + '月度　' + @m_TITLE + '],,,,,,,,,,,,,,,,,,'
+            INSERT INTO W_EXPORT_CSV(SESSION_CD,LINE_NO,LINE_BUFFER) VALUES(@SESSION_CD,@m_IDX2,@m_BUF)    
+            SET @m_IDX2 = @m_IDX2 + 1
+			SET @m_BUF = ''
+            INSERT INTO W_EXPORT_CSV(SESSION_CD,LINE_NO,LINE_BUFFER) VALUES(@SESSION_CD,@m_IDX2,@m_BUF)    
+            SET @m_IDX2 = @m_IDX2 + 1
+            SET @m_BUF = '受付日付,センター,決済手段,受注先コード,顧客名,受注NO,引越者名,発地日付,現住所,'
+                    + '着地日付,転居先,収受額,立替金,料率(受取),受取手数料,内手数料,請求額,料率(支払),支払手数料'
+            INSERT INTO W_EXPORT_CSV(SESSION_CD,LINE_NO,LINE_BUFFER) VALUES(@SESSION_CD,@m_IDX2,@m_BUF)    
+            SET @m_IDX2 = @m_IDX2 + 1
+            SET @m_OLD_HOJIN_CD = @m_HOJIN_CD
+			SET @m_OLD_HOJIN_TNT_MEI = @m_HOJIN_TNT_MEI
+        END
+        ELSE
+        BEGIN
+            IF @m_HOJIN_CD <> @m_OLD_HOJIN_CD 
+            BEGIN
+                SET @m_BUF =',,,,,,,,請求先CD[' + @m_OLD_HOJIN_CD + '],,,' 
+                            + CONVERT(VARCHAR, @m_RYOKIN_KEI_1_MAX) + ','
+							+ CONVERT(VARCHAR, @m_TATEKAE_GK_MAX) + ',,' 
+                            + CONVERT(VARCHAR, @m_UKETORI_TESURYO_MAX) + ','
+                            + CONVERT(VARCHAR, @m_RYOKIN_TESURYO_GK_MAX) + ',' 
+                            + CONVERT(VARCHAR, @m_RYOKIN_KEI_2_MAX) + ',,'
+                            + CONVERT(VARCHAR, @m_SHIHARAI_TESURYO_MAX)  
+                INSERT INTO W_EXPORT_CSV(SESSION_CD,LINE_NO,LINE_BUFFER) VALUES(@SESSION_CD,@m_IDX2,@m_BUF)    
+                SET @m_IDX2 = @m_IDX2 + 1
+                SET @m_BUF =',担当者名:' + @m_OLD_HOJIN_TNT_MEI + ',,,,,,,,,法人計,'
+                            + CONVERT(VARCHAR, @m_RYOKIN_KEI_1_MAX) + ','
+							+ CONVERT(VARCHAR, @m_TATEKAE_GK_MAX) + ',,' 
+                            + CONVERT(VARCHAR, @m_UKETORI_TESURYO_MAX) + ','
+                            + CONVERT(VARCHAR, @m_RYOKIN_TESURYO_GK_MAX) + ',' 
+                            + CONVERT(VARCHAR, @m_RYOKIN_KEI_2_MAX) + ',,'
+                            + CONVERT(VARCHAR, @m_SHIHARAI_TESURYO_MAX)  
+                INSERT INTO W_EXPORT_CSV(SESSION_CD,LINE_NO,LINE_BUFFER) VALUES(@SESSION_CD,@m_IDX2,@m_BUF)    
+                SET @m_IDX2 = @m_IDX2 + 1
+                SET @m_OLD_HOJIN_CD = @m_HOJIN_CD
+				SET @m_OLD_HOJIN_TNT_MEI = @m_HOJIN_TNT_MEI
+
+                SET @m_RYOKIN_KEI_1_MAX = 0
+				SET @m_TATEKAE_GK_MAX = 0          
+                SET @m_UKETORI_TESURYO_MAX = 0      
+                SET @m_RYOKIN_TESURYO_GK_MAX = 0     
+                SET @m_RYOKIN_KEI_2_MAX = 0          
+                SET @m_SHIHARAI_TESURYO_MAX = 0      
+            END
+	    END
+        
+        --受取手数料の計算
+		SET @m_UKETORI_TESURYO = NULL
+		IF @m_UKETORI_TESURYO_KBN IS NOT NULL
+	    BEGIN
+		    IF @m_UKETORI_TESURYO_KBN = '1'
+			BEGIN
+				IF @m_RYOKIN_KEI_1 IS NOT NULL
+		            SET @m_UKETORI_TESURYO = (ISNULL(@m_RYOKIN_KEI_1,0) - ISNULL(@m_TATEKAE_GK,0)) * ISNULL(@m_UKETORI_TESURYO_RT,0) * ISNULL(@m_SHOHIZEI_RT,0)
+	        END
+			ELSE
+			BEGIN
+				IF @m_RYOKIN_KEI_2 IS NOT NULL
+		            SET @m_UKETORI_TESURYO = (ISNULL(@m_RYOKIN_KEI_2,0) - ISNULL(@m_TATEKAE_GK,0)) * ISNULL(@m_UKETORI_TESURYO_RT,0) * ISNULL(@m_SHOHIZEI_RT,0)
+			END
+		END 
+        
+        --支払手数料の計算
+		SET @m_SHIHARAI_TESURYO = NULL
+        IF @m_SHIHARAI_TESURYO_KBN IS NOT NULL
+		BEGIN
+	        IF @m_SHIHARAI_TESURYO_KBN = '1'
+			BEGIN
+				IF @m_RYOKIN_KEI_1 IS NOT NULL
+		            SET @m_SHIHARAI_TESURYO = (ISNULL(@m_RYOKIN_KEI_1,0) - ISNULL(@m_TATEKAE_GK,0)) * ISNULL(@m_SHIHARAI_TESURYO_RT,0) * ISNULL(@m_SHOHIZEI_RT,0)
+	        END
+	        ELSE
+			BEGIN
+				IF @m_RYOKIN_KEI_1 IS NOT NULL
+		            SET @m_SHIHARAI_TESURYO = ISNULL(@m_RYOKIN_KEI_1,0) * ISNULL(@m_SHIHARAI_TESURYO_RT,0)
+	        END
+		END
+        
+        --各金額の合計を計算    
+        SET @m_RYOKIN_KEI_1_MAX = @m_RYOKIN_KEI_1_MAX + ISNULL(@m_RYOKIN_KEI_1,0)        
+        SET @m_TATEKAE_GK_MAX = @m_TATEKAE_GK_MAX + ISNULL(@m_TATEKAE_GK,0)        
+        SET @m_UKETORI_TESURYO_MAX = @m_UKETORI_TESURYO_MAX + ISNULL(@m_UKETORI_TESURYO,0)    
+        SET @m_RYOKIN_TESURYO_GK_MAX = @m_RYOKIN_TESURYO_GK_MAX + ISNULL(@m_RYOKIN_TESURYO_GK,0)   
+        SET @m_RYOKIN_KEI_2_MAX = @m_RYOKIN_KEI_2_MAX + ISNULL(@m_RYOKIN_KEI_2,0)        
+        SET @m_SHIHARAI_TESURYO_MAX = @m_SHIHARAI_TESURYO_MAX + ISNULL(@m_SHIHARAI_TESURYO,0)   
+
+
+        --明細行出力
+        SET @m_BUF = @m_JYUCHU_DT + ',' 
+                    + @m_SOSHIKI_CD + ',' 
+                    + CASE @m_KESSAI_KBN WHEN '1' THEN '現金' WHEN '2' THEN 'カード' WHEN '3' THEN '振込' WHEN '9' THEN 'その他' END + ',' 
+                    + @m_HOJIN_CD + ',' 
+	                + @m_HOJIN_RYAKU_MEI + ',' 
+	                + @m_UKETSUKE_NO + ',' 
+	                + @m_KOKYAKUMEI + ',' 
+	                + @m_TSUMI_DT + ',' 
+	                + @m_TUMI_JUSHO + ',' 
+	                + @m_OROSHI_DT + ',' 
+	                + @m_OROSHI_JUSHO + ','
+                    + CASE WHEN @m_RYOKIN_KEI_1 IS NULL THEN '' ELSE CONVERT(VARCHAR, @m_RYOKIN_KEI_1) END + ',' 
+                    + CASE WHEN @m_TATEKAE_GK IS NULL THEN '' ELSE CONVERT(VARCHAR, @m_TATEKAE_GK) END + ',' 
+                    + CASE WHEN @m_UKETORI_TESURYO_RT IS NULL THEN '' ELSE CONVERT(VARCHAR, @m_UKETORI_TESURYO_RT) END + ',' 
+                    + CASE WHEN @m_UKETORI_TESURYO IS NULL THEN '' ELSE CONVERT(VARCHAR, @m_UKETORI_TESURYO) END + ','
+                    + CASE WHEN @m_RYOKIN_TESURYO_GK IS NULL THEN '' ELSE CONVERT(VARCHAR, @m_RYOKIN_TESURYO_GK) END + ',' 
+                    + CASE WHEN @m_RYOKIN_KEI_2 IS NULL THEN '' ELSE CONVERT(VARCHAR, @m_RYOKIN_KEI_2) END + ',' 
+                    + CASE WHEN @m_SHIHARAI_TESURYO_RT IS NULL THEN '' ELSE CONVERT(VARCHAR, @m_SHIHARAI_TESURYO_RT) END + ',' 
+                    + CASE WHEN @m_SHIHARAI_TESURYO IS NULL THEN '' ELSE CONVERT(VARCHAR, @m_SHIHARAI_TESURYO) END
+        INSERT INTO W_EXPORT_CSV(SESSION_CD,LINE_NO,LINE_BUFFER) VALUES(@SESSION_CD,@m_IDX2,@m_BUF)    
+        SET @m_IDX2 = @m_IDX2 + 1
+
+        FETCH NEXT FROM c_W_AF0350 INTO 
+            @m_JYUCHU_DT,
+            @m_SOSHIKI_CD,
+            @m_KESSAI_KBN,
+            @m_HOJIN_CD,
+            @m_HOJIN_RYAKU_MEI,
+            @m_HOJIN_TNT_MEI,
+            @m_UKETSUKE_NO,
+            @m_KOKYAKUMEI,
+            @m_TSUMI_DT,
+            @m_TUMI_JUSHO,
+            @m_OROSHI_DT,
+            @m_OROSHI_JUSHO,
+            @m_RYOKIN_KEI_1,
+            @m_TATEKAE_GK,
+            @m_UKETORI_TESURYO_RT,
+            @m_UKETORI_TESURYO_KBN,
+            @m_RYOKIN_TESURYO_GK,
+            @m_RYOKIN_KEI_2,
+            @m_SHIHARAI_TESURYO_RT,
+            @m_SHIHARAI_TESURYO_KBN,
+            @m_SHOHIZEI_RT
+	END 
+
+    SET @m_BUF =',,,,,,,,請求先CD[' + @m_OLD_HOJIN_CD + '],,,' 
+	            + CONVERT(VARCHAR, @m_RYOKIN_KEI_1_MAX) + ','
+				+ CONVERT(VARCHAR, @m_TATEKAE_GK_MAX) + ',,' 
+                + CONVERT(VARCHAR, @m_UKETORI_TESURYO_MAX) + ','
+                + CONVERT(VARCHAR, @m_RYOKIN_TESURYO_GK_MAX) + ',' 
+                + CONVERT(VARCHAR, @m_RYOKIN_KEI_2_MAX) + ',,'
+                + CONVERT(VARCHAR, @m_SHIHARAI_TESURYO_MAX)  
+    INSERT INTO W_EXPORT_CSV(SESSION_CD,LINE_NO,LINE_BUFFER) VALUES(@SESSION_CD,@m_IDX2,@m_BUF)    
+    SET @m_IDX2 = @m_IDX2 + 1
+    SET @m_BUF =',担当者名:' + @m_OLD_HOJIN_TNT_MEI + ',,,,,,,,,法人計,'
+                + CONVERT(VARCHAR, @m_RYOKIN_KEI_1_MAX) + ','
+				+ CONVERT(VARCHAR, @m_TATEKAE_GK_MAX) + ',,' 
+                + CONVERT(VARCHAR, @m_UKETORI_TESURYO_MAX) + ','
+                + CONVERT(VARCHAR, @m_RYOKIN_TESURYO_GK_MAX) + ',' 
+                + CONVERT(VARCHAR, @m_RYOKIN_KEI_2_MAX) + ',,'
+                + CONVERT(VARCHAR, @m_SHIHARAI_TESURYO_MAX)  
+    INSERT INTO W_EXPORT_CSV(SESSION_CD,LINE_NO,LINE_BUFFER) VALUES(@SESSION_CD,@m_IDX2,@m_BUF)    
+
+    CLOSE c_W_AF0350
+    DEALLOCATE c_W_AF0350
+
+	--ワークの削除
+	DELETE W_COM_SEARCH WHERE SESSION_CD = @SESSION_CD 
+	DELETE W_AF0350 WHERE SESSION_CD = @SESSION_CD 
+
+    SET @CT_OUT = @m_IDX
+END
+
+GO
+

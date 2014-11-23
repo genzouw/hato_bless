@@ -1,0 +1,71 @@
+﻿
+<!-- mainContents -->
+<section id="mainContents">
+<h2 class="contentsTitle01 icoKihontouroku01">精算CSV出力 </h2>
+<section class="sectionBase01">
+
+<?php echo $this->Session->flash(); ?>
+
+  <table   class="tablePt01 mT50 mB50 mL20 w650">
+    <tr>
+          <th class="w200">精算月</th>
+          <td class="w120">
+                    <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w120',
+                                                  'placeholder' => 'yyyymm',
+                                                  'value' => '')) ?>
+          </td>
+      	<td colspan="2"></td>
+    </tr>
+    <tr>
+      <th >精算元組織</th>
+      <td class="w120">
+                    <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w120',
+                                                  'value' => '')) ?>
+      </td>
+      <td><?php echo  $this->Form->label('精算先組織') ?></td>
+      <td class="w50"><input type="button" value="参照"></td>
+    </tr>
+    <tr>
+      <th class="w120">精算先組織</th>
+      <td class="w120">
+                    <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w120',
+                                                  'value' => '')) ?>
+      </td>
+      <td><?php echo  $this->Form->label('精算先組織') ?></td>
+      <td><input type="button" value="参照"></td>
+    </tr>
+    <tr>
+      <th >精算費用科目</th>
+      <td>
+            <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'select', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'requiredContents w120',
+                                                  'value' => '')) ?>
+      </td>
+      <td colspan="2"></td>
+    </tr>
+   </table>
+
+	<div class="ftBox mT10 mB20 taC">
+        <input class = "w200" type="submit" value="クリア">
+        <input class = "w200" type="submit" value="出力">
+    
+    </div>
+        
+</section>
+</section>
+<!-- /mainContents -->

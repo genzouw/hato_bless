@@ -1,0 +1,354 @@
+﻿<!-- mainContents -->
+<section id="mainContents">
+
+<h2 class="contentsTitle01 icoKihontouroku01">月額固定費用登録</h2>
+<section class="sectionBase01">
+
+<?php echo $this->Session->flash(); ?>
+
+<table class="tablePt01 mT20 mB50 mL20 w900">
+	<tr>
+    	<th class = "w100">請求年度</th>
+    	<td class = "w70" colspan="2">
+                    <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w100',
+                                                  'placeholder' => 'yyyymm',
+                                                  'value' => '')) ?>
+            年（例）2014
+        </td>
+        <th class = "w150">定額費用コード</td>
+        <td class = "w100"><?php echo  $this->Form->label('定額費用コード1') ?></td>
+        <td class = "w100"><?php echo  $this->Form->label('定額費用コード2') ?></td>
+    </tr>
+    <tr>
+        <th>消費税区分</th>
+        <td colspan="2" class = "w170">
+            <?php echo  $this->Form->label('消費税区分') ?>
+        </td>
+        <th >消費税率</th>
+        <td><?php echo  $this->Form->label('000') ?></td>
+        <td class=" w100   taL " style="BorderStyleNoneReplaceTAG">％</td>
+    </tr>
+</table>
+
+
+<div class = "w850">
+    <div  class=" mB20 taC flL  w500 ">
+        <input class = "w100" type="button" value="次項">
+        <input class = "w100" type="button" value="先頭">
+        <input class = "w100" type="button" value="クリア">
+        <input class = "w100" type="button" value="戻る">
+    </div>
+    <div  class=" mB20  taC flR  w300 ">
+        <input class = "w180" type="button" value="登録して次項を表示">
+        <input class = "w100" type="button" value="登録完了">
+    </div>
+    <br clear="all">
+</div>
+
+
+
+<div class=" w850 ">
+
+    <br clear="all">
+</div>
+
+<!-- ☆☆ループで回すところ☆☆☆☆☆☆☆☆☆☆☆☆☆始まり -->
+    <hr>
+    
+    <div class="mB0 ">
+        <div align="center" class="mB20 flL w400 ">
+                <table class="tablePt01 mT50 mB0 mL20">
+                    <tr>
+                        <th  class = "w150">請求先</td>
+                        <td class = "w160"><?php echo  $this->Form->label('請求先') ?></td>
+                        <td class=" w80 BorderStyleNoneReplaceTAG"> <input class=" w80   mL5 " type="submit" value="詳細"> </td>
+                    </tr>
+                
+                </table>
+        </div>
+        <div align="center" class=" mB0 flL w450">
+            <table   class="tablePt01 mT50 mB0 mL20 w500">
+                <tr>
+                    <th  class = "w300">定額費用金額</td>
+                    <td class = "w100">
+                    <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w100',
+                                                  'placeholder' => '0000',
+                                                  'value' => '')) ?>
+                    </td>
+                    <td class=" w50 BorderStyleNoneReplaceTAG  taL ">円</td>
+                    <td class=" w50 BorderStyleNoneReplaceTAG"> <input class = "w150" type="submit" value="料金自動設定"></td>
+                </tr>
+            </table>
+        </div>
+        <br clear="all">
+    </div>
+
+    
+    <table   class="tablePt01 mT50 mB50 mL20 w980">
+    
+        <tr>
+            <td class="BorderStyleNoneReplaceTAG">&nbsp;</td>
+            <th >1月</th>
+            <th >2月</th>
+            <th >3月</th>
+            <th >4月</th>
+            <th >5月</th>
+            <th >6月</th>
+            <th >7月</th>
+            <th >8月</th>
+            <th >9月</th>
+            <th >10月</th>
+            <th >11月</th>
+            <th >12月</th>
+        </tr>
+        <tr>
+            <th nowrap>請求額</th>
+            <td>
+                    <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w50',
+                                                  'placeholder' => '0000',
+                                                  'value' => '')) ?>
+            </td>
+            <td>
+                    <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w50',
+                                                  'placeholder' => '0000',
+                                                  'value' => '')) ?>
+            </td>
+            <td>
+                    <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w50',
+                                                  'placeholder' => '0000',
+                                                  'value' => '')) ?>
+            </td>
+            <td>
+                    <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w50',
+                                                  'placeholder' => '0000',
+                                                  'value' => '')) ?>
+            </td>
+            <td>
+                    <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w50',
+                                                  'placeholder' => '0000',
+                                                  'value' => '')) ?>
+            </td>
+            <td>
+                    <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w50',
+                                                  'placeholder' => '0000',
+                                                  'value' => '')) ?>
+            </td>
+            <td>
+                    <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w50',
+                                                  'placeholder' => '0000',
+                                                  'value' => '')) ?>
+            </td>
+            <td>
+                    <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w50',
+                                                  'placeholder' => '0000',
+                                                  'value' => '')) ?>
+            </td>
+            <td>
+                    <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w50',
+                                                  'placeholder' => '0000',
+                                                  'value' => '')) ?>
+            </td>
+            <td>
+                    <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w50',
+                                                  'placeholder' => '0000',
+                                                  'value' => '')) ?>
+            </td>
+            <td>
+                    <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w50',
+                                                  'placeholder' => '0000',
+                                                  'value' => '')) ?>
+            </td>
+            <td>
+                    <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w50',
+                                                  'placeholder' => '0000',
+                                                  'value' => '')) ?>
+            </td>
+        </tr>
+        <tr>
+            <th >消費税</th>
+            <td>
+                    <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w50',
+                                                  'placeholder' => '0000',
+                                                  'value' => '')) ?>
+            </td>
+            <td>
+                    <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w50',
+                                                  'placeholder' => '0000',
+                                                  'value' => '')) ?>
+            </td>
+            <td>
+                    <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w50',
+                                                  'placeholder' => '0000',
+                                                  'value' => '')) ?>
+            </td>
+            <td>
+                    <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w50',
+                                                  'placeholder' => '0000',
+                                                  'value' => '')) ?>
+            </td>
+            <td>
+                    <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w50',
+                                                  'placeholder' => '0000',
+                                                  'value' => '')) ?>
+            </td>
+            <td>
+                    <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w50',
+                                                  'placeholder' => '0000',
+                                                  'value' => '')) ?>
+            </td>
+            <td>
+                    <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w50',
+                                                  'placeholder' => '0000',
+                                                  'value' => '')) ?>
+            </td>
+            <td>
+                    <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w50',
+                                                  'placeholder' => '0000',
+                                                  'value' => '')) ?>
+            </td>
+            <td>
+                    <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w50',
+                                                  'placeholder' => '0000',
+                                                  'value' => '')) ?>
+            </td>
+            <td>
+                    <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w50',
+                                                  'placeholder' => '0000',
+                                                  'value' => '')) ?>
+            </td>
+            <td>
+                    <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w50',
+                                                  'placeholder' => '0000',
+                                                  'value' => '')) ?>
+            </td>
+            <td>
+                    <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w50',
+                                                  'placeholder' => '0000',
+                                                  'value' => '')) ?>
+            </td>
+        </tr>
+    </table>
+<!-- ☆☆ループで回すところ☆☆☆☆☆☆☆☆☆☆☆☆☆終わり -->
+
+
+<div class=" w850 ">
+    <div  class="taC mB20  flL  w500 ">
+        <input class = "w100" type="submit" value="次項">
+        <input class = "w100" type="submit" value="先頭">
+        <input class = "w100" type="submit" value="クリア">
+        <input class = "w100" type="submit" value="戻る">
+    </div>
+    <div class="taC mB20  flR  w300">
+        <input class = "w180" type="submit" value="登録して次項を表示">
+        <input class = "w100" type="submit" value="登録完了">
+    </div>
+    <br clear="all">
+</div>
+
+</section>
+</section>
+<!-- /mainContents -->

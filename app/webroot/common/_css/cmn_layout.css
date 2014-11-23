@@ -1,0 +1,998 @@
+@charset "UTF-8";
+
+/*
+ * cmn_layout.css
+ *
+ *  version --- 1.0
+ *  updated --- 2014.10.08
+ */
+
+
+@media print {
+
+/*
+背景を非表示にしたいコンテンツ
+*/
+/*body,
+#container {
+background: none #FFFFFF !important;
+}*/
+
+#wrapper{
+overflow:visible !important;
+}
+#contents{
+overflow: visible !important;
+}
+header{
+overflow: visible !important;
+position: inherit !important;
+}
+#globalNavi{
+margin-top: 0px !important;
+}
+#mainContents{
+margin-bottom: 30px !important;
+}
+#gopagetop {
+clear: both !important;
+}
+#gopagetop a {
+right: 0 !important;
+}
+
+}
+
+/* リセット
+---------------------------------------------------------- */
+
+
+/* 構造要素とブロックレベル要素 */
+html, body, div, h1, h2, h3, h4, h5, h6,
+p, blockquote, pre, address, ul, ol, li, dl, dt, dd,
+table, th, td, form, fieldset {
+margin: 0;
+padding: 0;
+}
+
+
+/* 全般
+---------------------------------------------------------- */
+/* for iPhone */
+body{
+/*-webkit-text-size-adjust: none;*/
+}
+
+section, nav, article, aside, hgroup,
+header, footer, figure, figcaption,
+summary {
+display: block;
+}
+
+body {
+background:#f2f2f2;
+color: #1a1a1a;
+font-size:62.5%; /* 10px程度の大きさに調整 */
+font-family:'ヒラギノ角ゴ Pro W3','Hiragino Kaku Gothic Pro','メイリオ',Meiryo,'ＭＳ Ｐゴシック','MS PGothic',sans-serif;
+min-width: 1024px;
+}
+
+a {
+color:#1a1a1a;
+text-decoration:none;
+}
+
+a:hover {
+color:#1a1a1a;
+text-decoration:none;
+}
+
+
+input,
+textarea,
+select {
+font-family:'ヒラギノ角ゴ Pro W3','Hiragino Kaku Gothic Pro','メイリオ',Meiryo,'ＭＳ Ｐゴシック','MS PGothic',sans-serif;
+font-size:1em;
+padding:3px;
+}
+input[type="file"]::-webkit-file-upload-button {
+font-family:'ヒラギノ角ゴ Pro W3','Hiragino Kaku Gothic Pro','メイリオ',Meiryo,'ＭＳ Ｐゴシック','MS PGothic',sans-serif;
+font-size:1em;
+padding:3px;
+}
+
+
+ol li {
+margin-left:1.5em;
+margin-bottom: 20px;
+}
+
+ul li{
+list-style-type:none;
+}
+
+img {
+border:0px;
+}
+
+/* basic rayout
+---------------------------------------------------------- */
+#wrapper {
+margin-bottom: 12em;
+}
+#container {
+}
+
+/* header
+---------------------------------------------------------- */
+header{
+background: #407ed6;
+font-size: 1.3em;
+overflow: hidden;
+width: 100%;
+z-index: 1000;
+border-bottom: 3px solid #19a0bf;
+}
+header #headerContents{
+margin: 0 auto;
+overflow: hidden;
+width: 1024px;
+}
+header #logo{
+float:left;
+width: 320px;
+}
+header #logo a{
+color: #ffffff;
+display: block;
+padding: 4px 8px 2px 0;
+}
+header #logo img{
+display:block;
+}
+#headerContents #headerMenu {
+float: right;
+font-size: 1.2em;
+padding-right: 10px;
+width: 550px;
+}
+#headerContents #headerMenu .account{
+background: url(../img/icon_account_open01.png) no-repeat right center;
+background-size: 20px 13px;
+-webkit-background-size: 20px 13px;
+-moz-background-size: 20px 13px;
+color: #ffffff;
+float: right;
+padding: 10px 30px 5px;
+}
+#headerContents #headerMenu .account .accountImg01{
+padding-right: 10px;
+vertical-align: middle;
+}
+
+
+/* naviContents
+---------------------------------------------------------- */
+#container #naviContents {
+margin-bottom: 10px;
+}
+/* globalNavi */
+#globalNavi {
+background: #e6f0ff;
+border-bottom: 3px solid #7a9dd1;
+font-size: 1.6em;
+}
+#globalNavi ul{
+border-left: 1px solid #96b2db;
+clear: both;
+margin: 0 auto;
+overflow: hidden;
+width: 1024px;
+}
+#globalNavi li{
+float: left;
+}
+#globalNavi li a {
+border-right: 1px solid #96b2db;
+color: #1a1a1a !important;
+display: block;
+padding: 10px;
+text-align: center;
+text-decoration: none;
+}
+#globalNavi li a:hover,
+#globalNavi li.active a{
+background: #7a9dd1;
+color: #FFFFFF !important;
+}
+
+/* localNavi */
+#localNavi {
+background: #bfd8ff;
+border-bottom: 3px solid #598cd9;
+font-size: 1.6em;
+}
+#localNavi ul{
+border-left: 1px solid #acc5ea;
+clear: both;
+margin: 0 auto;
+overflow: hidden;
+width: 1024px;
+}
+#localNavi li{
+float: left;
+}
+#localNavi li a {
+border-right: 1px solid #acc5ea;
+color: #333333 !important;
+display: block;
+padding: 5px 20px;
+text-align: center;
+text-decoration: none;
+}
+#localNavi li a:hover,
+#localNavi li.active a{
+background: #598cd9;
+color: #FFFFFF !important;
+}
+
+
+
+/* contents
+---------------------------------------------------------- */
+#contents{
+width:1024px;
+margin:0px auto;
+clear: both;
+line-height: 1.5;
+overflow: hidden;
+}
+#contents,
+footer{
+font-size: 1.7em;
+}
+
+/* h1-h6 */
+.hPt01{
+border-bottom: 2px solid #5389d6;
+margin: 20px 0;
+padding-bottom: 5px;
+}
+
+
+/* mainContents
+---------------------------------------------------------- */
+#mainContents{
+overflow: visible;
+width: 1024px;
+}
+/* sectionBase01 */
+#mainContents .sectionBase01{
+background: #ffffff;
+border-bottom: 3px solid #e6e6e6;
+margin-bottom:20px;
+padding: 10px 0 15px;
+}
+#mainContents .sectionBase01 p,
+#mainContents .sectionBase01 ul{
+padding:0 0 10px;
+}
+
+/* 見出し */
+#mainContents .contentsTitle01{
+background-color: #5389d6;
+background-position: 10px center;
+background-repeat: no-repeat;
+border-bottom: 3px solid #3273bf;
+color: #ffffff;
+font-size: 1.3em;
+font-weight: bold;
+min-height: 35px;
+padding: 6px 15px 6px 65px;
+}
+/* 見出しアイコン */
+.icoKihontouroku01{/* 基本登録 */
+background-image: url(../img/ico_kihontouroku01.png);
+background-size: 40px 35px;
+-webkit-background-size: 40px 35px;
+-moz-background-size: 40px 35px;
+}
+.icoKihontouroku02{/* 基本登録－詳細  */
+background-image: url(../img/ico_kihontouroku02.png);
+background-size: 40px 35px;
+-webkit-background-size: 40px 35px;
+-moz-background-size: 40px 35px;
+}
+.icoKihontouroku03{/* 基本登録－詳細 －小鳩 */
+background-image: url(../img/ico_kihontouroku03.png);
+background-size: 40px 35px;
+-webkit-background-size: 40px 35px;
+-moz-background-size: 40px 35px;
+}
+.icoKihontouroku04{/* 基本登録－一般貨物 詳細 */
+background-image: url(../img/ico_kihontouroku04.png);
+background-size: 40px 35px;
+-webkit-background-size: 40px 35px;
+-moz-background-size: 40px 35px;
+}
+.icoKazai01{/* 家財 */
+background-image: url(../img/ico_kazai01.png);
+background-size: 40px 35px;
+-webkit-background-size: 40px 35px;
+-moz-background-size: 40px 35px;
+}
+.icoTehai01{/* 手配 */
+background-image: url(../img/ico_tehai01.png);
+background-size: 40px 35px;
+-webkit-background-size: 40px 35px;
+-moz-background-size: 40px 35px;
+}
+.icoJyuyou01{/* 重要事項相互確認 */
+background-image: url(../img/ico_jyuyou01.png);
+background-size: 40px 35px;
+-webkit-background-size: 40px 35px;
+-moz-background-size: 40px 35px;
+}
+.icoRyoukin01{/* 料金 */
+background-image: url(../img/ico_ryoukin.png);
+background-size: 40px 35px;
+-webkit-background-size: 40px 35px;
+-moz-background-size: 40px 35px;
+}
+.icoSashizusyo01{/* 指図書 */
+background-image: url(../img/ico_sashizusyo.png);
+background-size: 40px 35px;
+-webkit-background-size: 40px 35px;
+-moz-background-size: 40px 35px;
+}
+.icoChohyo01{/* 帳票出力 */
+background-image: url(../img/ico_chohyo01.png);
+background-size: 40px 35px;
+-webkit-background-size: 40px 35px;
+-moz-background-size: 40px 35px;
+}
+.icoMidashi01{/* 見出し */
+background-image: url(../img/ico_midashi01.png);
+background-size: 40px 35px;
+-webkit-background-size: 40px 35px;
+-moz-background-size: 40px 35px;
+}
+.icoMidashi02{/* 見出し */
+background-image: url(../img/ico_midashi02.png);
+background-size: 40px 35px;
+-webkit-background-size: 40px 35px;
+-moz-background-size: 40px 35px;
+}
+.icoMidashi03{/* 見出し */
+background-image: url(../img/ico_midashi03.png);
+background-size: 40px 35px;
+-webkit-background-size: 40px 35px;
+-moz-background-size: 40px 35px;
+}
+.icoMidashi04{/* 見出し */
+background-image: url(../img/ico_midashi04.png);
+background-size: 40px 35px;
+-webkit-background-size: 40px 35px;
+-moz-background-size: 40px 35px;
+}
+.icoMidashi05{/* 見出し */
+background-image: url(../img/ico_midashi05.png);
+background-size: 40px 35px;
+-webkit-background-size: 40px 35px;
+-moz-background-size: 40px 35px;
+}
+
+/* 見出し（開閉） */
+#mainContents .openTitle01,
+#mainContents .closeTitle01{
+cursor: pointer;
+padding: 6px 5px 6px 65px;
+}
+#mainContents .openTitle01 span{
+background: url(../img/ico_open01.png) no-repeat right center;
+background-size: 40px 16px;
+-webkit-background-size: 40px 16px;
+-moz-background-size: 40px 16px;
+display: block;
+padding-right: 45px;
+}
+#mainContents .closeTitle01 span{
+background: url(../img/ico_close01.png) no-repeat right center;
+background-size: 40px 16px;
+-webkit-background-size: 40px 16px;
+-moz-background-size: 40px 16px;
+display: block;
+padding-right: 45px;
+}
+
+/* pagerContents */
+.pagerContents{
+overflow: hidden;
+margin: 10px 20px;
+}
+.pagerContents > p{
+float: left;
+margin: 6px 40px 0 0;
+}
+.pagerContents ul{
+float: left;
+}
+.pagerContents ul li {
+display: inline-block;
+}
+.pagerContents ul li.doted {
+margin: 0 2px;
+vertical-align: bottom;
+}
+.pagerContents ul li.listEnd {
+border: medium none;
+padding: 0;
+}
+.pagerContents ul li span,
+.pagerContents ul li a {
+background: none repeat scroll 0 0 #ffffff;
+border: 1px solid #cccccc;
+display: inline-block;
+margin: 0 3px;
+padding: 5px 10px;
+vertical-align: middle;
+}
+.pagerContents ul li span {
+background: none;
+border: none;
+font-weight: bold;
+margin: 0;
+padding: 5px;
+}
+.pagerContents ul li.first,
+.pagerContents ul li.prev {
+margin: 0 5px 0 0;
+}
+.pagerContents ul li.next,
+.pagerContents ul li.last {
+margin: 0 0 0 5px;
+}
+.pagerContents ul li.first a,
+.pagerContents ul li.prev a,
+.pagerContents ul li.next a,
+.pagerContents ul li.last a {
+background: #5389d6;
+color:#FFFFFF;
+}
+.pagerContents ul li.first a{
+background: url(../img/ico_pager01.png) no-repeat 7px center  #999999;
+background-size: 19px 19px;
+-webkit-background-size: 19px 19px;
+-moz-background-size: 19px 19px;
+padding: 5px 10px 5px 37px;
+}
+.pagerContents ul li.prev a{
+background: url(../img/ico_pager02.png) no-repeat 7px center  #5389d6;
+background-size: 11px 19px;
+-webkit-background-size: 11px 19px;
+-moz-background-size: 11px 19px;
+padding: 5px 10px 5px 27px;
+}
+.pagerContents ul li.next a{
+background: url(../img/ico_pager03.png) no-repeat right center  #5389d6;
+background-size: 17px 19px;
+-webkit-background-size: 17px 19px;
+-moz-background-size: 17px 19px;
+padding: 5px 27px 5px 10px;
+}
+.pagerContents ul li.last a{
+background: url(../img/ico_pager04.png) no-repeat right center  #999999;
+background-size: 27px 19px;
+-webkit-background-size: 27px 19px;
+-moz-background-size: 27px 19px;
+padding: 5px 37px 5px 10px;
+}
+
+
+
+/* column */
+#mainContents .column_cover{
+clear: both;
+letter-spacing: -1em;
+width: 100%;
+word-spacing: -1em;
+}
+#mainContents .column_cover .column_2{
+display: inline-block;
+letter-spacing: normal;
+padding-right: 2%;
+vertical-align: top;
+width: 49%;
+word-spacing: normal;
+}
+#mainContents .column_cover .column_3{
+display: inline-block;
+letter-spacing: normal;
+padding-right: 2%;
+padding-bottom: 10px;
+vertical-align: top;
+width: 32%;
+word-spacing: normal;
+}
+#mainContents .column_cover .column_4{
+display: inline-block;
+letter-spacing: normal;
+padding-right: 2%;
+padding-bottom: 10px;
+vertical-align: top;
+width: 23.5%;
+word-spacing: normal;
+}
+#mainContents .column_cover .column_2:nth-of-type(even),
+#mainContents .column_cover .column_3:nth-of-type(3n),
+#mainContents .column_cover .column_4:nth-of-type(4n){
+padding-right: 0;
+}
+/* columnTable */
+#mainContents .columnTable{
+clear: both;
+display: table;
+width: 100%;
+}
+#mainContents .columnTable .column_2{
+display: table-cell;
+vertical-align: top;
+width: 49%;
+}
+#mainContents .columnTable .column_2_center{
+display: table-cell;
+width: 2%;
+}
+#mainContents .columnTable .column_3{
+display: table-cell;
+vertical-align: top;
+width: 32%;
+}
+#mainContents .columnTable .column_3_center{
+display: table-cell;
+width: 2%;
+}
+
+
+/* table
+---------------------------------------------------------- */
+#mainContents table.tablePt01{
+border-collapse: collapse;
+border: none;
+width:100%;
+}
+#mainContents table.tablePt01 th,
+#mainContents table.tablePt01 td{
+border-bottom: 2px solid #FFFFFF;
+height: 2em;
+padding:5px 10px;
+text-align: left;
+}
+#mainContents table.tablePt01 th{
+background:#deebff;
+}
+#mainContents table.tablePt01 td{
+background:#f2f2f2;
+}
+#mainContents table.tablePt02{
+border-collapse: collapse;
+border: none;
+width:100%;
+}
+#mainContents table.tablePt02 th,
+#mainContents table.tablePt02 td{
+border: 1px solid #CCCCCC;
+padding:5px 10px;
+text-align: left;
+}
+#mainContents table.tablePt02 th{
+background:#deebff;
+}
+#mainContents table.tablePt02 td{
+background:#FFFFFF;
+}
+#mainContents table.tablePt03{
+border-collapse: collapse;
+border: none;
+}
+#mainContents table.tablePt03 th,
+#mainContents table.tablePt03 td{
+padding:5px 10px;
+text-align: left;
+}
+#mainContents table.tablePt04{
+border-collapse: collapse;
+border: none;
+}
+#mainContents table.tablePt04 th,
+#mainContents table.tablePt04 td{
+text-align: left;
+}
+#mainContents table.tablePt05{
+border-collapse: collapse;
+border: none;
+width:100%;
+}
+#mainContents table.tablePt05 th,
+#mainContents table.tablePt05 td{
+background:#f2f2f2;
+border: 1px solid #CCCCCC;
+padding:5px 10px;
+text-align: left;
+}
+
+#mainContents .required{
+color: #e50000 !important;
+}
+#mainContents .requiredContents{
+background:#fcfbba !important;
+}
+#mainContents .errorContents{
+background:#fcd8d8 !important;
+}
+#mainContents .sapText01{
+display: block;
+font-size: 0.8em;
+padding-left: 10px;
+}
+#mainContents .shinkoBox01{
+border-bottom: 1px solid #e6e6e6;
+border-left: 1px solid #e6e6e6;
+}
+#mainContents .shinkoBox01 .title01{
+background:#fc9595;
+border-bottom: 3px solid #f27777;
+color: #ffffff;
+font-weight: bold;
+overflow: hidden;
+padding: 10px;
+}
+#mainContents .shinkoBox01 .title01 a{
+background: url(../img/ico_plus02.png) no-repeat left center;
+background-size: 17px 16px;
+-webkit-background-size: 17px 16px;
+-moz-background-size: 17px 16px;
+color: #ffffff;
+display: block;
+float: right;
+min-height: 16px;
+padding: 0 0 0 20px;
+}
+#mainContents .shinkoBox01 .text01{
+background:#fcf7f7;
+border-bottom: 3px solid #f4d7d7;
+padding: 10px 0;
+}
+#mainContents .shinkoBox01 .scroll01{
+background:#FFFFFF;
+padding: 10px;
+}
+#mainContents .shinkoBox01 .scroll01 ul{
+height: 250px;
+overflow: auto;
+}
+#mainContents .shinkoBox01 .scroll01 ul li{
+list-style-type: disc;
+margin-bottom: 5px;
+margin-left: 1em;
+}
+#mainContents .shinkoBox01 .scroll01 ul::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+}
+#mainContents .shinkoBox01 .scroll01 ul::-webkit-scrollbar-thumb {
+border-radius: 4px;
+background-color: rgba(0,0,0,.5);
+box-shadow: 0 0 1px rgba(255,255,255,.5);
+}
+
+
+
+/* btn
+---------------------------------------------------------- */
+.btnPt01{
+background: none repeat scroll 0 0 #ffffff;
+border-bottom: 3px solid #cccccc;
+border-radius: 8px ;
+-moz-border-radius: 8px ;
+-webkit-border-radius: 8px ;
+color: #333333 !important;
+display: inline-block;
+font-size: 1.1em;
+font-weight: bold;
+padding: 0.2em 1.5em;
+text-align: center;
+}
+.btnPt02{
+background: none repeat scroll 0 0 #fc9595;
+border-bottom: 3px solid #f27777;
+border-radius: 8px ;
+-moz-border-radius: 8px ;
+-webkit-border-radius: 8px ;
+color: #FFFFFF !important;
+display: inline-block;
+font-size: 1.1em;
+font-weight: bold;
+padding: 0.2em 1.5em;
+text-align: center;
+}
+/* 画像ボタン */
+.btnImg{
+background-color: #2b72d6;
+background-position: center center;
+background-repeat: no-repeat;
+border-bottom: 3px solid #08497f;
+border-radius: 8px ;
+-moz-border-radius: 8px ;
+-webkit-border-radius: 8px ;
+color: #FFFFFF !important;
+display: inline-block;
+text-align: center;
+}
+/* 画像ボタンアイコン */
+.icoCal01{
+background-image: url(../img/ico_cal01.png);
+background-size: 18px 18px;
+-webkit-background-size: 18px 18px;
+-moz-background-size: 18px 18px;
+min-height: 24px;
+min-width: 27px;
+}
+.icoCal01.smallBtn{
+background-size: 15px auto;
+-webkit-background-size: 15px auto;
+-moz-background-size: 15px auto;
+min-height: 20px;
+min-width: 23px;
+}
+.icoMap01{
+background-image: url(../img/ico_map01.png);
+background-size: 12px 18px;
+-webkit-background-size: 12px 18px;
+-moz-background-size: 12px 18px;
+min-height: 24px;
+min-width: 27px;
+}
+.icoMap01.smallBtn{
+background-size: 10px auto;
+-webkit-background-size: 10px auto;
+-moz-background-size: 10px auto;
+min-height: 20px;
+min-width: 23px;
+}
+.icoCamera01{
+background-image: url(../img/ico_camera01.png);
+background-size: 18px 18px;
+-webkit-background-size: 18px 18px;
+-moz-background-size: 18px 18px;
+min-height: 24px;
+min-width: 27px;
+}
+.icoCamera01.smallBtn{
+background-size: 14px auto;
+-webkit-background-size: 14px auto;
+-moz-background-size: 14px auto;
+min-height: 20px;
+min-width: 23px;
+}
+
+/* 画像テキストボタン */
+.btnImgTxt{
+background-color: #2b72d6;
+background-position: 8px center;
+background-repeat: no-repeat;
+border-bottom: 3px solid #08497f;
+border-radius: 8px ;
+-moz-border-radius: 8px ;
+-webkit-border-radius: 8px ;
+color: #FFFFFF !important;
+display: inline-block;
+padding: 2px 10px 0 30px;
+}
+/* 画像テキストボタンアイコン */
+.icoPlus03{
+background-image: url(../img/ico_plus03.png);
+background-size: 17px 17px;
+-webkit-background-size: 17px 17px;
+-moz-background-size: 17px 17px;
+min-height: 27px;
+min-width: 27px;
+}
+.icoInput01{
+background-image: url(../img/ico_input01.png);
+background-size: 18px 18px;
+-webkit-background-size: 18px 18px;
+-moz-background-size: 18px 18px;
+min-height: 27px;
+min-width: 27px;
+}
+.icoCalc01{
+background-image: url(../img/ico_calc01.png);
+background-size: 13px 20px;
+-webkit-background-size: 13px 20px;
+-moz-background-size: 13px 20px;
+min-height: 27px;
+min-width: 27px;
+}
+.icoChohyo02{
+background-image: url(../img/ico_chohyo02.png);
+background-size: 15px 18px;
+-webkit-background-size: 15px 18px;
+-moz-background-size: 15px 18px;
+min-height: 27px;
+min-width: 27px;
+}
+
+/* btnNumArea */
+.btnNumArea01{
+overflow: hidden;
+}
+.btnNumArea01 a,
+.btnNumArea01 > input[type="text"]{
+display: block;
+float: left;
+height: 1.6em;
+line-height: 1.3;
+}
+.btnNumArea01 a.minus,
+.btnNumArea01 a.plus{
+background:#b3b3b3;
+border-color: #e6e6e6;
+border-image: none;
+border-style: solid;
+border-width: 1px 1px 3px;
+text-align: center;
+vertical-align: middle;
+width: 23px;
+}
+.btnNumArea01 a.minus{
+border-radius:4px 0 0 4px;
+-moz-border-radius:4px 0 0 4px;
+-webkit-border-radius:4px 0 0 4px;
+}
+.btnNumArea01 a.plus{
+border-radius: 0 4px 4px 0;
+-moz-border-radius: 0 4px 4px 0;
+-webkit-border-radius: 0 4px 4px 0;
+}
+.btnNumArea01 > input[type="text"]{
+background:none;
+border-color: #e6e6e6;
+border-image: none;
+border-style: solid;
+border-width: 3px 0 1px 1px;
+border-radius: 0;
+-moz-border-radius: 0;
+-webkit-appearance: none;
+margin: 0;
+padding: 0 0 0 10px;
+width: 35px;
+}
+.btnNumArea01 a.open{
+border-color: #e6e6e6;
+border-image: none;
+border-style: solid;
+border-width: 3px 1px 1px 0;
+border-radius: 0 4px 4px 0;
+-moz-border-radius: 0 4px 4px 0;
+-webkit-border-radius: 0 4px 4px 0;
+margin: 0;
+padding: 0 0 0 5px;
+}
+.btnNumArea01 a img{
+vertical-align: middle;
+}
+
+/* List
+---------------------------------------------------------- */
+#mainContents ul.list01{
+}
+#mainContents ul.list01 li{
+list-style-type: disc;
+margin-bottom: 10px;
+margin-left: 1.5em;
+}
+
+
+/* footer
+---------------------------------------------------------- */
+footer{
+background:none repeat scroll 0 0 rgba(153, 153, 153, 0.87);
+border-bottom: 3px solid #5e5e5e;
+bottom: 0;
+color:#1a1a1a;
+position: fixed;
+width: 100%;
+}
+footer #footerContents{
+display: table;
+margin:0 auto;
+width:1004px;
+}
+footer #footerContents > div{
+display: table-cell;
+vertical-align: middle;
+}
+footer .btnAreaL01{
+width: 7em;
+}
+footer .btnAreaR01{
+text-align: right;
+width: 9em;
+}
+/* gopagetop */
+#gopagetop{
+}
+#gopagetop a{
+display: block;
+font-size: 1.2em;
+padding: 0.6em 0;
+text-align: center;
+width: 100%;
+}
+#gopagetop a img{
+display: inline-block;
+padding-right: 7px;
+}
+
+/* caption */
+#mainContents .cautionText01{
+overflow: hidden;
+}
+#mainContents .cautionText01 .icon01{
+display: table-cell;
+width: 3%;
+}
+#mainContents .cautionText01 .text01{
+display: table-cell;
+/*width: 97%;*/
+}
+#mainContents .cautionBox01{
+border: 2px solid #E58E0E;
+margin-bottom: 15px;
+padding: 10px;
+}
+#mainContents .cautionBox01 .title01{
+background: none repeat scroll 0 0 #E58E0E;
+color: #FFFFFF;
+font-weight: bold;
+margin-bottom: 10px;
+padding: 2px;
+text-align: center;
+}
+#mainContents .cautionBox01 .text01{
+margin-bottom: 5px;
+}
+#mainContents .cautionBox02{
+border: 1px solid #E58E0E;
+margin: 15px 0;
+padding: 10px;
+}
+#mainContents .cautionBox02 .text01 {
+margin-bottom: 0;
+}
+/* テンプレート用 */
+#mainContents .codeBox01{
+background: #FFFFFF;
+border: 1px solid #cccccc;
+display: inline-block;
+font-size: 0.9em;
+padding: 10px;
+width: auto;
+}
+#mainContents code{
+display: block;
+overflow: auto;
+}
+
+/* border */
+.borerLPT01{
+border-left: 2px solid #ffffff !important;
+}
+
+/* icon
+---------------------------------------------------------- */
+.iconImg01{
+padding-left: 5px;
+vertical-align: middle;
+}

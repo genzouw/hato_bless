@@ -1,0 +1,77 @@
+﻿<!-- contents_Start -->
+<div id="contentsArea" class="clearfix">
+    <?php
+    echo $this->Html->css("setup", "stylesheet", array(
+            'media' => 'screen'
+        )) . "\n";
+    ?>
+    <?php
+
+    echo $this->Html->script("tab") . "\n";
+    ?>
+    <h2 class="mb20">パスワード再設定</h2>
+
+    <!-- InstanceBeginEditable name="contents" -->
+
+    <div id="contentsCenter" class="mb60">
+        <div id="contentsCenterTop">
+            <div id="contentsCenterBtm">
+
+                <div class="setupArea">
+                    <!-- page1_Start -->
+                    <div id="page1" class="tabBox">
+                        <div class="userEntryTable">
+                            <?php
+                            echo $this->Form->create('User', array(
+                                'type' => 'post',
+                                'action' => 'reminder',
+                                'name' => 'PasswordReminder'
+                            ))?>
+                            <table cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <th>メールアドレス</th>
+                                    <td>
+                                        <?php
+                                        echo $this->Form->text('MAIL', array(
+                                            'style' => 'width :400px',
+                                            'class' => $this->Form->error('MAIL') ? 'f_errors' : ''
+                                        ));
+                                        ?>
+                                        <br/>
+                                        <?php
+                                        echo $this->Form->error('MAIL', array(
+                                            'class' => 'errors'
+                                        ));
+                                        ?>
+                                    </td>
+                                </tr>
+                            </table>
+                            <?php
+                            echo $this->Form->submit('message/bt_submit.gif', array(
+                                'div' => false,
+                                'name' => 'submit',
+                                'alt' => '送信する',
+                                'style' => 'padding-top:20px;'
+                            ));
+                            ?>
+                            <?php
+                            echo $this->Form->end();
+                            ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php
+    echo $this->Html->link($this->Html->image('common/bt_back.jpg'), array(
+        'controller' => 'users',
+        'action' => 'login'
+    ), array(
+        'escape' => false,
+        'style' => 'padding-left:10px;'
+    ));
+    ?>
+</div>
+
+

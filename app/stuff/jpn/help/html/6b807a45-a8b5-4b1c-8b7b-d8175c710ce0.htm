@@ -1,0 +1,29 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:MSHelp="http://msdn.microsoft.com/mshelp" xmlns:mshelp="http://msdn.microsoft.com/mshelp" xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:msxsl="urn:schemas-microsoft-com:xslt"><head><META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" /><META NAME="save" CONTENT="history" /><title>複雑なステートメントの処理</title><meta name="Language" content="ja-jp" /><meta name="Microsoft.Help.Id" content="6b807a45-a8b5-4b1c-8b7b-d8175c710ce0" /><meta name="Description" content="Microsoft JDBC Driver for SQL Server を使用するときは、実行時に動的に生成されるステートメントなど、複雑なステートメントに対処しなければならないことがあります。複雑なステートメントは、更新、挿入、および削除などのさまざまなタスクを頻繁に実行します。これらの種類のステートメントは、複数の結果セットや出力パラメーターを返すこともあります。こうした状況では、ステートメントを実行する Java コードが、返されるデータやオブジェクトの型および数について事前に知らない場合があります" /><meta name="Microsoft.Help.ContentType" content="Concepts" /><link rel="stylesheet" type="text/css" href="../local/Classic.css" /><script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script><script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script><script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script><script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script><script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script><script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script><script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script><script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script></head><body><div id="header"><table id="bottomTable" cellpadding="0" cellspacing="0"><tr><td align="left"><span id="headerBold">複雑なステートメントの処理</span></td></tr></table><table id="gradientTable"><tr><td class="nsrBottom" background="../icons/gradient.gif" /></tr></table></div><div id="mainSection"><div id="mainBody"><div class="introduction"><p>Microsoft JDBC Driver for SQL Server を使用するときは、実行時に動的に生成されるステートメントなど、複雑なステートメントに対処しなければならないことがあります。複雑なステートメントは、更新、挿入、および削除などのさまざまなタスクを頻繁に実行します。これらの種類のステートメントは、複数の結果セットや出力パラメーターを返すこともあります。こうした状況では、ステートメントを実行する Java コードが、返されるデータやオブジェクトの型および数について事前に知らない場合があります。</p><p>複雑なステートメントを効率的に処理するため、JDBC ドライバーでは、返されるオブジェクトやデータをクエリし、アプリケーションがそれらを正しく処理するための多くのメソッドが用意されています。複雑なステートメントを処理するために重要となるのは、<a href="ec24963c-8b51-4838-91e9-1fbfa2347451.htm">SQLServerStatement</a> クラスの <a href="e1367f39-23d7-4e26-b160-6d988d7e6988.htm">execute</a> メソッドです。このメソッドでは <span sdata="langKeyword" value="boolean"><span class="keyword">boolean</span></span> 値が返されます。値が true の場合、ステートメントから返される最初の結果は結果セットです。値が false の場合、返される最初の結果は更新数です。</p><p>返されたオブジェクトまたはデータの型がわかっている場合、<a href="929a14e2-8e98-4c32-89aa-86733c717ec1.htm">getResultSet</a> メソッドまたは <a href="e9570228-4500-44b6-b2f1-84ac050b5112.htm">getUpdateCount</a> メソッドのいずれかを使用してそのデータを処理することができます。複雑なステートメントから返された次のオブジェクトまたはデータへ進むため、<a href="df89db50-0b2f-4094-820a-30be25ad72fe.htm">getMoreResults</a> メソッドを呼び出すことができます。</p><p>次の例は、SQL Server 2005 AdventureWorks サンプル データベースに対して開いている接続を関数に渡し、ストアド プロシージャ呼び出しと SQL ステートメントを結合する複雑なステートメントを作成して実行します。次に <span class="code">do</span> ループを使用して、返されたすべての結果セットおよび更新数を処理します。</p><div name="snippetGroup"><div class="sampleCode"><span codeLanguage="Java"><pre>public static void executeComplexStatement(Connection con) {
+   try {
+      String sqlStringWithUnknownResults = "{call dbo.uspGetEmployeeManagers(50)};SELECT TOP 10 * FROM Person.Contact";
+      Statement stmt = con.createStatement();
+      boolean results = stmt.execute(sqlStringWithUnknownResults);
+      int count = 0;
+      do {
+         if (results) {
+            ResultSet rs = stmt.getResultSet();
+            System.out.println("Result set data displayed here.");
+            rs.close();
+         } else {
+            count = stmt.getUpdateCount();
+            if (count &gt;= 0) {
+               System.out.println("DDL or update data displayed here.");
+            } else {
+               System.out.println("No more results to process.");
+            }
+         }
+         results = stmt.getMoreResults();
+      } while (results || count != -1);
+      stmt.close();
+   }
+   catch (Exception e) {
+      e.printStackTrace();
+   }
+}
+
+</pre></span></div></div></div><span id="seeAlsoSpan"><h1 class="heading">関連項目</h1></span><div id="seeAlsoSection" class="section" name="collapseableSection" style=""><div class="seeAlsoStyle"><span sdata="link"><a href="7f8f3e8f-841e-4449-9154-b5366870121f.htm">JDBC ドライバーでのステートメントの使用</a></span></div></div></div><div id="footer" class="section"><span id="feedbackarea">このトピックに関する<a href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\dフィードバックありがとうございます。開発チームは、皆様からのフィードバックに基づいてドキュメントを改善しています。フィードバックを確認中、内容の確認または解決策に関するご意見をうかがうために電子メールをお送りする場合があります。お客様の電子メール アドレスをそれ以外の目的で使用することはありません。また、確認完了後はお客様の電子メール アドレス情報を削除させていただきます。%0\Aマイクロソフトのプライバシーに関する声明の詳細については、http://privacy.microsoft.com/ja-jp/default.aspx を参照してください。%0\A%0\d','カスタマー フィードバック');">フィードバック</a>を Microsoft にお送りください。</span><span id="copyrightarea"><p><a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012 Microsoft.All rights reserved.</a></p></span></div></div></body></html>

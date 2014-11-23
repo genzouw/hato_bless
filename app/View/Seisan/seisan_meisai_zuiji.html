@@ -1,0 +1,78 @@
+﻿<!-- mainContents -->
+<section id="mainContents">
+
+<h2 class="contentsTitle01 icoKihontouroku01">精算明細情報照会(随時)</h2>
+<section class="sectionBase01">
+
+<table   class="tablePt01 mT50 mB50 mL20 w650">
+<tr>
+    <th  class = "w100">請求月</td>
+    <td class = "w170">201410</td>
+    <th  class = "w100">請求先</td>
+    <td class = "w90">00000</td>
+    <td class = "w90">ｘｘｘｘｘｘ</td>
+    </tr>
+<tr>
+    <th  class = "w100">費用名称</td>
+    <td>ｘｘｘｘｘｘ</td>
+    <td colspan="3">&nbsp;</td>
+    </tr>
+</table>
+</section>
+
+<h2 class="contentsTitle01 icoKihontouroku01">精算詳細</h2>
+<section class="sectionBase01">
+
+<?php echo $this->Session->flash(); ?>
+
+<!-- pagerContents -->
+<div class="pagerContents">
+<p><?php echo $arrData['current_pg'] ?>/<?php echo $arrData['pg_total'] ?>ページ を表示</p>
+<?php echo $this->Paging->list_navi($arrData, $pg_url) ?>
+</div>
+<!-- /pagerContents -->
+
+<table   class="tablePt01 mL20 mT10 mB10 w780" >
+
+    <tr>
+        <th class = "w100">発生日</th>
+        <th class = "w100" >費用項目</th>
+        <th class = "w100" >費用金額</th>
+        <th class = "w100" >消費税</th>
+        <th class = "w100" >合計金額</th>
+        <th class = "w100" >手数料</th>
+        <th class = "w130" >請求合計額</th>
+        <th class = "w50">&nbsp;</th>
+    </tr>
+<?php if(!empty($arrData['list'])): ?>
+<?php foreach($arrData['list'] as $row): ?>
+    <tr>
+        <td><?php echo $row[0]['SEIKYU_YM'] ?></td>
+        <td><?php echo $row[0]['MEISAI_KBN'] ?></td>
+        <td>0000</td>
+        <td>0000</td>
+        <td>0000</td>
+        <td>0000</td>
+        <td>0000</td>
+        <td class="SubmitButtomCell">
+            <input type="submit" value="詳細"> 
+        </td>
+    </tr>
+<?php endforeach;?>
+<?php endif; ?>
+</table>
+
+<!-- pagerContents -->
+<div class="pagerContents">
+<?php echo $this->Paging->list_navi($arrData, $pg_url) ?>
+</div>
+<!-- /pagerContents -->
+
+
+<div align="right" class=" mB20  mR20 boarder-style:none;">
+<input class = "w50" type="submit" value="戻る">
+</div>
+
+</section>
+</section>
+<!-- /mainContents -->

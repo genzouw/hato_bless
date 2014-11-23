@@ -1,0 +1,82 @@
+﻿<!-- mainContents -->
+<section id="mainContents">
+
+<h2 class="contentsTitle01 icoKihontouroku01">精算明細情報照会(受注)</h2>
+<section class="sectionBase01">
+
+<table   class="tablePt01 mT50 mB50 mL20 w550">
+    <tr>
+        <th  class = "w100">請求月</td>
+        <td class = "w170">201410</td>
+        <th  class = "w100">請求先</td>
+        <td class = "w90">00000</td>
+        <td class = "w90">ｘｘｘｘｘｘ</td>
+    </tr>
+    <tr>
+        <th  class = "w100">費用名称</td>
+        <td>ｘｘｘｘｘｘ</td>
+        <td colspan="3">&nbsp;</td>
+    </tr>
+</table>
+</section>
+
+<h2 class="contentsTitle01 icoKihontouroku01">精算詳細</h2>
+<section class="sectionBase01">
+
+<?php echo $this->Session->flash(); ?>
+
+<!-- pagerContents -->
+<div class="pagerContents">
+<p><?php echo $arrData['current_pg'] ?>/<?php echo $arrData['pg_total'] ?>ページ を表示</p>
+<?php echo $this->Paging->list_navi($arrData, $pg_url) ?>
+</div>
+<!-- /pagerContents -->
+
+<table   class="tablePt01  mL20 mT10  mB10 w980">
+
+    <tr>
+        <th class="w90">精算日</th>
+        <th  class="w90">受付番号</th>
+        <th  class="w90">顧客名</th>
+        <th  class="w90">費用金額</th>
+        <th  class="w90">消費税</th>
+        <th  class="w90">立替金</th>
+        <th  class="w90">合計金額</th>
+        <th  class="w90">手数料</th>
+        <th  class="w90">請求合計額</th>
+        <th  class="w50">&nbsp;</th>
+
+    </tr>
+<?php if(!empty($arrData['list'])): ?>
+<?php foreach($arrData['list'] as $row): ?>
+    <tr>
+        <td><?php echo $row[0]['SEIKYU_YM'] ?></td>
+        <td><?php echo $row[0]['UKETSUKE_NO'] ?></td>
+        <td><?php echo $row[0]['KOKYAKUMEI'] ?></td>
+        <td><?php echo $row[0]['SHOHIZEI_GK'] ?></td>
+        <td><?php echo $row[0]['SHOHIZEI_GK'] ?></td>
+        <td><?php echo $row[0]['TATEKAE_GK'] ?></td>
+        <td><?php echo $row[0]['SHOHIZEI_GK'] ?></td>
+        <td><?php echo $row[0]['SHOHIZEI_GK'] ?></td>
+        <td><?php echo $row[0]['SHOHIZEI_GK'] ?></td>
+        <td class="SubmitButtomCell">
+            <input type="submit" value="詳細"> 
+        </td>
+    </tr>
+<?php endforeach;?>
+<?php endif; ?>
+</table>
+
+<!-- pagerContents -->
+<div class="pagerContents">
+<?php echo $this->Paging->list_navi($arrData, $pg_url) ?>
+</div>
+<!-- /pagerContents -->
+
+<div class="ftBox mT10 mB20 taR">
+    <input class = "w100" type="button" value="戻る">
+</div>
+</section>
+
+</section>
+<!-- /mainContents -->

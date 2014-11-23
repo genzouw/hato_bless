@@ -1,0 +1,12 @@
+@charset "UTF-8";
+
+/*
+ * import.css
+ * インポート用
+ *  version --- 1.0
+ *  updated --- 2013.09.09
+ */
+
+@import "cmn_layout.css";
+@import "cmn_style.css";
+@import "css_browser_selector.css";

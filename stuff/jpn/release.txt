@@ -1,0 +1,130 @@
+﻿リリース情報
+Microsoft JDBC Driver 4.0 for SQL Server
+2012 年 3 月
+
+
+概要
+------------
+このファイルには、Microsoft JDBC Driver 4.0 for SQL Server 
+ドキュメントを補足する最新情報またはその他の重要な情報が記載
+されています。JDBC Driver をインストールする前に、
+このファイルをよくお読みください。
+
+マイクロソフトはお客様のフィードバックを重要なご提案
+として受け止め、その迅速な対応に努めています。JDBC Driver の
+ブログとオンライン フォーラムを使用してフィードバックを送信する
+方法については、Microsoft JDBC Driver 4.0 for SQL Server のページ 
+(http://msdn.microsoft.com/data/jdbc) を参照してください。
+
+
+インストール
+------------
+JDBC Driver のインストール手順は install.txt に記載されています。
+Windows と Unix オペレーティング システムの JDBC Driver
+のインストールの詳細はそのファイルを参照してください。
+
+サポートされているオペレーティング システム
+---------------------------
+Microsoft JDBC Driver 4.0 for SQL Server は以下のオペレーティング システムをサポートします。
+Linux、Unix、Windows Server 2008、
+Windows Vista Service Pack 1、Windows Server 2008 R2 および Windows 7。
+
+上記のリストは、サポートされているオペレーティング システムの例の一部です。
+JDBC Driver は Java 仮想マシン (JVM) をサポートするどのオペレーティング
+システムでも機能するよう設計されています。ただし、公式にテストされたのは
+Sun Solaris、SUSE Linux、Windows Vista Service Pack 1 以降だけです。
+
+リリース内容
+----------------
+Microsoft JDBC Driver 4.0 for SQL Server の zip および tar 形式の実行
+可能ファイルを使用すると、選択したインストール ディレクトリの下の
+各ディレクトリに以下のファイルがアンパックされます。
+
+<インストール ディレクトリ>\sqljdbc_<バージョン>\<言語>\install.txt
+<インストール ディレクトリ>\sqljdbc_<バージョン>\<言語>\release.txt
+<インストール ディレクトリ>\sqljdbc_<バージョン>\<言語>\license.txt
+<インストール ディレクトリ>\sqljdbc_<バージョン>\<言語>\sqljdbc.jar
+<インストール ディレクトリ>\sqljdbc_<バージョン>\<言語>\sqljdbc4.jar
+<インストール ディレクトリ>\sqljdbc_<バージョン>\<言語>\auth\x86\sqljdbc_auth.dll
+<インストール ディレクトリ>\sqljdbc_<バージョン>\<言語>\auth\x64\sqljdbc_auth.dll
+<インストール ディレクトリ>\sqljdbc_<バージョン>\<言語>\help\default.htm
+<インストール ディレクトリ>\sqljdbc_<バージョン>\<言語>\help\index.htm
+<インストール ディレクトリ>\sqljdbc_<バージョン>\<言語>\help\toc.htm
+<インストール ディレクトリ>\sqljdbc_<バージョン>\<言語>\help\html\<doc pages...>
+<インストール ディレクトリ>\sqljdbc_<バージョン>\<言語>\help\local\<doc files...>
+<インストール ディレクトリ>\sqljdbc_<バージョン>\<言語>\help\samples\<sample files...>
+<インストール ディレクトリ>\sqljdbc_<バージョン>\<言語>\xa\xa_install.sql
+<インストール ディレクトリ>\sqljdbc_<バージョン>\<言語>\xa\x86\sqljdbc_xa.dll
+<インストール ディレクトリ>\sqljdbc_<バージョン>\<言語>\xa\x64\sqljdbc_xa.dll
+
+
+変更一覧
+-----------
+3.0 から 4.0 での変更:
+
+1765616 DatabaseMetadata.getTypeInfo は、Katmai 以降のバージョンに対して、date、time、datetime2、datetimeoffset の新しい java.sql.Type 値を返すようになりました。
+
+1764334 JDBC XA Timeout および XID のトレースのサポートが追加されました。
+
+1750318 プール接続が再利用されるとき、SQLServerDatabaseMetaData 関数が正しく機能するようになりました。
+
+1768845 setTimestamp および updateTimestamp の動作が、丸め処理に関して一貫性を持つようになりました。サーバーに送信される前、
+        データはドライバーにより最初に小数点以下 7 桁に丸められます。
+
+1770134 最大値 (23:59:59.999) を持つタイム バックエンド型の updateTime の丸め処理が正しく機能するようになりました。
+
+1761042 DataSource のブール型プロパティが終了呼び出しをログに記録するようになりました。
+
+1750330 最初の実行時の誤解を招くエラーを避けるため XA SQL スクリプトが更新されました。
+
+1761393 unwrap メソッドのトレースが向上されました。
+
+1945579 DatabaseMetaData.getSchemas が SQL Azure および SQL Server のすべての照合順序に対して正しく機能するようになりました。
+
+1963089 hostNameInCertificate 接続プロパティは SQL Azure に対する SSL 証明書の検証に必須条件ではなくなりました。
+
+1958531 データベース ミラーリング用にセットアップされていないサーバーへの接続にログイン時に失敗する場合 (例: データベースが存在しない)、ドライバーは自動的に再試行しません。
+
+1954701 重複行の挿入時にスローされる例外に SQLState 23000 が含まれるようになりました。
+
+2055259 sqljdbc_auth.dll の読み込み後に統合認証に失敗した場合のエラー メッセージが拡張されました。
+
+2083373 無効な引数を持つ大きなパラメーター化クエリが、SQL Azure に対して接続を閉じずに例外をスローするようになりました。
+
+2084385 getDate、getTimestamp、getDateTimeOffset がすべての日付の JRE 1.7 で正しい値を返すようになりました。
+
+2105115 DatabaseMetaData.getColumns から取得された ResultSet の getObject が正しく機能するようになりました。
+
+
+既知の問題
+------------
+Microsoft JDBC Driver 4.0 for SQL Server に関する既知の問題には、次のものがあります。
+
+1) SQL MERGE ステートメントでのパラメーター メタデータの制限
+
+パラメーター化された MERGE クエリと共に使用された場合、
+PreparedStatement.getParameterMetadata() が SQLException をスローします。
+
+
+2) Java Kerberos および IBM VM
+
+Windows 環境で実行する場合、Java Kerberos 機能を実装するには構成ファイルでプリンシパル名を指定する必要があります。次に例を示します。
+SQLJDBCDriver {
+com.ibm.security.auth.module.Krb5LoginModule required  useDefaultCcache=true credsType=initiator principal=principalname@principaldomain;
+};
+
+
+3) SQL Azure との接続の終了
+
+SQL Azure への接続時に非アクティブな状態が一定時間続くと、ファイアウォールなどのネットワーク コンポーネントにより、
+アイドル接続が終了されることがあります。ネットワーク コンポーネントによるアイドル接続の終了を
+回避するには、ドライバーが読み込まれている OS で次のレジストリ設定 (非 Windows では同等の設定) を行う必要があります。
+           
+           レジストリ設定                                                                       推奨値
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\KeepAliveTime                 30000
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\KeepAliveInterval             1000
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\TcpMaxDataRetransmission      10
+  
+
+
+

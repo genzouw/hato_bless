@@ -1,0 +1,31 @@
+USE [HATO2]
+GO
+
+/****** Object:  UserDefinedFunction [dbo].[GET_TAX_RT]    Script Date: 07/31/2014 11:57:50 ******/
+SET ANSI_NULLS OFF
+GO
+
+SET QUOTED_IDENTIFIER OFF
+GO
+
+CREATE FUNCTION [dbo].[GET_TAX_RT] (@KIJUN_DT AS char(8))  
+RETURNS decimal(5) AS  
+BEGIN
+DECLARE
+	--基準日を元に、税率を返却する
+	--2004/07/09 K.EBISUI@KOS
+	@税率		decimal(5)
+	SELECT
+		@税率 = ISNULL(SHOHIZEI_RT,0)
+	FROM
+		M_ZEIRITU
+	WHERE
+		TEKIYO_KAISI_DT <= @KIJUN_DT
+	AND
+		TEKIYO_SHURYO_DT >= @KIJUN_DT
+	SET @税率 = ISNULL(@税率,0)
+	RETURN @税率
+END
+
+GO
+

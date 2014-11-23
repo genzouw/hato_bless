@@ -1,0 +1,77 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:MSHelp="http://msdn.microsoft.com/mshelp" xmlns:mshelp="http://msdn.microsoft.com/mshelp" xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:msxsl="urn:schemas-microsoft-com:xslt"><head><META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" /><META NAME="save" CONTENT="history" /><title>結果セットのデータ サンプルの変更</title><meta name="Language" content="ja-jp" /><meta name="System.Keywords" content="結果セットのサンプルの変更" /><meta name="Microsoft.Help.Id" content="b5ae54dc-2a79-4664-bb21-cacdb7d745e1" /><meta name="Description" content="この Microsoft JDBC Driver for SQL Server サンプル アプリケーションは、SQL Server データベースから更新可能なデータ セットを取得する方法を示しています。そして、SQLServerResultSet オブジェクトのメソッドを使用して、データ セットのデータの行を挿入および変更し、最終的には削除します。" /><meta name="Microsoft.Help.ContentType" content="Samples" /><link rel="stylesheet" type="text/css" href="../local/Classic.css" /><script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script><script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script><script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script><script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script><script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script><script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script><script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script><script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script></head><body><div id="header"><table id="bottomTable" cellpadding="0" cellspacing="0"><tr><td align="left"><span id="headerBold">結果セットのデータ サンプルの変更</span></td></tr></table><table id="gradientTable"><tr><td class="nsrBottom" background="../icons/gradient.gif" /></tr></table></div><div id="mainSection"><div id="mainBody"><div class="introduction"><p>この Microsoft JDBC Driver for SQL Server サンプル アプリケーションは、SQL Server データベースから更新可能なデータ セットを取得する方法を示しています。そして、<a href="eaffcff1-286c-459f-83da-3150778480c9.htm">SQLServerResultSet</a> オブジェクトのメソッドを使用して、データ セットのデータの行を挿入および変更し、最終的には削除します。</p><p>このサンプルのコード ファイルは updateRS.java という名前で、次の場所にあります。</p><p>&lt;<i>インストール ディレクトリ</i>&gt;\sqljdbc_&lt;<i>バージョン</i>&gt;\&lt;<i>言語</i>&gt;\help\samples\resultsets</p></div><h1 class="heading">要件</h1><div id="requirementsTitleSection" class="section" name="collapseableSection" style=""><p>このサンプル アプリケーションを実行するには、クラスパスの設定で sqljdbc.jar ファイルまたは sqljdbc4.jar ファイルを追加する必要があります。クラスパスに sqljdbc.jar または sqljdbc4.jar のエントリがない場合、サンプル アプリケーションで "Class not found" という一般的な例外がスローされます。また、SQL Server 2005 AdventureWorks サンプル データベースへのアクセス権限も必要です。クラスパスの設定方法の詳細については、「<span sdata="link"><a href="6faaf05b-8b70-4ed2-9b44-eee5897f1cd0.htm">JDBC ドライバーの使用</a></span>」を参照してください。</p><div style="margin: .5em 1.5em .5em 1.5em"><b></b><p>Microsoft JDBC Driver for SQL Server には、sqljdbc.jar と sqljdbc4.jar という 2 つのクラス ライブラリ ファイルが用意されており、必要な Java ランタイム環境 (JRE) 設定によって自由に使い分けることができます。選択する JAR ファイルの詳細については、「<span sdata="link"><a href="447792bb-f39b-49b4-9fd0-1ef4154c74ab.htm">JDBC Driver のシステム要件</a></span>」を参照してください。</p></div></div><h1 class="heading">使用例</h1><div id="exampleSection" class="section" name="collapseableSection" style=""><p>次の例では、サンプル コードは AdventureWorks サンプル データベースへの接続を行います。次に、<a href="ec24963c-8b51-4838-91e9-1fbfa2347451.htm">SQLServerStatement</a> オブジェクトで SQL ステートメントを使用して、SQL ステートメントを実行し、返されたデータを更新可能な <b>SQLServerResultSet</b> オブジェクトに配置します。</p><p>次に、サンプル コードは <a href="f3c54bfe-d5b7-4f6e-ae6c-3e8954e5b1c9.htm">moveToInsertRow</a> メソッドを使用して結果セットのカーソルを挿入行に移動し、一連の <a href="0cf286c7-9dcd-4b02-a568-ba6b6eb27e82.htm">updateString</a> メソッドを使用して新しい行にデータを挿入してから、<a href="363d1008-1396-4fc0-8e27-c9ba2499e7f1.htm">insertRow</a> メソッドを呼び出してデータの新しい行をデータベースに戻して保持します。</p><p>データの新しい行の挿入後、サンプル コードは前に挿入した行を SQL ステートメントを使用して取得し、さらに <b>updateString</b> メソッドと <a href="cfced0ca-a281-40dc-8d2f-370d5f0bf12b.htm">updateRow</a> メソッドを組み合わせて使用して、データの行を更新し、再度データベースに戻して保持します。</p><p>最後に、サンプル コードは前に更新したデータの行を取得してから、<a href="aa04a644-c7c2-4738-8b6e-7fea566d2c16.htm">deleteRow</a> メソッドを使用してそのデータの行をデータベースから削除します。</p><div class="sampleCode"><span codeLanguage="other"><pre>import java.sql.*;
+
+public class updateRS {
+
+   public static void main(String[] args) {
+
+      // Create a variable for the connection string.
+      String connectionUrl = "jdbc:sqlserver://localhost:1433;" +
+            "databaseName=AdventureWorks;integratedSecurity=true;";
+
+      // Declare the JDBC objects.
+      Connection con = null;
+      Statement stmt = null;
+      ResultSet rs = null;
+ 
+      try {
+         
+         // Establish the connection.
+         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+         con = DriverManager.getConnection(connectionUrl);
+
+         // Create and execute an SQL statement, retrieving an updateable result set.
+         String SQL = "SELECT * FROM HumanResources.Department;";
+         stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+         rs = stmt.executeQuery(SQL);
+
+         // Insert a row of data.
+         rs.moveToInsertRow();
+         rs.updateString("Name", "Accounting");
+         rs.updateString("GroupName", "Executive General and Administration");
+         rs.updateString("ModifiedDate", "08/01/2006");
+         rs.insertRow();
+
+         // Retrieve the inserted row of data and display it.
+         SQL = "SELECT * FROM HumanResources.Department WHERE Name = 'Accounting';";
+         rs = stmt.executeQuery(SQL);
+         displayRow("ADDED ROW", rs);
+
+         // Update the row of data.
+         rs.first();
+         rs.updateString("GroupName", "Finance");
+         rs.updateRow();
+
+         // Retrieve the updated row of data and display it.
+         rs = stmt.executeQuery(SQL);
+         displayRow("UPDATED ROW", rs);
+
+         // Delete the row of data.
+         rs.first();
+         rs.deleteRow();
+         System.out.println("ROW DELETED");
+      }
+
+      // Handle any errors that may have occurred.
+      catch (Exception e) {
+         e.printStackTrace();
+      }
+
+      finally {
+         if (rs != null) try { rs.close(); } catch(Exception e) {}
+         if (stmt != null) try { stmt.close(); } catch(Exception e) {}
+         if (con != null) try { con.close(); } catch(Exception e) {}
+      }
+   }
+
+   private static void displayRow(String title, ResultSet rs) {
+      try {
+         System.out.println(title);
+         while (rs.next()) {
+            System.out.println(rs.getString("Name") + " : " + rs.getString("GroupName"));
+            System.out.println();
+         }
+      } catch (Exception e) {
+         e.printStackTrace();
+      }
+   }
+}</pre></span></div></div><span id="seeAlsoSpan"><h1 class="heading">関連項目</h1></span><div id="seeAlsoSection" class="section" name="collapseableSection" style=""><div class="seeAlsoStyle"><span sdata="link"><a href="4fc4b1c6-3075-4ad7-9244-865d9ede7ae6.htm">結果セットの処理</a></span></div></div></div><div id="footer" class="section"><span id="feedbackarea">このトピックに関する<a href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\dフィードバックありがとうございます。開発チームは、皆様からのフィードバックに基づいてドキュメントを改善しています。フィードバックを確認中、内容の確認または解決策に関するご意見をうかがうために電子メールをお送りする場合があります。お客様の電子メール アドレスをそれ以外の目的で使用することはありません。また、確認完了後はお客様の電子メール アドレス情報を削除させていただきます。%0\Aマイクロソフトのプライバシーに関する声明の詳細については、http://privacy.microsoft.com/ja-jp/default.aspx を参照してください。%0\A%0\d','カスタマー フィードバック');">フィードバック</a>を Microsoft にお送りください。</span><span id="copyrightarea"><p><a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012 Microsoft.All rights reserved.</a></p></span></div></div></body></html>

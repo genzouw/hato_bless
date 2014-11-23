@@ -1,0 +1,32 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:MSHelp="http://msdn.microsoft.com/mshelp" xmlns:mshelp="http://msdn.microsoft.com/mshelp" xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:msxsl="urn:schemas-microsoft-com:xslt"><head><META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" /><META NAME="save" CONTENT="history" /><title>自動生成キーの使用</title><meta name="Language" content="ja-jp" /><meta name="System.Keywords" content="自動生成キー" /><meta name="Microsoft.Help.Id" content="55a062c7-45ce-40e3-9a6f-4a0f4da4e2a6" /><meta name="Description" content="Microsoft JDBC Driver for SQL Server では、自動的に生成された行識別子を取得する JDBC 3.0 API がオプションでサポートされます。この機能の主な重要性は、クエリ、およびサーバーに対する 2 回目のラウンドトリップを要求することなく、データベース テーブルを更新するアプリケーションで IDENTITY 値を利用できることです。" /><meta name="Microsoft.Help.ContentType" content="Concepts" /><link rel="stylesheet" type="text/css" href="../local/Classic.css" /><script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script><script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script><script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script><script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script><script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script><script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script><script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script><script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script></head><body><div id="header"><table id="bottomTable" cellpadding="0" cellspacing="0"><tr><td align="left"><span id="headerBold">自動生成キーの使用</span></td></tr></table><table id="gradientTable"><tr><td class="nsrBottom" background="../icons/gradient.gif" /></tr></table></div><div id="mainSection"><div id="mainBody"><div class="introduction"><p>Microsoft JDBC Driver for SQL Server では、自動的に生成された行識別子を取得する JDBC 3.0 API がオプションでサポートされます。この機能の主な重要性は、クエリ、およびサーバーに対する 2 回目のラウンドトリップを要求することなく、データベース テーブルを更新するアプリケーションで IDENTITY 値を利用できることです。</p><p>SQL Server では識別子の擬似列をサポートしていないため、自動生成キー機能を使用する更新は、IDENTITY 列を含むテーブルに対して実行する必要があります。SQL Server で許可されるのは 1 つのテーブルにつき 1 つの IDENTITY 列だけです。<a href="ec24963c-8b51-4838-91e9-1fbfa2347451.htm">SQLServerStatement</a> クラスの <a href="a3325950-0e81-4ae8-aa0c-e1f6d371adcd.htm">getGeneratedKeys</a> メソッドによって返される結果セットは 1 列だけで構成され、返される列名は GENERATED_KEYS です。生成されたキーが IDENTITY 列のないテーブルで要求された場合、JDBC ドライバーは null の結果セットを返します。</p><p>たとえば、SQL Server 2005 AdventureWorks サンプル データベースで次のテーブルを作成します。</p><div class="sampleCode"><span codeLanguage="other"><pre>CREATE TABLE TestTable 
+   (Col1 int IDENTITY, 
+    Col2 varchar(50), 
+    Col3 int);</pre></span></div><p>次の例は、AdventureWorks サンプル データベースに対して開いている接続を関数に渡して、テーブルにデータを追加する SQL ステートメントを作成および実行し、IDENTITY 列の値を出力します。</p><div name="snippetGroup"><div class="sampleCode"><span codeLanguage="Java"><pre>public static void executeInsertWithKeys(Connection con) {
+   try {
+      String SQL = "INSERT INTO TestTable (Col2, Col3) VALUES ('S', 50)";
+      Statement stmt = con.createStatement();
+      int count = stmt.executeUpdate(SQL, Statement.RETURN_GENERATED_KEYS);
+      ResultSet rs = stmt.getGeneratedKeys();
+
+      ResultSetMetaData rsmd = rs.getMetaData();
+      int columnCount = rsmd.getColumnCount();
+      if (rs.next()) {
+         do {
+            for (int i=1; i&lt;=columnCount; i++) {
+               String key = rs.getString(i);
+               System.out.println("KEY " + i + " = " + key);
+            }
+         } while(rs.next());
+      }
+      else {
+         System.out.println("NO KEYS WERE GENERATED.");
+      }
+      rs.close();
+      stmt.close();
+   }
+   catch (Exception e) {
+      e.printStackTrace();
+   }
+}
+
+</pre></span></div></div></div><span id="seeAlsoSpan"><h1 class="heading">関連項目</h1></span><div id="seeAlsoSection" class="section" name="collapseableSection" style=""><div class="seeAlsoStyle"><span sdata="link"><a href="7f8f3e8f-841e-4449-9154-b5366870121f.htm">JDBC ドライバーでのステートメントの使用</a></span></div></div></div><div id="footer" class="section"><span id="feedbackarea">このトピックに関する<a href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\dフィードバックありがとうございます。開発チームは、皆様からのフィードバックに基づいてドキュメントを改善しています。フィードバックを確認中、内容の確認または解決策に関するご意見をうかがうために電子メールをお送りする場合があります。お客様の電子メール アドレスをそれ以外の目的で使用することはありません。また、確認完了後はお客様の電子メール アドレス情報を削除させていただきます。%0\Aマイクロソフトのプライバシーに関する声明の詳細については、http://privacy.microsoft.com/ja-jp/default.aspx を参照してください。%0\A%0\d','カスタマー フィードバック');">フィードバック</a>を Microsoft にお送りください。</span><span id="copyrightarea"><p><a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012 Microsoft.All rights reserved.</a></p></span></div></div></body></html>

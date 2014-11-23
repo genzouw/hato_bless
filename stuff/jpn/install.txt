@@ -1,0 +1,50 @@
+﻿インストール手順
+Microsoft JDBC Driver 4.0 for SQL Server
+
+
+概要
+------------
+ここでは sqljdbc_<バージョン>_enu.exe と sqljdbc_<バージョン>_enu.tar.gz 
+のアンパック方法について説明します。
+
+
+WINDOWS
+-------
+1. license.txt ファイルの内容を確認します。Microsoft JDBC Driver 4.0 for SQL Server を
+   ダウンロードして使用するということは、この使用許諾に同意することを表明したことになります。
+
+2. sqljdbc_<バージョン>_enu.exe を一時ディレクトリにダウンロードします。
+
+3. sqljdbc_<バージョン>_enu.exe を実行します。
+
+4. メッセージが表示されたらインストール ディレクトリを入力します。zip ファイルは
+   %ProgramFiles% に次の既定ディレクトリでアンパックすることをお勧めします。
+
+	Microsoft JDBC DRIVER 4.0 for SQL Server
+
+5. パッケージのアンパック後、JDBC ヘルプ システムを開くために
+   %InstallationDirectory%\Microsoft JDBC Driver 4.0 for SQL Server\sqljdbc_<バージョン>\<言語>\
+   help\default.htm を開きます。これにより、Web ブラウザーにヘルプ システムが表示されます。
+
+
+UNIX
+----
+1. license.txt ファイルの内容を確認します。Microsoft JDBC Driver 4.0 for SQL Server を
+   ダウンロードして使用するということは、この使用許諾に同意することを表明したことになります。
+
+2. sqljdbc_<バージョン>_enu.tar.gz を一時ディレクトリにダウンロードします。
+
+3. zip 形式の tar をアンパックするには、ドライバーをアンパックする
+   ディレクトリに移動し、次のように入力します。
+
+	gzip -d sqljdbc_<バージョン>_enu.tar.gz
+
+4. tar をアンパックするには、ドライバーをインストールするディレクトリに
+   移動し、次のように入力します。
+
+	tar -xf sqljdbc_<バージョン>_enu.tar
+
+5. パッケージのアンパック後、JDBC ヘルプ システムを開くために
+   %InstallationDirectory%/Microsoft JDBC Driver 4.0 for SQL Server/sqljdbc_<バージョン>/<言語>/
+   help/default.htm を開きます。これにより、既定の Web ブラウザーにヘルプ 
+   システムが表示されます。

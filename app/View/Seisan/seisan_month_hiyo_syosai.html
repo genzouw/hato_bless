@@ -1,0 +1,89 @@
+﻿<!-- mainContents -->
+<section id="mainContents">
+
+<h2 class="contentsTitle01 icoKihontouroku01">月額固定費用料金詳細入力</h2>
+<section class="sectionBase01">
+
+<?php echo $this->Session->flash(); ?>
+
+<table   class="tablePt01 mT50 mB50 mL20 w600">
+	<tr>
+    	<th  class = "w110">取引先名</td>
+		<td class = "w130">
+                    <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w130',
+                                                  'value' => '')) ?>
+        </td>
+		<td class = "w100"></td>
+    </tr>
+	<tr>
+    	<th >備考</th>
+    	<td colspan="2" class="w400">
+                    <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w100per',
+                                                  'cols' => 80,
+                                                  'rows' => 3,
+                                                  'value' => '')) ?>
+        </td>
+    </tr>
+</table>
+
+
+<h2 class="contentsTitle01 icoKihontouroku01">リース詳細入力</h2>
+
+<table   class="tablePt01 mT50 mB50 mL20">
+	<tr>
+    	<th  class = "w150">相手先会社</td>
+    	<td class = "w150">
+                    <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w150',
+                                                  'value' => '')) ?>
+        </td>
+        <td></td>
+    </tr>
+	<tr>
+    	<th>金額</th>
+    	<td>
+                    <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w150',
+                                                  'value' => '')) ?>
+        </td>
+        <td>円</td>
+    </tr>
+    <tr>
+    	<th >残回数(1月現在)</th>
+    	<td>
+                    <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w150',
+                                                  'value' => '')) ?>
+        </td>
+        <td></td>
+    </tr>
+</table>
+
+
+<div class="mB20 taC" >
+	<input class = "w200" type="reset" value="クリア">
+    <input class = "w200" type="submit" value="登録">
+    <input class = "w200" type="button" value="閉じる">
+
+</div>
+
+</section>
+</section>
+<!-- /mainContents -->

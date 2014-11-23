@@ -1,0 +1,25 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:MSHelp="http://msdn.microsoft.com/mshelp" xmlns:mshelp="http://msdn.microsoft.com/mshelp" xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:msxsl="urn:schemas-microsoft-com:xslt"><head><META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" /><META NAME="save" CONTENT="history" /><title>セーブポイントの使用</title><meta name="Language" content="ja-jp" /><meta name="System.Keywords" content="トランザクションのセーブポイント" /><meta name="Microsoft.Help.Id" content="3b48eb13-32ef-4fb3-8e95-dbc9468c9a44" /><meta name="Description" content="セーブポイントは、トランザクションを部分的にロールバックするメカニズムです。SQL Server では、SAVE TRANSACTION savepoint_name ステートメントを使用してセーブポイントを作成できます。その後 ROLLBACK TRANSACTION savepoint_name ステートメントを実行すると、トランザクションの最初にロールバックするのではなく、セーブポイントにロールバックされます。" /><meta name="Microsoft.Help.ContentType" content="Concepts" /><link rel="stylesheet" type="text/css" href="../local/Classic.css" /><script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script><script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script><script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script><script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script><script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script><script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script><script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script><script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script></head><body><div id="header"><table id="bottomTable" cellpadding="0" cellspacing="0"><tr><td align="left"><span id="headerBold">セーブポイントの使用</span></td></tr></table><table id="gradientTable"><tr><td class="nsrBottom" background="../icons/gradient.gif" /></tr></table></div><div id="mainSection"><div id="mainBody"><div class="introduction"><p>セーブポイントは、トランザクションを部分的にロールバックするメカニズムです。SQL Server では、SAVE TRANSACTION savepoint_name ステートメントを使用してセーブポイントを作成できます。その後 ROLLBACK TRANSACTION savepoint_name ステートメントを実行すると、トランザクションの最初にロールバックするのではなく、セーブポイントにロールバックされます。</p><p>セーブポイントは、エラーが発生する可能性が小さい状況で役立ちます。エラーの頻度が低い場合には、セーブポイントを使用してトランザクションの一部をロールバックする方法は、更新が有効であるかどうかを更新を行う前にトランザクションごとにテストするよりも効率的です。更新とロールバックは負荷の大きい処理です。そのため、セーブポイントが効果を発揮するのは、エラーの発生確率が低く、なおかつ更新の有効性を事前にチェックするコストの方が高い場合に限られます。</p><p>Microsoft JDBC Driver for SQL Server は、<a href="937292a6-1525-423e-a2b2-a18fd34c2893.htm">SQLServerConnection</a> クラスの <a href="c39c6b4f-b9e2-423b-94ae-9f82d9e6d08d.htm">setSavepoint</a> メソッドを通じてセーブポイントの使用をサポートします。<b>setSavepoint</b> メソッドを使用することで、名前付きセーブポイントまたは名前を割り当てられていないセーブポイントを、現在のトランザクションに作成できます。またこのメソッドによって <a href="1ae7db7b-959f-4142-8d9f-aa427869c6ac.htm">SQLServerSavepoint</a> オブジェクトが返されます。セーブポイントは 1 つのトランザクションに複数作成できます。特定のセーブポイントまでトランザクションをロールバックするには、<b>SQLServerSavepoint</b> オブジェクトを <a href="d5dbd9ef-194f-4130-bfcc-7901a4fa8ded.htm">rollback (java.sql.Savepoint)</a> メソッドに渡します。</p><p>次の例では、<span class="code">try</span> ブロック内の 2 つの個別のステートメントで構成されるローカル トランザクションの実行時にセーブポイントが使用されます。ステートメントは、SQL Server 2005 AdventureWorks サンプル データベースの Production.ScrapReason テーブルに対して実行され、2 番目のステートメントのロールバックにセーブポイントが使用されています。この結果、最初のステートメントのみがデータベースにコミットされます。</p><div name="snippetGroup"><div class="sampleCode"><span codeLanguage="Java"><pre>public static void executeTransaction(Connection con) {
+   try {
+      con.setAutoCommit(false);
+      Statement stmt = con.createStatement();
+      stmt.executeUpdate("INSERT INTO Production.ScrapReason(Name) VALUES('Correct width')");
+      Savepoint save = con.setSavepoint();
+      stmt.executeUpdate("INSERT INTO Production.ScrapReason(Name) VALUES('Wrong width')");
+      con.rollback(save);
+      con.commit();
+      stmt.close();
+      System.out.println("Transaction succeeded.");
+   }
+   catch (SQLException ex) {
+      ex.printStackTrace();
+      try {
+         System.out.println("Transaction failed.");
+         con.rollback();
+      }
+      catch (SQLException se) {
+         se.printStackTrace();
+      }
+   }
+}
+
+</pre></span></div></div></div><span id="seeAlsoSpan"><h1 class="heading">関連項目</h1></span><div id="seeAlsoSection" class="section" name="collapseableSection" style=""><div class="seeAlsoStyle"><span sdata="link"><a href="afbb776f-05dc-4e79-bb25-2c340483e401.htm">JDBC ドライバーを使用したトランザクションの実行</a></span></div></div></div><div id="footer" class="section"><span id="feedbackarea">このトピックに関する<a href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\dフィードバックありがとうございます。開発チームは、皆様からのフィードバックに基づいてドキュメントを改善しています。フィードバックを確認中、内容の確認または解決策に関するご意見をうかがうために電子メールをお送りする場合があります。お客様の電子メール アドレスをそれ以外の目的で使用することはありません。また、確認完了後はお客様の電子メール アドレス情報を削除させていただきます。%0\Aマイクロソフトのプライバシーに関する声明の詳細については、http://privacy.microsoft.com/ja-jp/default.aspx を参照してください。%0\A%0\d','カスタマー フィードバック');">フィードバック</a>を Microsoft にお送りください。</span><span id="copyrightarea"><p><a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012 Microsoft.All rights reserved.</a></p></span></div></div></body></html>

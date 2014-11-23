@@ -1,0 +1,44 @@
+﻿<!-- mainContents -->
+<section id="mainContents">
+
+<h2 class="contentsTitle01 icoKihontouroku01">精算引落情報作成</h2>
+    <section class="sectionBase01">
+
+<?php echo $this->Session->flash(); ?>
+
+<table   class="tablePt01 mT50 mB50 mL20 w250">
+	<tr>
+    	<th  class = "w130">精算月</td>
+    	<td class = "w120">
+                    <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w120',
+                                                  'placeholder' => 'yyyymm',
+                                                  'value' => '')) ?>
+        </td>
+    </tr>
+	<tr>
+    	<th >引落日</th>
+    	<td>
+                    <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w120',
+                                                  'placeholder' => 'yyyymmdd',
+                                                  'value' => '')) ?>
+        </td>
+        <td><span class="btnImg icoCal01"></span></td>
+    </tr></table>
+
+<div class="ftBox mT10 mB20 taC">
+	<input class = "w200" type="reset" value="クリア">
+    <input class = "w200" type="button" value="出力">
+
+</div>
+
+</section>
+</section>
+<!-- /mainContents -->

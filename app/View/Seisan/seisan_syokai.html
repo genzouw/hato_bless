@@ -1,0 +1,119 @@
+<!-- mainContents -->
+<section id="mainContents">
+
+<h2 class="contentsTitle01 icoKihontouroku01">清算情報紹介検索</h2>
+    <section class="sectionBase01">
+
+<?php echo $this->Session->flash(); ?>
+
+<table   class="tablePt01 mT50 mB50 mL20 w600">
+    <tr>
+        <th class="w200">清算月</th>
+        <td class="  w120">
+                    <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w120',
+                                                  'placeholder' => 'yyyymm',
+                                                  'value' => $arrSearch['seisan_dt'])) ?>
+        </td>
+        <td colspan="3">（例）201408</td>
+    </tr>
+    <tr>
+        <th >清算元組織コード</th>
+        <td class="w120">
+                    <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w120',
+                                                  'value' => $arrMotoSoshiki['M_SOSHIKI']['SOSHIKI_CD'])) ?>
+        </td>
+           <td class="  w120">
+                    <?php echo  $arrMotoSoshiki['M_SOSHIKI']['SOSHIKI_MEI'] ?>
+        </td>
+        <td class="  mL10  no_border w50">
+                <input type="button" value="参照"> 
+        </td>
+    </tr>
+    <tr>
+        <th >清算先組織コード</th>
+        <td  class="  w120">
+                    <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w120',
+                                                  'value' => '')) ?>
+        </td>
+        <td  class="  w120">
+                    <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w120',
+                                                  'value' => '')) ?>
+        </td> 
+        <td class="  mL10  no_border">
+            <input type="button" value="参照"> 
+        </td>
+    </tr>
+</table>
+
+<div class="ftBox mT10 mB20 taC">
+    <input class = "w200" type="reset" value="クリア">
+    <input class = "w200" type="button" value="検索">
+
+</div>
+</section>
+
+<h2 class="contentsTitle01 icoKihontouroku01">清算情報紹介検索結果</h2>
+    <section class="sectionBase01">
+
+<div class = "w800">
+    <div class=" flL w150">印刷</div>
+    <div class="flR  w680">
+        <input type="button" value="清算書">
+        <input type="button" value="清算明細書">
+        <input type="button" value="相手先別請求・支払一覧">
+        <input type="button" value="清算入力金一覧">
+        <input type="button" value="組織内請求書">
+    </div>
+    <br clear="all">
+</div>
+
+<table    class="tablePt01 mT50 mB50 mL20" >
+
+    <tr>
+        <th class="taC w90">清算対象年月</th>
+        <th  class="taC w90" colspan="2">清算先<br>組織名称</th>
+        <th  class="taC w90">請求<br>支払</th>
+        <th  class="taC w90">清算料金<br>科目</th>
+        <th  class="taC w90">請求額</th>
+        <th  class="taC w90">支払額</th>
+        <th  class="taC w90">当月請求額</th>
+        <th  class="taC w90">当月支払額</th>
+        <th  class="taC w90">明細</th>
+    </tr>
+<?php if(!empty($arrData['list'])): ?>
+<?php foreach($arrData['list'] as $row): ?>
+    <tr>
+        <td class="taC">201310</td>
+        <td class="taC">清算先</td>
+        <td class="taC">組織名称</td>
+        <td class="taC">請求</td>
+        <td class="taC">清算料金科目</td>
+        <td class="taC">￥00,000</td>
+        <td class="taC">￥00,000</td>
+        <td class="taC">￥00,000</td>
+        <td class="taC">￥00,000</td>
+        <td class="taC"><input class="w80 " type="button" value="明細"></td>
+    </tr>
+<?php endforeach;?>
+<?php endif; ?>
+</table>
+
+</section>
+</section>
+<!-- /mainContents -->

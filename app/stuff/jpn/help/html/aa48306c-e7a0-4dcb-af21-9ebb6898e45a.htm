@@ -1,0 +1,30 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:MSHelp="http://msdn.microsoft.com/mshelp" xmlns:mshelp="http://msdn.microsoft.com/mshelp" xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:msxsl="urn:schemas-microsoft-com:xslt"><head><META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" /><META NAME="save" CONTENT="history" /><title>保持機能の使用</title><meta name="Language" content="ja-jp" /><meta name="System.Keywords" content="トランザクションの保持機能" /><meta name="Microsoft.Help.Id" content="aa48306c-e7a0-4dcb-af21-9ebb6898e45a" /><meta name="Description" content="既定では、トランザクション内で作成される結果セットは、トランザクションがデータベースにコミットされた後、またはロールバックされるときに開かれたままになります。ただし、トランザクションがコミットされた後で結果セットを閉じると便利な場合があります。このため、Microsoft JDBC Driver for SQL Server は結果セットの保持機能をサポートしています。" /><meta name="Microsoft.Help.ContentType" content="Concepts" /><link rel="stylesheet" type="text/css" href="../local/Classic.css" /><script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script><script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script><script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script><script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script><script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script><script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script><script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script><script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script></head><body><div id="header"><table id="bottomTable" cellpadding="0" cellspacing="0"><tr><td align="left"><span id="headerBold">保持機能の使用</span></td></tr></table><table id="gradientTable"><tr><td class="nsrBottom" background="../icons/gradient.gif" /></tr></table></div><div id="mainSection"><div id="mainBody"><div class="introduction"><p>既定では、トランザクション内で作成される結果セットは、トランザクションがデータベースにコミットされた後、またはロールバックされるときに開かれたままになります。ただし、トランザクションがコミットされた後で結果セットを閉じると便利な場合があります。このため、Microsoft JDBC Driver for SQL Server は結果セットの保持機能をサポートしています。</p><p>結果セットの保持機能は、<a href="937292a6-1525-423e-a2b2-a18fd34c2893.htm">SQLServerConnection</a> クラスの <a href="552eebd0-4c38-43f0-961f-35244f99109b.htm">setHoldability</a> メソッドを使用して設定できます。<b>setHoldability</b> メソッドを使用して保持機能を設定する場合、結果セット保持機能の定数である <b>ResultSet.HOLD_CURSORS_OVER_COMMIT</b> または <b>ResultSet.CLOSE_CURSORS_AT_COMMIT</b> を使用できます。</p><p>JDBC ドライバーも、Statement オブジェクトのいずれか 1 つを作成する場合に、保持機能の設定をサポートします。結果セットの保持機能パラメーターがあるオーバーロードを持つ Statement オブジェクトを作成する場合、ステートメント オブジェクトの保持機能が接続の保持機能と一致する必要があります。両者が一致しない場合、例外がスローされます。これは、SQL Server では接続レベルのみで保持機能がサポートされるからです。</p><p>結果セットの保持機能は、結果セットがサーバー側のカーソル専用に作成されている場合にその結果セットと関連付けられる <b>SQLServerConnection</b> オブジェクトの保持機能です。クライアント側のカーソルには適用されません。クライアント側のカーソルがあるすべての結果セットの保持機能の値は、常に <b>ResultSet.HOLD_CURSORS_OVER_COMMIT</b> です。</p><p>サーバー側のカーソルについては、SQL Server 2005 以降に接続されている場合に、保持機能の設定が、その接続でこれから作成される新しい結果セットの保持機能にのみ影響を与えます。つまり、保持機能の設定は、その接続で以前に作成された結果セットや既に開かれている結果セットにはまったく影響を与えません。ただし、SQL Server 2000 の場合は、保持機能の設定が、既存の結果セットとその接続でこれから作成される新しい結果セットの両方の保持機能に影響を与えます。</p><p>次の例では、結果セットの保持機能は、<span class="code">try</span> ブロック内の 2 つの個別のステートメントで構成されるローカル トランザクションの実行時に設定されます。ステートメントは、SQL Server 2005 AdventureWorks サンプル データベースの Production.ScrapReason テーブルに対して実行されます。例では、最初に自動コミットを <span sdata="langKeyword" value="false"><span class="keyword">false</span></span> に設定して、手動トランザクション モードに切り替えます。自動コミット モードが無効になると、アプリケーションで明示的に <a href="c7346165-51bf-4844-b64c-29833c147236.htm">commit</a> メソッドを呼び出すまで、SQL ステートメントはコミットされません。catch ブロック内のコードは、例外がスローされた場合にトランザクションをロールバックします。</p><div name="snippetGroup"><div class="sampleCode"><span codeLanguage="Java"><pre>public static void executeTransaction(Connection con) {
+   try {
+       con.setAutoCommit(false);
+       con.setHoldability(ResultSet.HOLD_CURSORS_OVER_COMMIT);
+       Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+       stmt.executeUpdate("INSERT INTO Production.ScrapReason(Name) VALUES('Bad part')");
+       ResultSet rs = stmt.executeQuery("SELECT * FROM Production.ScrapReason");
+       con.commit();
+       System.out.println("Transaction succeeded.");
+
+       //Display results.
+       while (rs.next()) {
+          System.out.println(rs.getString(2));
+       }
+       stmt.close();
+      }
+      catch (SQLException ex) {
+         ex.printStackTrace();
+         try {
+            System.out.println("Transaction failed.");
+            con.rollback();
+         }
+         catch (SQLException se) {
+            se.printStackTrace();
+         }
+      }
+   }
+}
+
+</pre></span></div></div></div><span id="seeAlsoSpan"><h1 class="heading">関連項目</h1></span><div id="seeAlsoSection" class="section" name="collapseableSection" style=""><div class="seeAlsoStyle"><span sdata="link"><a href="afbb776f-05dc-4e79-bb25-2c340483e401.htm">JDBC ドライバーを使用したトランザクションの実行</a></span></div></div></div><div id="footer" class="section"><span id="feedbackarea">このトピックに関する<a href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\dフィードバックありがとうございます。開発チームは、皆様からのフィードバックに基づいてドキュメントを改善しています。フィードバックを確認中、内容の確認または解決策に関するご意見をうかがうために電子メールをお送りする場合があります。お客様の電子メール アドレスをそれ以外の目的で使用することはありません。また、確認完了後はお客様の電子メール アドレス情報を削除させていただきます。%0\Aマイクロソフトのプライバシーに関する声明の詳細については、http://privacy.microsoft.com/ja-jp/default.aspx を参照してください。%0\A%0\d','カスタマー フィードバック');">フィードバック</a>を Microsoft にお送りください。</span><span id="copyrightarea"><p><a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012 Microsoft.All rights reserved.</a></p></span></div></div></body></html>

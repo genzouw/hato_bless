@@ -1,0 +1,35 @@
+﻿<!-- mainContents -->
+<section id="mainContents">
+
+<h2 class="contentsTitle01 icoKihontouroku01">受注法人一覧</h2>
+<section class="sectionBase01">
+
+<table   class="tablePt01 mT50 mB50 mL20 w960" >
+
+    <tr>
+        <th  class="w140 taC">法人会社名</th>
+        <th  class="w140 taC">受付番号</th>
+        <th  class="w140 taC">顧客名</th>
+        <th  class="w140 taC">卸日</th>
+        <th  class="w140 taC">請求元請求額</th>
+    </tr>
+<?php if(!empty($arrData['list'])): ?>
+<?php foreach($arrData['list'] as $row): ?>
+    <tr>
+        <td><?php echo  $this->Form->label('会社名') ?></td>
+        <td><?php echo  $this->Form->label('受付番号') ?></td>
+        <td><?php echo  $this->Form->label('顧客名') ?></td>
+        <td><?php echo  $this->Form->label('卸日') ?></td>
+        <td><?php echo  $this->Form->label('請求元請求額') ?></td>
+    </tr>
+<?php endforeach;?>
+<?php endif; ?>
+</table>
+
+<div align="center"  class="mB20" >
+	<input class = "w200" type="button" value="閉じる">
+</div>
+
+</section>
+</section>
+<!-- /mainContents -->

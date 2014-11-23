@@ -1,0 +1,312 @@
+
+<!-- contents -->
+<section id="contents">
+
+<!-- mainContents -->
+<section id="mainContents">
+
+<h2 class="contentsTitle01">手配入力（ピアノ・重量物輸送）</h2>
+
+<!-- sectionBase01 -->
+<section class="sectionBase01">
+<!--pdPt01-->
+<div class="pdPt01">
+    <!-- caution -->
+    <p class="caution mB10">ピアノ・重量物輸送の手配情報を登録してください。</p>
+    <!-- tablePt02 -->
+    <table class="tablePt02">
+        <tr>
+            	<th class="taC w150" rowspan="2">取扱区分</th>
+            	<td class="w350">
+                	<input type="text" value="XXXXXXXXXX" class="w330 errorContents">
+            	</td>
+             <th class="taC w150">Sys. No.</th>
+            	<td class="w350">
+                	<input type="text" value="XXXXXXXXXX" class="w330 errorContents">
+            	</td>
+        </tr>
+        <tr>            	
+            	<td>
+                	<input type="text" value="XXXXXXXXXX" class="w330 errorContents">
+            	</td>
+             <th class="taC">No.</th>
+            	<td>
+                	<input type="text" value="XXXXXXXXXX" class="w330 errorContents">
+            	</td>
+        </tr>
+     </table>
+     
+     <table class="tablePt02 mT10">
+        <tr>
+            	<th class="taC w150">名前</th>
+            	<td class="w350">
+                	<input type="text" value="XXXXXXXXXX" class="w330 errorContents">
+            	</td>
+             <th class="taC w150">営業担当</th>
+            	<td class="w350">
+                	<input type="text" value="XXXXXXXXXX" class="w330 errorContents">
+            	</td>
+        </tr>
+     </table>
+     
+     <table class="tablePt02 mT10">
+		<tr>
+            	<th class="taC w150">法人名</th>
+            	<td class="w350">
+                	<input type="text" value="XXXXXXXXXX" class="w330 errorContents">
+            	</td>
+            	<th class="taC w150">元請名</th>
+            	<td class="w350">
+                	<input type="text" value="XXXXXXXXXX" class="w330 errorContents">
+            	</td>
+        </tr>
+     </table>
+     
+     <table class="tablePt02 mT10">
+        <tr>
+            	<th class="taC">&nbsp;</th>
+             <th class="taC">Act</th>
+             <th class="taC">開始予定時間</th>
+             <th class="taC">住所</th>
+         </tr>
+        	<tr>
+            <td class="taC"><label for="id_1"><input type="checkbox" id="id_1" /></label></td>
+            <td class="taC">積</td>
+            
+            	<td>
+                	<input type="text" value="1999/11/11" class="w110 requiredContents" />
+                 <input type="text" value="水" class="w20 requiredContents" />
+                 <input type="text" value="hh:mm - hh:mm" class="w130 requiredContents" />
+            	</td>
+             <td>
+             	<input type="text" value="XXXXXXXXXX" class="w170 errorContents">
+                	<input type="text" value="XXXXXXXXXX" class="w170 errorContents">
+                 <input type="text" value="XXXXXXXXXX" class="w170 errorContents">
+             </td>
+        </tr>
+        <tr>
+            <td class="taC"><label for="id_1"><input type="checkbox" id="id_1" /></label></td>
+            <td class="taC">卸</td>
+            
+            	<td>
+                	<input type="text" value="1999/11/11" class="w110 requiredContents" />
+                 <input type="text" value="水" class="w20 requiredContents" />
+                 <input type="text" value="hh:mm - hh:mm" class="w130 requiredContents" />
+            	</td>
+             <td>
+             	<input type="text" value="XXXXXXXXXX" class="w170 errorContents">
+                	<input type="text" value="XXXXXXXXXX" class="w170 errorContents">
+                 <input type="text" value="XXXXXXXXXX" class="w170 errorContents">
+             </td>
+        </tr>
+     </table>
+     
+     <table class="tablePt02 mT10">
+     	<tr>
+        		<th class="taC w110">手配先</th>
+             <td>
+                 <input type="text" value="XXXXXXXXXX" class="w250 errorContents">
+                 <input type="text" value="XXXXXXXXXX" class="w250 errorContents">
+                 <input type="text" value="XXXXXXXXXX" class="w250 errorContents">
+                 <input type="button" value="参照" onclick="" class="inputBtn01">
+             </td>
+        </tr>
+     </table>
+     
+     <div class="ftBox mT20">
+     	<table class="tablePt02 flL w490">
+        		<tr>
+                <th class="taC" colspan="2">積地</th>
+             </tr>
+             <tr>
+             	<th class="taC w40">月日</th>
+             	<td>
+                		<input type="text" value="1999/11/11" class="w110 requiredContents" />
+                 	<input type="text" value="水" class="w20 requiredContents" />
+                		<a href="" class="btnImg icoCal01 vlineM"></a>
+                      〜
+                     <input type="text" value="1999/11/11" class="w110 requiredContents" />
+                 	<input type="text" value="水" class="w20 requiredContents" />
+                		<a href="" class="btnImg icoCal01 vlineM"></a>
+                     <br>
+                     (例)20140801
+                	</td>
+             </tr>
+             <tr>
+             	<th class="taC w40">時間</th>
+             	<td>
+                		<input type="text" value="hh:mm" class="w60 requiredContents" />
+                		〜
+                     <input type="text" value="88:88" class="w60 requiredContents" />
+                     <br>
+                     (例)05:00
+                	</td>
+             </tr>
+             <tr>
+             	<th class="taC w40">その他(積)</th>
+                	<td><label for="id_2_1"><input type="checkbox" id="id_2_1" /></label>要直接打ち合わせ(発)</td>
+            	</tr>
+        </table>
+        <table class="tablePt02 flL w490 mL20">
+        		<tr>
+                <th class="taC" colspan="3">卸地</th>
+             </tr>
+             <tr>
+             	<th class="taC w40">月日</th>
+             	<td colspan="2">
+                		<input type="text" value="1999/11/11" class="w110 requiredContents" />
+                 	<input type="text" value="水" class="w20 requiredContents" />
+                		<a href="" class="btnImg icoCal01 vlineM"></a>
+                      〜
+                     <input type="text" value="1999/11/11" class="w110 requiredContents" />
+                 	<input type="text" value="水" class="w20 requiredContents" />
+                		<a href="" class="btnImg icoCal01 vlineM"></a>
+                     <br>
+                      (例)20140801
+                	</td>
+             </tr>
+             <tr>
+             	<th class="taC w40">時間</th>
+             	<td colspan="2">
+                		<input type="text" value="hh:mm" class="w60 requiredContents" />
+                		〜
+                     <input type="text" value="88:88" class="w60 requiredContents" />
+                     <br>
+                      (例)05:00
+                	</td>
+             </tr>
+             <tr>
+             	<th class="taC w40">その他(卸)</th>
+                	<td><label for="id_2_2"><input type="checkbox" id="id_2_2" /></label>要直接打ち合わせ(着)</td>
+            	</tr>
+         </table>
+     </div>
+     
+         <table class="clear tablePt02 mT10">
+             <tr>
+             	<th class="taC w50" rowspan="4">作業<br>詳細</th>
+                	<th class="taC w300">品名</th>
+                 <th class="taC w100">点数</th>
+                 <th class="taC w50">運搬</th>
+                 <th class="taC w50" rowspan="4">作業<br>詳細</th>
+                	<th class="taC w300">項目</th>
+                 <th class="taC w100">例外</th>
+                 <th class="taC w50">取付</th>
+             </tr>
+             <tr>
+             	<td>
+                		<select name="example01" class="requiredContents">
+                        <option value="XXXXXXX">XXXXXXX</option>
+                        <option value="XXXXXXX">XXXXXXX</option>
+                        <option value="XXXXXXX">XXXXXXX</option>
+                    </select>
+                 </td>
+                 <td><input type="text" value="nnn" class="w50" /></td>
+                 <td class="taC"><label for="id_3_1"><input type="checkbox" id="id_3_1" /></label></td>
+                 <td>
+                 	<select name="example01" class="requiredContents">
+                        <option value="XXXXXXX">XXXXXXX</option>
+                        <option value="XXXXXXX">XXXXXXX</option>
+                        <option value="XXXXXXX">XXXXXXX</option>
+                    </select>
+                 </td>
+                 <td><input type="text" value="nnn" class="w100" /></td>
+                 <td class="taC"><label for="id_3_2"><input type="checkbox" id="id_3_2" /></label></td>
+             </tr>
+             <tr>
+             	<td>
+                		<select name="example01" class="requiredContents">
+                        <option value="XXXXXXX">XXXXXXX</option>
+                        <option value="XXXXXXX">XXXXXXX</option>
+                        <option value="XXXXXXX">XXXXXXX</option>
+                    </select>
+                 </td>
+                 <td><input type="text" value="nnn" class="w50" /></td>
+                 <td class="taC"><label for="id_3_1"><input type="checkbox" id="id_3_1" /></label></td>
+                 <td>
+                 	<select name="example01" class="requiredContents">
+                        <option value="XXXXXXX">XXXXXXX</option>
+                        <option value="XXXXXXX">XXXXXXX</option>
+                        <option value="XXXXXXX">XXXXXXX</option>
+                    </select>
+                 </td>
+                 <td><input type="text" value="nnn" class="w100" /></td>
+                 <td class="taC"><label for="id_3_2"><input type="checkbox" id="id_3_2" /></label></td>
+             </tr>
+             <tr>
+             	<td>
+                		<select name="example01" class="requiredContents">
+                        <option value="XXXXXXX">XXXXXXX</option>
+                        <option value="XXXXXXX">XXXXXXX</option>
+                        <option value="XXXXXXX">XXXXXXX</option>
+                    </select>
+                 </td>
+                 <td><input type="text" value="nnn" class="w50" /></td>
+                 <td class="taC"><label for="id_3_1"><input type="checkbox" id="id_3_1" /></label></td>
+                 <td>
+                 	<select name="example01" class="requiredContents">
+                        <option value="XXXXXXX">XXXXXXX</option>
+                        <option value="XXXXXXX">XXXXXXX</option>
+                        <option value="XXXXXXX">XXXXXXX</option>
+                    </select>
+                 </td>
+                 <td><input type="text" value="nnn" class="w100" /></td>
+                 <td class="taC"><label for="id_3_2"><input type="checkbox" id="id_3_2" /></label></td>
+             </tr>
+        </table>
+     
+     
+     <table class="clear tablePt02 mT10">
+     	<tr>
+        		<th class="taC w110"  rowspan="4">内容</th>
+             <td class="w390">
+                 手配先作業No. <input type="text" value="XXXXXXXXXX" class="w150 errorContents">
+             </td>
+             <td class="w500" rowspan="4">
+             	<textarea rows="6" cols="45"></textarea>
+             </td>
+        </tr>
+        <tr>
+        		<td>n.　（ネット）<input type="text" value="XXXXXXXXXX" class="w150 errorContents">円</td>
+        </tr>
+        <tr>
+        		<td>「税込額」<input type="text" value="XXXXXXXXXX" class="w150 errorContents mL30"></td>
+        </tr>
+        <tr>
+        		<td>g.　（グロス）<input type="text" value="XXXXXXXXXX" class="w150 errorContents">円</td>
+        </tr>
+     </table>
+     
+     <div class="ftBox">
+         <table class="flL tablePt02 w490 mT10">
+            <tr>
+                    <th>状況</th>
+                 <td>
+                    <select name="example01" class="requiredContents">
+                        <option value="XXXXXXX">XXXXXXX</option>
+                        <option value="XXXXXXX">XXXXXXX</option>
+                        <option value="XXXXXXX">XXXXXXX</option>
+                    </select>
+                 </td>
+            </tr>
+         </table>
+     	<div class="flL mL20">
+        		<input type="button" value="メールを送る" onclick="" class="inputBtn01 mT20">
+     		<input type="button" value="出力" onclick="" class="inputBtn01 mT20">
+      	</div>
+    </div>
+    <div class="clear mT20">
+    		<input type="button" value="削除" onclick="" class="inputBtn01">
+     	<input type="button" value="戻る" onclick="" class="inputBtn01">
+        <input type="button" value="クリア" onclick="" class="inputBtn01">
+     	<input type="button" value="更新" onclick="" class="inputBtn01">
+    </div>
+</div>
+<!-- /pdPt01-->
+</section>
+<!-- /sectionBase01-->
+</section>
+<!-- /mainContents -->
+
+</section>
+<!-- /contents -->

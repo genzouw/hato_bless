@@ -1,0 +1,139 @@
+﻿<html xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:MSHelp="http://msdn.microsoft.com/mshelp" xmlns:mshelp="http://msdn.microsoft.com/mshelp" xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:msxsl="urn:schemas-microsoft-com:xslt"><head><META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8" /><META NAME="save" CONTENT="history" /><title>スパース列</title><meta name="Language" content="ja-jp" /><meta name="Microsoft.Help.Id" content="7d4237e0-818f-4639-9093-d5ac9683fc71" /><meta name="Description" content="スパース列は、NULL 値用にストレージが最適化されている通常の列です。スパース列によって、NULL 以外の値を取得するためのオーバーヘッドは増大しますが、NULL 値に必要となる領域は削減されます。少なくとも 20 ～ 40% の領域を削減できる場合は、スパース列の使用を検討してください。" /><meta name="Microsoft.Help.ContentType" content="Concepts" /><link rel="stylesheet" type="text/css" href="../local/Classic.css" /><script type="text/javascript" src="../scripts/EventUtilities.js">&amp;nbsp;</script><script type="text/javascript" src="../scripts/SplitScreen.js">&amp;nbsp;</script><script type="text/javascript" src="../scripts/Dropdown.js">&amp;nbsp;</script><script type="text/javascript" src="../scripts/script_manifold.js">&amp;nbsp;</script><script type="text/javascript" src="../scripts/script_feedBack.js">&amp;nbsp;</script><script type="text/javascript" src="../scripts/CheckboxMenu.js">&amp;nbsp;</script><script type="text/javascript" src="../scripts/CommonUtilities.js">&amp;nbsp;</script><script type="text/javascript" src="../local/script_main.js">&amp;nbsp;</script></head><body><div id="header"><table id="bottomTable" cellpadding="0" cellspacing="0"><tr><td align="left"><span id="headerBold">スパース列</span></td></tr></table><table id="gradientTable"><tr><td class="nsrBottom" background="../icons/gradient.gif" /></tr></table></div><div id="mainSection"><div id="mainBody"><div class="introduction"><p>スパース列は、NULL 値用にストレージが最適化されている通常の列です。スパース列によって、NULL 以外の値を取得するためのオーバーヘッドは増大しますが、NULL 値に必要となる領域は削減されます。少なくとも 20 ～ 40% の領域を削減できる場合は、スパース列の使用を検討してください。</p><p>SQL Server JDBC Driver 3.0 では、SQL Server 2008 (以降) のサーバーに接続する場合、スパース列がサポートされます。スパース列および列セットの列を特定するために、<a href="f173fa5d-e114-4a37-a5c4-2baad9ff3af1.htm">SQLServerDatabaseMetaData.getColumns</a>、<a href="e2b0e0f7-717c-48e6-bcd2-a325d938a833.htm">SQLServerDatabaseMetaData.getFunctionColumns</a>、または <a href="4f0df8fe-3cd6-46e4-ae3c-dc23c35676b2.htm">SQLServerDatabaseMetaData.getProcedureColumns</a> を使用できます。</p><p>列セットは、すべてのスパース列を型指定されていない XML 形式で返す計算列です。テーブルに多数の列 (1,024 を超える列) があるか、個別のスパース列の操作が煩雑である場合は、列セットの使用を検討してください。列セットには、最大で 30,000 列を含めることができます。</p></div><h1 class="heading">例</h1><div id="sectionSection0" class="section" name="collapseableSection" style=""><h1 class="heading">説明</h1><div class="subsection"><p>このサンプルでは、列セットの検出方法を示します。また、列セットの XML 出力を解析して、スパース列からデータを取得する方法も示します。</p><p>最初のコード リストは、サーバーで実行する必要がある Transact-SQL です。</p><p>2 番目のコード リストは Java ソース コードです。アプリケーションをコンパイルする前に、接続文字列のサーバーの名前を変更してください。</p></div><h1 class="heading">コード</h1><div class="subsection"><div class="sampleCode"><span codeLanguage="other"><pre>use AdventureWorks
+CREATE TABLE ColdCalling
+(
+ID int IDENTITY(1,1) PRIMARY KEY,
+[Date] date,
+[Time] time,
+PositiveFirstName nvarchar(50) SPARSE,
+PositiveLastName nvarchar(50) SPARSE,
+SpecialPurposeColumns XML COLUMN_SET FOR ALL_SPARSE_COLUMNS
+);
+GO
+
+INSERT ColdCalling ([Date], [Time])
+VALUES ('10-13-09','07:05:24')
+GO
+      
+INSERT ColdCalling ([Date], [Time], PositiveFirstName, PositiveLastName)
+VALUES ('07-20-09','05:00:24', 'AA', 'B')
+GO
+      
+INSERT ColdCalling ([Date], [Time], PositiveFirstName, PositiveLastName)
+VALUES ('07-20-09','05:15:00', 'CC', 'DD')
+GO</pre></span></div></div><h1 class="heading">コード</h1><div class="subsection"><div class="sampleCode"><span codeLanguage="other"><pre>import java.sql.*;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.xml.sax.InputSource;
+
+import java.io.StringReader;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+public class SparseColumns {
+
+   public static void main(String args[]) {
+      final String connectionUrl = "jdbc:sqlserver://my_server;databaseName=AdventureWorks;integratedSecurity=true;";
+      
+      Connection conn = null;
+      Statement stmt = null;
+      ResultSet rs = null;
+      
+      try {
+         conn = DriverManager.getConnection(connectionUrl);
+         
+         stmt = conn.createStatement();
+         // Determine the column set column
+         String columnSetColName = null;
+         String strCmd = "SELECT name FROM sys.columns WHERE object_id=(SELECT OBJECT_ID('ColdCalling')) AND is_column_set = 1";
+         rs = stmt.executeQuery(strCmd);
+         
+         if (rs.next()) {
+            columnSetColName = rs.getString(1);
+            System.out.println(columnSetColName + " is the column set column!");
+         }
+         rs.close();
+
+         rs = null; 
+             
+         strCmd = "SELECT * FROM ColdCalling";
+         rs = stmt.executeQuery(strCmd);
+            
+         // Iterate through the result set
+         ResultSetMetaData rsmd = rs.getMetaData();
+         
+         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+         DocumentBuilder db = dbf.newDocumentBuilder();
+         InputSource is = new InputSource();
+         while (rs.next()) {
+            // Iterate through the columns
+            for (int i = 1; i &lt;= rsmd.getColumnCount(); ++i) {
+               String name = rsmd.getColumnName(i);
+               String value = rs.getString(i);
+   
+               // If this is the column set column
+               if (name.equalsIgnoreCase(columnSetColName)) {
+                  System.out.println(name);
+                  
+                  // Instead of printing the raw XML, parse it
+                  if (value != null) {
+                     // Add artificial root node "sparse" to ensure XML is well formed
+                     String xml = "&lt;sparse&gt;" + value + "&lt;/sparse&gt;";
+   
+                     is.setCharacterStream(new StringReader(xml));
+                     Document doc = db.parse(is);
+   
+                     // Extract the NodeList from the artificial root node that was added
+                     NodeList list = doc.getChildNodes();
+                     // This is the &lt;sparse&gt; node
+                     Node root = list.item(0); 
+                     // These are the xml column nodes
+                     NodeList sparseColumnList = root.getChildNodes(); 
+   
+                     // Iterate through the XML document
+                     for (int n = 0; n &lt; sparseColumnList.getLength(); ++n) {
+                        Node sparseColumnNode = sparseColumnList.item(n);
+                        String columnName = sparseColumnNode.getNodeName();
+                        // Note that the column value is not in the sparseColumNode, it is the value of the first child of it
+                        Node sparseColumnValueNode = sparseColumnNode.getFirstChild();
+                        String columnValue = sparseColumnValueNode.getNodeValue();
+                        
+                        System.out.println("\t" + columnName + "\t: " + columnValue);
+                     }
+                  }
+               } else {   // Just print the name + value of non-sparse columns
+                  System.out.println(name + "\t: " + value);
+               }
+            }
+            System.out.println();//New line between rows
+         }
+      } catch (Exception e) {
+         e.printStackTrace();
+      } finally {
+         if (rs != null) {
+            try {
+               rs.close();
+            } catch (Exception e) {
+               e.printStackTrace();
+            }
+         }
+         if (stmt != null) {
+            try {
+               stmt.close();
+            } catch (Exception e) {
+               e.printStackTrace();
+            }
+         }
+         if (conn != null) {
+            try {
+               conn.close();
+            } catch (Exception e) {
+               e.printStackTrace();
+            }
+         }
+      }
+   }      
+}</pre></span></div></div></div><span id="seeAlsoSpan"><h1 class="heading">関連項目</h1></span><div id="seeAlsoSection" class="section" name="collapseableSection" style=""><div class="seeAlsoStyle"><span sdata="link"><a href="e1592499-b87b-45ee-bab8-beaba8fde841.htm">JDBC ドライバーによるパフォーマンスと信頼性の強化</a></span></div></div></div><div id="footer" class="section"><span id="feedbackarea">このトピックに関する<a href="javascript:SubmitFeedback('DevDocs@Microsoft.com','','','','8.0.12060.10000','%0\dフィードバックありがとうございます。開発チームは、皆様からのフィードバックに基づいてドキュメントを改善しています。フィードバックを確認中、内容の確認または解決策に関するご意見をうかがうために電子メールをお送りする場合があります。お客様の電子メール アドレスをそれ以外の目的で使用することはありません。また、確認完了後はお客様の電子メール アドレス情報を削除させていただきます。%0\Aマイクロソフトのプライバシーに関する声明の詳細については、http://privacy.microsoft.com/ja-jp/default.aspx を参照してください。%0\A%0\d','カスタマー フィードバック');">フィードバック</a>を Microsoft にお送りください。</span><span id="copyrightarea"><p><a href="9bad553b-9e70-4696-8499-2e35f772a1e0.htm">© 2012 Microsoft.All rights reserved.</a></p></span></div></div></body></html>

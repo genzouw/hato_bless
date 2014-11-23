@@ -1,0 +1,260 @@
+
+<!-- mainContents -->
+<section id="mainContents">
+
+<h2 class="contentsTitle01">請求書出力</h2>
+
+<!-- sectionBase01 -->
+<section class="sectionBase01">
+<!--pdPt01-->
+<div class="pdPt01">
+    <!-- caution -->
+    <p class="caution mB30">条件を入力して検索ボタンをクリックしてください。</p>
+    <!-- tablePt02 -->
+    <table class="tablePt02">
+    		<tr>
+            	<th class="taC">清算日</th>
+            	<td colspan="3">
+                	<input type="text" value="1999/11/11" class="w110 requiredContents" />
+                 <a href="" class="btnImg icoCal01 vlineM"></a>
+                 &nbsp;〜&nbsp;
+                 <input type="text" value="1999/11/11" class="w110 requiredContents" />
+                 <a href="" class="btnImg icoCal01 vlineM"></a>
+                 &nbsp;&nbsp;
+                 <br>
+                 (例)20140801
+            	</td>
+        </tr>
+		<tr>
+            	<th class="taC">法人名</th>
+            	<td>
+                	<input type="text" value="XXXXXXXXXX" class="w340">
+            	</td>
+            	<td colspan="2">
+                	<input type="text" value="XXXXXXXXXX" class="w340">
+                 <input type="button" value="参照" onclick="" class="btnImg">
+            	</td>
+        </tr>
+        <tr>
+            	<th class="taC">印刷済</th>
+            	<td colspan="3">
+                	<label for="id_1"><input type="checkbox" id="id_1" />出力する</label>
+            	</td>
+        </tr>
+        <tr>
+            	<th class="taC">取扱区分</th>
+             <td colspan="3">
+             	<label for="id_2"><input type="checkbox" id="id_2" />引越・移転・生活関連</label>
+                	<label for="id_3"><input type="checkbox" id="id_3" />一般貨物</label>
+             </td>
+        </tr>
+        <tr>
+        		<th class="taC">請求先</th>
+             <td colspan="3">
+             	<label for="id_4"><input type="checkbox" id="id_4" />ご本人</label>
+                	<label for="id_5"><input type="checkbox" id="id_5" />会社</label>
+                 <label for="id_6"><input type="checkbox" id="id_6" />他センター</label>
+                	<label for="id_7"><input type="checkbox" id="id_7" />本部</label>
+                 <label for="id_8"><input type="checkbox" id="id_8" />連合会</label>
+                	<label for="id_9"><input type="checkbox" id="id_9" />その他</label>
+             </td>
+        </tr>
+        <tr>
+        		<th class="taC">決済手段</th>
+             <td colspan="3">
+             	<label for="id_10"><input type="checkbox" id="id_10" />現金</label>
+                	<label for="id_11"><input type="checkbox" id="id_11" />カード</label>
+                 <label for="id_12"><input type="checkbox" id="id_12" />振込</label>
+                	<label for="id_13"><input type="checkbox" id="id_13" />その他</label>
+             </td>
+        </tr>
+    </table>
+    <div class="clear ftBox mT20">
+    		<p class="flL mL250"><input type="button" value=" ク リ ア " onclick="" class="btnImg"></p>
+         <p class="flR mR250"><input type="button" value=" 検 索 " onclick="" class="btnImg"></p>
+    </div> 
+</div>
+<!-- /pdPt01-->
+
+
+<h2 class="contentsTitle01 mT30">検索結果</h2>
+
+<!--pdPt01-->
+<div class="pdPt01">
+	<table class="tablePt02 mT20">
+		<tr>
+            	<th class="taC w150">法人名</th>
+            	<td>
+                	<select name="example02" class="requiredContents">
+                    <option value="XXXX">XXXX</option>
+                    <option value="XXXX">XXXX</option>
+                    <option value="XXXX">XXXX</option>
+                </select>
+            	</td>
+            	<td colspan="2">
+                	<label for="id_2_1"><input type="checkbox" id="id_2_1" />請求書鑑</label>
+                	<label for="id_2_2"><input type="checkbox" id="id_2_2" />請求書明細</label>
+                 <label for="id_2_3"><input type="checkbox" id="id_2_3" />家具リスト</label>
+            	</td>
+        </tr>
+        <tr>
+        		<th class="taC">請求年月</th>
+             <td>
+             	<input type="text" value="199911" class="w110" /><br>
+				(例)201408
+            </td>
+            	<th class="taC">印刷用請求日</th>
+            	<td>
+                	<input type="text" value="1999/11/11" class="w110" />
+                 <input type="text" value="水" class="w30" />
+                 <a href="" class="btnImg icoCal01 vlineM"></a>
+                 <br>
+                 (例)20140801
+            	</td>
+        </tr>
+        <tr>
+        		<th class="taC">帳票ラベル変更<br>(顧客名)</th>
+             <td>
+             	<input type="text" value="199911" class="w250" />
+            </td>
+            	<td colspan="2">
+                	請求書鑑の項目名「顧客名」を指定の値に変更できます。
+            	</td>
+        </tr>
+    </table>
+   	
+    <div class="clear ftBox mT20">
+    		 <p class="flL"><input type="button" value="全選択" onclick="" class="btnImg"></p>
+         <p class="flL mL100"><input type="button" value="全解除" onclick="" class="btnImg"></p>
+         <p class="flR"><input type="button" value="全データ出力" onclick="" class="btnImg"></p>
+         <p class="flR mR100"><input type="button" value="現在表示分のみ出力" onclick="" class="btnImg"></p>
+    </div>
+    <!-- tablePt02 -->
+    <table class="tablePt02">
+    		<tr>
+            	<th class="taC">選択</th>
+        		<th class="taC">前回印刷</th>
+             <th class="taC">SYS<br>No.</th>
+             <th class="taC">顧客名</th>
+             <th class="taC">請求日</th>
+             <th class="taC">請求金額</th>
+             <th class="taC">積日▼</th>
+             <th class="taC">卸日▼</th>
+             <th class="taC">取扱区分</th>
+             <th class="taC">請求先</th>
+             <th class="taC">決済手段</th>
+             <th class="taC">入金日</th>
+             <th class="taC">出金日</th>
+          </tr>
+          <tr>
+          	<td><label for="id_3_1"><input type="checkbox" id="id_3_1" /></label></td>
+          	<td>yyyymmdd hh:mm</td>
+          	<td>××××<br>××</td>
+            <td>鳩山 太郎</td>
+            <td>2014<br>0801</td>
+            <td>2014<br>0801</td>
+            <td>\108,000-</td>
+            <td>2014<br>1231</td>
+            <td>2014<br>1231</td>
+            <td>法人転勤</td>
+            <td>会社</td>
+            <td>振込</td>
+            <td>2014<br>1231</td>
+            <td>2014<br>1231</td>
+    		</tr>
+         <tr>
+          	<td><label for="id_3_1"><input type="checkbox" id="id_3_1" /></label></td>
+          	<td>yyyymmdd hh:mm</td>
+          	<td>××××<br>××</td>
+            <td>鳩山 太郎</td>
+            <td>2014<br>0801</td>
+            <td>2014<br>0801</td>
+            <td>\108,000-</td>
+            <td>2014<br>1231</td>
+            <td>2014<br>1231</td>
+            <td>法人転勤</td>
+            <td>会社</td>
+            <td>振込</td>
+            <td>2014<br>1231</td>
+            <td>2014<br>1231</td>
+    		</tr>
+         <tr>
+          	<td><label for="id_3_1"><input type="checkbox" id="id_3_1" /></label></td>
+          	<td>yyyymmdd hh:mm</td>
+          	<td>××××<br>××</td>
+            <td>鳩山 太郎</td>
+            <td>2014<br>0801</td>
+            <td>2014<br>0801</td>
+            <td>\108,000-</td>
+            <td>2014<br>1231</td>
+            <td>2014<br>1231</td>
+            <td>法人転勤</td>
+            <td>会社</td>
+            <td>振込</td>
+            <td>2014<br>1231</td>
+            <td>2014<br>1231</td>
+    		</tr>
+         <tr>
+          	<td><label for="id_3_1"><input type="checkbox" id="id_3_1" /></label></td>
+          	<td>yyyymmdd hh:mm</td>
+          	<td>××××<br>××</td>
+            <td>鳩山 太郎</td>
+            <td>2014<br>0801</td>
+            <td>2014<br>0801</td>
+            <td>\108,000-</td>
+            <td>2014<br>1231</td>
+            <td>2014<br>1231</td>
+            <td>法人転勤</td>
+            <td>会社</td>
+            <td>振込</td>
+            <td>2014<br>1231</td>
+            <td>2014<br>1231</td>
+    		</tr>
+         <tr>
+          	<td><label for="id_3_1"><input type="checkbox" id="id_3_1" /></label></td>
+          	<td>yyyymmdd hh:mm</td>
+          	<td>××××<br>××</td>
+            <td>鳩山 太郎</td>
+            <td>2014<br>0801</td>
+            <td>2014<br>0801</td>
+            <td>\108,000-</td>
+            <td>2014<br>1231</td>
+            <td>2014<br>1231</td>
+            <td>法人転勤</td>
+            <td>会社</td>
+            <td>振込</td>
+            <td>2014<br>1231</td>
+            <td>2014<br>1231</td>
+    		</tr>
+        	<tr>
+          	<td><label for="id_3_1"><input type="checkbox" id="id_3_1" /></label></td>
+          	<td>yyyymmdd hh:mm</td>
+          	<td>××××<br>××</td>
+            <td>鳩山 太郎</td>
+            <td>2014<br>0801</td>
+            <td>2014<br>0801</td>
+            <td>\108,000-</td>
+            <td>2014<br>1231</td>
+            <td>2014<br>1231</td>
+            <td>法人転勤</td>
+            <td>会社</td>
+            <td>振込</td>
+            <td>2014<br>1231</td>
+            <td>2014<br>1231</td>
+    		</tr>
+    </table>
+    <div class="clear ftBox mT20">
+    		 <p class="flL"><input type="button" value="全選択" onclick="" class="btnImg"></p>
+         <p class="flL mL100"><input type="button" value="全解除" onclick="" class="btnImg"></p>
+         <p class="flR"><input type="button" value="全データ出力" onclick="" class="btnImg"></p>
+         <p class="flR mR100"><input type="button" value="現在表示分のみ出力" onclick="" class="btnImg"></p>
+    </div>
+    
+</div>
+<!-- /pdPt01-->
+</section>
+<!-- /sectionBase01-->
+</section>
+<!-- /mainContents -->
+
+

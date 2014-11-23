@@ -1,0 +1,114 @@
+﻿<!-- mainContents -->
+<section id="mainContents">
+
+<h2 class="contentsTitle01 icoKihontouroku01">費用項目マスタ検索</h2>
+<section class="sectionBase01">
+
+<?php echo $this->Session->flash(); ?>
+
+<table   class="tablePt01 mT50 mB50 mL20 w850">
+    <tr>
+        <th  class = "w150">精算年度</th>
+        <td  class = "w450">
+                    <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w170',
+                                                  'value' => '')) ?> 年 （例）2014
+        </td>
+        <th  class = "w150">費用名称</th>
+        <td  class = "w170">
+                    <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w170',
+                                                  'value' => '')) ?>
+        </td>
+    </tr>
+    <tr>
+        <th >料金形態</th>
+        <td  class = "w170" colspan="3">
+                    <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w170',
+                                                  'value' => '')) ?>
+        </td>
+
+    </tr>
+    <tr>
+        <th>組織コード</th>
+        <td class = "w170">
+                    <?php echo  $this->Form->input('NO_FIELD', 
+                                            array('type'=>'text', 
+                                                  'label' => false,
+                                                  'div' => false,
+                                                  'class' => 'w170 flL',
+                                                  'value' => '')) ?>
+            <p class="flL">ｘｘｘｘｘｘｘｘｘ</p>
+        </td>
+        <td colspan="2"><input class = "w80" type="button" value="参照"></td>
+    </tr>
+</table>
+
+<div class="ftBox mT10 mB20 taC">
+    <input class = "w200" type="reset" value="クリア">
+    <input class = "w200" type="submit" value="検索">
+    <input class = "w200" type="button" value="新規登録">
+
+</div>
+
+<h2 class="contentsTitle01 icoKihontouroku01">精算対象受注検索結果</h2>
+<section class="sectionBase01">
+
+<?php echo $this->Session->flash(); ?>
+
+<!-- pagerContents -->
+<div class="pagerContents">
+<p><?php echo $arrData['current_pg'] ?>/<?php echo $arrData['pg_total'] ?>ページ を表示</p>
+<?php echo $this->Paging->list_navi($arrData, $pg_url) ?>
+</div>
+<!-- /pagerContents -->
+
+<table   class="tablePt01 mT10 mB10 mL20 w1010" >
+
+    <tr>
+        <th  class = "w110">精算元組織</th>
+        <th  class = "w110">精算先組織</th>
+        <th  class = "w110">請求・支払</th>
+        <th  class = "w110">受付番号</th>
+        <th  class = "w110">法人名</th>
+        <th  class = "w110">顧客名</th>
+        <th  class = "w110">卸日</th>
+        <th  class = "w110">精算対象取消</th>
+        <th class="w20">&nbsp;</th>
+    </tr>
+<?php if(!empty($arrData['list'])): ?>
+<?php foreach($arrData['list'] as $row): ?>
+    <tr>
+        <td><?php echo $row[0]['MOTO_SOSHIKI_CD'] ?></td>
+        <td><?php echo $row[0]['SAKI_SOSHIKI_CD'] ?></td>
+        <td>請求・支払</td>
+        <td><?php echo $row[0]['UKETSUKE_NO'] ?></td>
+        <td><?php echo $row[0]['HOJIN_MEI'] ?></td>
+        <td><?php echo $row[0]['KOKYAKUMEI'] ?></td>
+        <td><?php echo $row[0]['OROSHI_DT'] ?></td>
+        <td>精算対象</td>
+        <td><input type="button" value="選択"></td>
+    </tr>
+<?php endforeach;?>
+<?php endif; ?>
+</table>
+
+<!-- pagerContents -->
+<div class="pagerContents">
+<?php echo $this->Paging->list_navi($arrData, $pg_url) ?>
+</div>
+<!-- /pagerContents -->
+
+</section>
+</section>
+<!-- /mainContents -->
