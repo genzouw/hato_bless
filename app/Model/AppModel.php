@@ -57,14 +57,14 @@ class AppModel extends Model {
             $start = 0;
         }
 
-        if($_SERVER['SERVER_NAME'] != '153.127.242.54'){
-            $sql =  " SELECT * ";
-            $sql .= "   FROM ( SELECT ROW_NUMBER() OVER( $order ) AS rownum , ".str_replace('SELECT','',$sql_string)." ) as TBL ";
-            $sql .= "  WHERE rownum BETWEEN $start AND ".$this->disp_num." ";
-        }else{
+        // if($_SERVER['SERVER_NAME'] != '153.127.242.54'){
+            // $sql =  " SELECT * ";
+            // $sql .= "   FROM ( SELECT ROW_NUMBER() OVER( $order ) AS rownum , ".str_replace('SELECT','',$sql_string)." ) as TBL ";
+            // $sql .= "  WHERE rownum BETWEEN $start AND ".$this->disp_num." ";
+        // }else{
             $sql_string .=  " LIMIT $start ,".$this->disp_num." ";
             $sql = $sql_string;
-        }
+        // }
         return $sql;
     }
 
