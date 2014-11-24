@@ -53,9 +53,7 @@ class SeisanController extends AppController {
 
     public function index() {
 
-        $this->redirect(array(
-            'action' => 'syokai',
-        ));
+        $this->redirect('/seisan/syokai');
 
     }
 

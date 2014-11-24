@@ -83,6 +83,13 @@
 <li<?php if($this->action === 'roukin') echo ' class="active"'; ?>><a href="/juchu/roukin"><span>料金</span></a></li>
 <li<?php if($this->action === 'sashizu') echo ' class="active"'; ?>><a href="/juchu/sashizu"><span>指図書</span></a></li>
 <li<?php if($this->action === 'chouhyou') echo ' class="active"'; ?>><a href="/juchu/chouhyou"><span>帳票出力</span></a></li>
+<?php elseif($this->name === 'DataSearch'): ?>
+	<li<?php if($this->action === 'data_search') echo ' class="active"'; ?>><a href="/data_search/"><span>データ検索</span></a></li>
+	<li<?php if($this->action === 'seikyu_print') echo ' class="active"'; ?>><a href="/data_search/seikyu_print"><span>請求書出力</span></a></li>
+	<li<?php if($this->action === 'juchu_list') echo ' class="active"'; ?>><a href="/data_search/juchu_list"><span>受注一覧出力</span></a></li>
+	<li<?php if($this->action === 'juchu_csv') echo ' class="active"'; ?>><a href="/data_search/juchu_csv"><span>受注CSV出力</span></a></li>
+	<li<?php if($this->action === 'shiharai_list') echo ' class="active"'; ?>><a href="/data_search/shiharai_list"><span>支払一覧表</span></a></li>
+	<li<?php if($this->action === 'houjin_uriage_list') echo ' class="active"'; ?>><a href="/data_search/houjin_uriage_list"><span>法人別売上一覧出力</span></a></li>
 <?php endif; ?>
 </ul>
 </nav>
