@@ -1,6 +1,9 @@
-<style>
+<style type="text/css"  media="all">
 .no-implement, .no-implement td {
      color: green;
+}
+td.checkboxes div {
+	display: inline;
 }
 </style>
 
@@ -69,20 +72,11 @@
 		</tr>
 		<tr>
 			<th class="taC">進行状況</th>
-			<td class="juchu_sts_cd">
-				<style type="text/css"  media="all">
-				td.juchu_sts_cd div {
-					display: inline;
-				}
-				</style>
+			<td class="checkboxes">
 				<?php echo $this->Form->input('JUCHU_STS_CD', array(
 					'type' => 'select',
 					'multiple' => 'checkbox',
-					'options' => array(
-						'1' => 'TEL打ち合わせ',
-						'2' => '見積依頼',
-						'05' => '見積完了',
-					),
+					'options' => $juchuStsCdOptions,
 				)); ?>
 			</td>
 			<td colspan="2">
@@ -120,7 +114,6 @@
 				<?php echo $this->Form->input('SAGYO_DT_FROM', array(
 					'class' => 'w110',
 				)); ?>
-				<input type="text" value="" class="w110" />
 				<a href="" class="btnImg icoCal01 vlineM"></a>
 				&nbsp;〜&nbsp;
 				<?php echo $this->Form->input('SAGYO_DT_TO', array(
@@ -176,18 +169,21 @@
 		<tr>
 			<th class="taC">経由</th>
 			<td>
-				<select name="example01" class="requiredContents">
-					<option value="XXXXXXX">XXXXXXX</option>
-					<option value="XXXXXXX">XXXXXXX</option>
-					<option value="XXXXXXX">XXXXXXX</option>
-				</select>
+				<?php echo $this->Form->input('KEIYU_CD', array(
+					'type' => 'select',
+					'class' => 'requiredContents',
+					'options' => $keiyuCdOptions,
+				)); ?>
 			</td>
 		</tr>
 		<tr>
 			<th class="taC">取扱区分</th>
-			<td colspan="3">
-				<label for="id_11"><input type="checkbox" id="id_11" />引越・移転・生活関連</label>
-				<label for="id_12"><input type="checkbox" id="id_12" />一般貨物</label>
+			<td colspan="3" class="checkboxes">
+				<?php echo $this->Form->input('TORIATSUKAI_KBN', array(
+					'type' => 'select',
+					'multiple' => 'checkbox',
+					'options' => $toriatsukaiKbnOptions,
+				)); ?>
 			</td>
 		</tr>
 		<tr>
@@ -201,11 +197,7 @@
 				<?php echo $this->Form->input('CSV_MAKE_FLG', array(
 					'legend' => false,
 					'type' => 'radio',
-					'options' => array(
-						'1' => '受注CSV(引越情報)',
-						'2' => '引越CSV(引越情報-簡易版)',
-						'3' => '受注CSV(手配情報)',
-					),
+					'options' => $csvMakeFlgOptions,
 					'before' => '<label for="radio01_1">',
 					'separator' => '</label><br /><label for="radio01_1">',
 					'after' => '</label>',

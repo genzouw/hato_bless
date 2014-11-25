@@ -78,7 +78,7 @@ class DataSearchController extends AppController
      * @param mixed What page to display
      * @return void
      * @throws NotFoundException When the view file could not be found
-     *	or MissingViewException in debug mode.
+     *                           or MissingViewException in debug mode.
      */
     public function houjin_uriage_list()
     {
@@ -100,6 +100,49 @@ class DataSearchController extends AppController
         $view = 'juchu_csv';
 
         $this->request->data['TJuchuCsv']['CSV_MAKE_FLG'] = '1';
+
+        $this->set('juchuStsCdOptions', array(
+            '1' => 'TEL打ち合わせ',
+            '2' => '見積依頼',
+            '05' => '見積完了',
+        ));
+
+        $this->set('csvMakeFlgOptions', array(
+            '1' => '受注CSV(引越情報)',
+            '2' => '引越CSV(引越情報-簡易版)',
+            '3' => '受注CSV(手配情報)',
+        ));
+
+        $this->set('keiyuCdOptions', array(
+            '00' => 'すべて',
+            '01' => '電話帳',
+            '02' => 'チラシ',
+            '03' => '新聞',
+            '04' => 'TV',
+            '05' => 'ラジオ',
+            '06' => '取次店',
+            '07' => '契約法人',
+            '08' => 'お客様紹介',
+            '09' => '看板',
+            '10' => 'リピート',
+            '11' => '現場を見て',
+            '12' => '本部',
+            '13' => '他センター',
+            '14' => 'E-mail',
+            '15' => '提携先',
+            '16' => '来店',
+            '17' => 'ホームページ',
+            '18' => 'グループ',
+            '19' => '営業',
+            '20' => '不動産',
+            '21' => 'その他',
+        ));
+
+
+        $this->set('toriatsukaiKbnOptions', array(
+            '0' => '引越・移転・生活関連',
+            '1' => '一般貨物',
+        ));
 
         $this->render($view);
 
@@ -135,6 +178,7 @@ class DataSearchController extends AppController
         if (!empty($this->data['TJuchuCsv']['SAGYOU_DT_TO'])) {
             $conditions['TJuchuCsv.SAGYOU_DT_TO <='] = $this->data['TJuchuCsv']['SAGYOU_DT_TO'];
         };
+        // TODO 積卸情報の条件を反映
         if (!empty($this->data['TJuchuCsv']['SEISAN_DT_FROM'])) {
             $conditions['TJuchuCsv.SEISAN_DT_FROM >='] = $this->data['TJuchuCsv']['SEISAN_DT_FROM'];
         };
@@ -151,12 +195,13 @@ class DataSearchController extends AppController
         if (!empty($this->data['TJuchuCsv']['KEIYU_CD'])) {
             $conditions['TJuchuCsv.KEIYU_CD'] = $this->data['TJuchuCsv']['KEIYU_CD'];
         };
-        // TODO 取扱区分の条件を反映
+        if (!empty($this->data['TJuchuCsv']['TORIATSUKAI_KBN'])) {
+            $conditions['TJuchuCsv.TORIATSUKAI_KBN'] = $this->data['TJuchuCsv']['TORIATSUKAI_KBN'];
+        };
         // TODO 下部組織を含まないの条件を反映
         if (!empty($this->data['TJuchuCsv']['CSV_MAKE_FLG'])) {
             $conditions['TJuchuCsv.CSV_MAKE_FLG'] = $this->data['TJuchuCsv']['CSV_MAKE_FLG'];
         };
-
 
         $tJuchuCsvList = $this->TJuchuCsv->find(
             'all',
@@ -165,6 +210,7 @@ class DataSearchController extends AppController
             )
         );
 
+        // TODO ファイル名
         $csv_file = 'output.csv';
 
         header ("Content-disposition: attachment; filename=" . $csv_file);

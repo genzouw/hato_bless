@@ -182,96 +182,23 @@
              <th class="taC">清算月</th>
              <th class="taC">参照</th>
           </tr>
-          <tr>
-          	<td>××××<br>××</td>
-            <td>鳩山 太郎<br>○○商事</td>
-            <td>2014<br>0801</td>
-            <td>2014<br>0801</td>
-            <td>埼玉県<br>戸田市喜沢</td>
-            <td>埼玉県<br>戸田市上戸田</td>
-            <td>成約</td>
-            <td>\108,000-</td>
-            <td>下館センター</td>
-            <td>Aセンター</td>
-            <td>yyyy<br>mm</td>
-            <td>yyyy<br>mm</td>
-            <td><input type="button" value="参照登録" onclick="" class="inputBtn01"></td>
-          </tr>
-          <tr>
-          	<td>××××<br>××</td>
-            <td>鳩山 太郎<br>○○商事</td>
-            <td>2014<br>0801</td>
-            <td>2014<br>0801</td>
-            <td>埼玉県<br>戸田市喜沢</td>
-            <td>埼玉県<br>戸田市上戸田</td>
-            <td>成約</td>
-            <td>\108,000-</td>
-            <td>下館センター</td>
-            <td>Aセンター</td>
-            <td>yyyy<br>mm</td>
-            <td>yyyy<br>mm</td>
-            <td><input type="button" value="参照登録" onclick="" class="inputBtn01"></td>
-          </tr>
-          <tr>
-          	<td>××××<br>××</td>
-            <td>鳩山 太郎<br>○○商事</td>
-            <td>2014<br>0801</td>
-            <td>2014<br>0801</td>
-            <td>埼玉県<br>戸田市喜沢</td>
-            <td>埼玉県<br>戸田市上戸田</td>
-            <td>成約</td>
-            <td>\108,000-</td>
-            <td>下館センター</td>
-            <td>Aセンター</td>
-            <td>yyyy<br>mm</td>
-            <td>yyyy<br>mm</td>
-            <td><input type="button" value="参照登録" onclick="" class="inputBtn01"></td>
-          </tr>
-          <tr>
-          	<td>××××<br>××</td>
-            <td>鳩山 太郎<br>○○商事</td>
-            <td>2014<br>0801</td>
-            <td>2014<br>0801</td>
-            <td>埼玉県<br>戸田市喜沢</td>
-            <td>埼玉県<br>戸田市上戸田</td>
-            <td>成約</td>
-            <td>\108,000-</td>
-            <td>下館センター</td>
-            <td>Aセンター</td>
-            <td>yyyy<br>mm</td>
-            <td>yyyy<br>mm</td>
-            <td><input type="button" value="参照登録" onclick="" class="inputBtn01"></td>
-          </tr>
-          <tr>
-          	<td>××××<br>××</td>
-            <td>鳩山 太郎<br>○○商事</td>
-            <td>2014<br>0801</td>
-            <td>2014<br>0801</td>
-            <td>埼玉県<br>戸田市喜沢</td>
-            <td>埼玉県<br>戸田市上戸田</td>
-            <td>成約</td>
-            <td>\108,000-</td>
-            <td>下館センター</td>
-            <td>Aセンター</td>
-            <td>yyyy<br>mm</td>
-            <td>yyyy<br>mm</td>
-            <td><input type="button" value="参照登録" onclick="" class="inputBtn01"></td>
-          </tr>
-          <tr>
-          	<td>××××<br>××</td>
-            <td>鳩山 太郎<br>○○商事</td>
-            <td>2014<br>0801</td>
-            <td>2014<br>0801</td>
-            <td>埼玉県<br>戸田市喜沢</td>
-            <td>埼玉県<br>戸田市上戸田</td>
-            <td>成約</td>
-            <td>\108,000-</td>
-            <td>下館センター</td>
-            <td>Aセンター</td>
-            <td>yyyy<br>mm</td>
-            <td>yyyy<br>mm</td>
-            <td><input type="button" value="参照登録" onclick="" class="inputBtn01"></td>
-          </tr>
+			<?php foreach ($tJuchuKihonList as $tJuchuKihon) { ?>
+			<tr>
+				<td><?php echo $tJuchuKihon['TJuchuKihon']['UKETSUKE_NO']; ?></td>
+				<td><?php echo $tJuchuKihon['MHojin']['HOJIN_MEI']; ?></td>
+				<td><?php echo $tJuchuKihon['TJuchuKihon']['SEISAN_DT']; ?></td>
+				<td><?php echo $tJuchuKihon['TJuchuKihon']['JISSEKI_DT']; ?></td>
+				<td>埼玉県<br>戸田市喜沢xxx</td>
+				<td>埼玉県<br>戸田市上戸田xxx</td>
+				<td><?php echo $tJuchuKihon['TJuchuKihon']['SHITAMI_KBN_CD']; ?></td>
+				<td>\108,000-</td>
+				<td>下館センター</td>
+				<td>Aセンター</td>
+				<td>yyyy<br>mm</td>
+				<td>yyyy<br>mm</td>
+				<td><input type="button" value="参照登録" onclick="" class="inputBtn01"></td>
+			</tr>
+			<?php } ?>
     </table>
     <div class="pagerContents mT30">
         <ul>
