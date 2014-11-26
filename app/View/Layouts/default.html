@@ -50,7 +50,7 @@
 <ul>
 <li><a href=""><span>TOP</span></a></li>
 <li<?php if($this->name === 'Juchu') echo ' class="active"'; ?>><a href="/juchu/kihon"><span>基本登録</span></a></li>
-<li><?php echo $this->Html->link('データ検索', array(
+<li<?php if($this->name === 'DataSearch') echo ' class="active"'; ?>><?php echo $this->Html->link('データ検索', array(
 	'controller' => 'data_search',
 	'action' => 'index',
 )); ?></li>

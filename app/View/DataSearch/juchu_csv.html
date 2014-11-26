@@ -1,7 +1,4 @@
 <style type="text/css"  media="all">
-.no-implement, .no-implement td {
-     color: green;
-}
 td.checkboxes div {
 	display: inline;
 }
@@ -21,11 +18,11 @@ td.checkboxes div {
     <!-- tablePt02 -->
 
 	<?php echo $this->Form->create(
-		'TJuchuCsv',
+		null,
 		array(
 			'url' => array(
 				'controller' => 'data_search',
-				'action' => 'juchu_csv_download',
+				'action' => 'juchu_csv',
 			),
 			'inputDefaults' => array(
 				'div' => false,
@@ -39,7 +36,7 @@ td.checkboxes div {
 		<tr>
 			<th class="taC w150">Sys. No.</th>
 			<td class="w350">
-				<?php echo $this->Form->input('UKETSUKE_NO', array(
+				<?php echo $this->Form->input('conditions.UKETSUKE_NO', array(
 					'class' => 'w340',
 				)); ?>
 			</td>
@@ -50,7 +47,7 @@ td.checkboxes div {
 		<tr>
 			<th class="taC">名前</th>
 			<td class="w350">
-				<?php echo $this->Form->input('KOKYAKUMEI', array(
+				<?php echo $this->Form->input('conditions.KOKYAKUMEI', array(
 					'class' => 'w340',
 				)); ?>
 			</td>
@@ -61,7 +58,7 @@ td.checkboxes div {
 		<tr>
 			<th class="taC">法人名</th>
 			<td>
-				<?php echo $this->Form->input('HOJIN_CD', array(
+				<?php echo $this->Form->input('conditions.HOJIN_CD', array(
 					'class' => 'w340',
 				)); ?>
 			</td>
@@ -73,7 +70,7 @@ td.checkboxes div {
 		<tr>
 			<th class="taC">進行状況</th>
 			<td class="checkboxes">
-				<?php echo $this->Form->input('JUCHU_STS_CD', array(
+				<?php echo $this->Form->input('conditions.JUCHU_STS_CD', array(
 					'type' => 'select',
 					'multiple' => 'checkbox',
 					'options' => $juchuStsCdOptions,
@@ -83,7 +80,7 @@ td.checkboxes div {
 				・・・ステータス分すべて表示
 			</td>
 		</tr>
-		<tr class="no-implement">
+		<tr>
 			<th class="taC">手配状況</th>
 			<td>
 				<label for="id_4"><input type="checkbox" id="id_4" />手配無し</label>
@@ -97,12 +94,12 @@ td.checkboxes div {
 		<tr>
 			<th class="taC">見積日</th>
 			<td colspan="3">
-				<?php echo $this->Form->input('MITSUMORI_DT_FROM', array(
+				<?php echo $this->Form->input('conditions.MITSUMORI_DT_FROM', array(
 					'class' => 'w110',
 				)); ?>
 				<a href="" class="btnImg icoCal01 vlineM"></a>
 				&nbsp;〜&nbsp;
-				<?php echo $this->Form->input('MITSUMORI_DT_TO', array(
+				<?php echo $this->Form->input('conditions.MITSUMORI_DT_TO', array(
 					'class' => 'w110',
 				)); ?>
 				<a href="" class="btnImg icoCal01 vlineM"></a>
@@ -111,12 +108,12 @@ td.checkboxes div {
 		<tr>
 			<th class="taC"> 作業日</th>
 			<td colspan="3">
-				<?php echo $this->Form->input('SAGYO_DT_FROM', array(
+				<?php echo $this->Form->input('conditions.SAGYO_DT_FROM', array(
 					'class' => 'w110',
 				)); ?>
 				<a href="" class="btnImg icoCal01 vlineM"></a>
 				&nbsp;〜&nbsp;
-				<?php echo $this->Form->input('SAGYO_DT_TO', array(
+				<?php echo $this->Form->input('conditions.SAGYO_DT_TO', array(
 					'class' => 'w110',
 				)); ?>
 				<a href="" class="btnImg icoCal01 vlineM"></a>
@@ -128,12 +125,12 @@ td.checkboxes div {
 		<tr>
 			<th class="taC">精算日</th>
 			<td colspan="3">
-				<?php echo $this->Form->input('SEISAN_DT_FROM', array(
+				<?php echo $this->Form->input('conditions.SEISAN_DT_FROM', array(
 					'class' => 'w110',
 				)); ?>
 				<a href="" class="btnImg icoCal01 vlineM"></a>
 				&nbsp;〜&nbsp;
-				<?php echo $this->Form->input('SEISAN_DT_TO', array(
+				<?php echo $this->Form->input('conditions.SEISAN_DT_TO', array(
 					'class' => 'w110',
 				)); ?>
 				<a href="" class="btnImg icoCal01 vlineM"></a>
@@ -143,12 +140,12 @@ td.checkboxes div {
 		<tr>
 			<th class="taC">受付日</th>
 			<td colspan="3">
-				<?php echo $this->Form->input('UKETSUKE_DT_FROM', array(
+				<?php echo $this->Form->input('conditions.UKETSUKE_DT_FROM', array(
 					'class' => 'w110',
 				)); ?>
 				<a href="" class="btnImg icoCal01 vlineM"></a>
 				&nbsp;〜&nbsp;
-				<?php echo $this->Form->input('UKETSUKE_DT_TO', array(
+				<?php echo $this->Form->input('conditions.UKETSUKE_DT_TO', array(
 					'class' => 'w110',
 				)); ?>
 				<a href="" class="btnImg icoCal01 vlineM"></a>
@@ -169,7 +166,7 @@ td.checkboxes div {
 		<tr>
 			<th class="taC">経由</th>
 			<td>
-				<?php echo $this->Form->input('KEIYU_CD', array(
+				<?php echo $this->Form->input('conditions.KEIYU_CD', array(
 					'type' => 'select',
 					'class' => 'requiredContents',
 					'options' => $keiyuCdOptions,
@@ -179,7 +176,7 @@ td.checkboxes div {
 		<tr>
 			<th class="taC">取扱区分</th>
 			<td colspan="3" class="checkboxes">
-				<?php echo $this->Form->input('TORIATSUKAI_KBN', array(
+				<?php echo $this->Form->input('conditions.TORIATSUKAI_KBN', array(
 					'type' => 'select',
 					'multiple' => 'checkbox',
 					'options' => $toriatsukaiKbnOptions,
@@ -194,7 +191,7 @@ td.checkboxes div {
 		<tr>
 			<th class="taC">受注CSV</th>
 			<td colspan="3">
-				<?php echo $this->Form->input('CSV_MAKE_FLG', array(
+				<?php echo $this->Form->input('conditions.CSV_MAKE_FLG', array(
 					'legend' => false,
 					'type' => 'radio',
 					'options' => $csvMakeFlgOptions,
@@ -207,9 +204,21 @@ td.checkboxes div {
 	</table>
 
 	<div class="clear ftBox mT20">
-		<p class="flL mL200"><input type="button" value="  予 約  " onclick="" class="btnImg"></p>
-		<p class="flL mL160"><input type="reset" value=" ク リ ア " class="btnImg"></p>
-		<p class="flR mR200"><input type="submit" value="  出 力  " class="btnImg"></p>
+		<p class="flL mL200"><input type="button" value="  予 約  " class="btnImg"></p>
+		<p class="flL mL160"><?php echo $this->Form->submit(' ク リ ア ',
+			array(
+				'class' => 'btnImg',
+				'div' => false,
+				'name' => 'clear',
+			)
+		); ?></p>
+		<p class="flR mR200"><?php echo $this->Form->submit('  出 力  ',
+			array(
+				'class' => 'btnImg',
+				'div' => false,
+				'name' => 'download',
+			)
+		); ?></p>
 	</div>
 
 	<?php echo $this->Form->end(); ?>
