@@ -1,0 +1,12 @@
+title = "hato_bless gitleaks configuration"
+
+[extend]
+useDefault = true
+
+[allowlist]
+  description = "CakePHP サードパーティライブラリのテストファイル（偽陽性）"
+  paths = [
+    '''app/Vendor''',
+    '''lib/Cake''',
+    '''Cake/Test''',
+  ]
