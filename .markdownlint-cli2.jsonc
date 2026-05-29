@@ -23,5 +23,15 @@
     "MD028": false,
   },
   "globs": ["**/*.md"],
-  "ignores": ["**/node_modules/**", ".claude/**", "**/dist/**", "**/build/**"],
+  // Composer 由来のサードパーティ Markdown (vendor/Vendor) は保守対象外のため除外。
+  // markdownlint-cli2-action v23 への更新で同梱 markdownlint が厳格化し、
+  // app/Vendor/** などで大量エラーが検出されたため明示的に ignore する。
+  "ignores": [
+    "**/node_modules/**",
+    ".claude/**",
+    "**/dist/**",
+    "**/build/**",
+    "**/vendor/**",
+    "**/Vendor/**",
+  ],
 }
