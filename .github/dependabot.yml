@@ -1,0 +1,26 @@
+# Dependabot 設定
+#
+# 目的:
+#   - GitHub Actions（.github/workflows/ 配下）の SHA pin を Dependabot に追随させる
+#   - 監視対象を明示し、Dependabot が想定外のエコシステムを推測実行しないよう範囲を文書化する
+#
+# composer を意図的に登録していない理由:
+#   - 本リポジトリは CakePHP 2.x + ベンダー一式コミット済みの保守モードであり、
+#     composer.json は .gitignore 済みで現役の composer 管理は行っていない。
+#   - 旧 composer.lock を契機にした Dependabot security update が
+#     `dependency_file_not_found "/ not found"` で失敗していた経緯がある
+#     （commit 41faa3e で lock 削除済み・alert は fixed クローズ）。
+#   - Dependabot security update は dependency graph 起点で動くため、
+#     ここで composer を未登録にしても security update 自体は止められない。
+#     恒久的に無効化したい場合は genzouw.com/terraform 側で
+#     `dependabot_security_updates = false` を hato_bless に明示すること。
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: chore
+      include: scope
