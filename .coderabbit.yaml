@@ -8,12 +8,6 @@ enable_free_tier: true
 reviews:
   planning:
     enabled: true
-    auto_planning:
-      enabled: true
-      labels:
-        - feature
-        - enhancement
-        - bug
   # 引越し業界向け業務管理システム (PHP) を公開リポジトリで管理しているため、入力経路の検証漏れや認可不足を取りこぼしたくない。
   # "assertive" で検出感度を高めに保ち、ノイズが過剰になった場合は "chill" に戻すことも検討する。
   profile: "assertive"
