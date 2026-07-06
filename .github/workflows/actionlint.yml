@@ -4,13 +4,13 @@ on:
   push:
     branches: [main, master]
     paths:
-      - '.github/workflows/**'
-      - '.github/actionlint*'
+      - ".github/workflows/**"
+      - ".github/actionlint*"
   pull_request:
     branches: [main, master]
     paths:
-      - '.github/workflows/**'
-      - '.github/actionlint*'
+      - ".github/workflows/**"
+      - ".github/actionlint*"
 
 concurrency:
   group: actionlint-${{ github.ref }}
@@ -49,8 +49,10 @@ jobs:
           fi
 
       - name: Run actionlint
+        env:
+          ACTIONLINT_BIN: "${{ steps.actionlint.outputs.executable }}"
         run: |
-          "${{ steps.actionlint.outputs.executable }}" -color
+          "$ACTIONLINT_BIN" -color
 
       - name: Reject non-SHA action references in `uses:`
         # 外部 Action をブランチ・タグ参照すると、上流のリポジトリリネームや
