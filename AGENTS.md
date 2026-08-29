@@ -110,4 +110,4 @@ Issue では「なぜ既存の無料サービスでは目的を達成できな�
 
 ## 7. 本ポリシーの適用範囲
 
-本ポリシーは [@genzouw](https://github.com/genzouw) が公開しているすべての公開リポジトリに共通で適用されます。
+本ポリシーは本リポジトリ ([`genzouw/hato_bless`](https://github.com/genzouw/hato_bless)) に適用されます。現時点では、このファイルを他の公開リポジトリへ配布する仕組みはありません。
