@@ -1,20 +1,13 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended",
-    "helpers:pinGitHubActionDigests"
-  ],
+  "extends": ["config:recommended", "helpers:pinGitHubActionDigests"],
   "semanticCommits": "enabled",
   "semanticCommitScope": "deps",
   "timezone": "Asia/Tokyo",
-  "schedule": [
-    "* * * * 1"
-  ],
+  "schedule": ["* * * * 1"],
   "minimumReleaseAge": "7 days",
   "prConcurrentLimit": 5,
-  "enabledManagers": [
-    "github-actions"
-  ],
+  "enabledManagers": ["github-actions"],
   "description": [
     "監視対象を GitHub Actions のみに限定する。",
     "本リポジトリは CakePHP 2.x + ベンダー一式コミット済みの保守モードで、composer.json は .gitignore 済み・現役の composer 管理は行っていない。",
@@ -29,27 +22,18 @@
     ],
     "minimumReleaseAge": null,
     "schedule": [],
-    "addLabels": [
-      "security"
-    ]
+    "addLabels": ["security"]
   },
   "packageRules": [
     {
       "description": [
         "依存更新はすべて chore プレフィックスで出す。",
         "config:recommended に含まれる :semanticPrefixFixDepsChoreOthers は本番依存を fix にするが、",
-        "fix は release 生成ツールがリリース対象として扱うため、Dependabot 時代と同じ chore に固定する。"
+        "fix は release 生成ツールがリリース対象として扱うため、Dependabot 時代と同じ chore に固定する。",
+        "enabledManagers を github-actions のみに限定しているため、matchPackageNames: \"*\" は",
+        "実質的に github-actions の全依存を指す。manager を絞った別ルールは不要。"
       ],
-      "matchPackageNames": [
-        "*"
-      ],
-      "semanticCommitType": "chore"
-    },
-    {
-      "description": "GitHub Actions の更新のプレフィックスとラベル (Dependabot の commit-message.prefix と同じ)",
-      "matchManagers": [
-        "github-actions"
-      ],
+      "matchPackageNames": ["*"],
       "semanticCommitType": "chore"
     }
   ]
