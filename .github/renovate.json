@@ -27,6 +27,16 @@
   "packageRules": [
     {
       "description": [
+        "genzouw/ci-workflows のSHA更新は手動レビューする。",
+        "github-tags データソースの digest 更新は、タグの初回リリース時刻を基準に minimumReleaseAge を判定する。",
+        "既存タグが別コミットへ force-push されても判定時刻は更新されないため、7日間の待機が実効しない。",
+        "本リポジトリのCIを直接駆動する reusable workflow のため、自動更新を止めて手動レビュー必須にする。"
+      ],
+      "matchPackageNames": ["genzouw/ci-workflows"],
+      "enabled": false
+    },
+    {
+      "description": [
         "依存更新はすべて chore プレフィックスで出す。",
         "config:recommended に含まれる :semanticPrefixFixDepsChoreOthers は本番依存を fix にするが、",
         "fix は release 生成ツールがリリース対象として扱うため、Dependabot 時代と同じ chore に固定する。",
