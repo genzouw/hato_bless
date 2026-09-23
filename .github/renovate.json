@@ -16,9 +16,13 @@
     "なお Dependabot security update は dependency graph 起点で動くため、本設定では止められない。恒久的に無効化する場合は genzouw.com/terraform 側で dependabot_security_updates = false を指定すること。"
   ],
   "vulnerabilityAlerts": {
+    "enabled": false,
     "description": [
-      "脆弱性修正は minimumReleaseAge と schedule の対象外にして即時 PR にする。",
-      "Dependabot の cooldown が security updates に効かなかったのと同じ挙動を保つため。"
+      "脆弱性PRの担当は当面 Dependabot に一本化し、Renovate側は無効化しておく。",
+      "dependabot.yml の削除では Dependabot の security updates は無効にならない（dependency graph 起点で動くため、上の description 参照）。",
+      "この状態で vulnerabilityAlerts を有効にすると、同一脆弱性に対して Dependabot と Renovate の双方からPRが作られ重複する。",
+      "genzouw.com/terraform 側で dependabot_security_updates = false にして Dependabot を無効化したら、このブロックを enabled: true に戻す。",
+      "以下の minimumReleaseAge/schedule/addLabels は、有効化時に「脆弱性修正は即時PRにする」ための設定として残してある。"
     ],
     "minimumReleaseAge": null,
     "schedule": [],
