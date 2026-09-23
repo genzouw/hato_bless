@@ -1,0 +1,54 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended", "helpers:pinGitHubActionDigests"],
+  "semanticCommits": "enabled",
+  "semanticCommitScope": "deps",
+  "timezone": "Asia/Tokyo",
+  "schedule": ["* * * * 1"],
+  "minimumReleaseAge": "7 days",
+  "prConcurrentLimit": 5,
+  "enabledManagers": ["github-actions"],
+  "description": [
+    "監視対象を GitHub Actions のみに限定する。",
+    "本リポジトリは CakePHP 2.x + ベンダー一式コミット済みの保守モードで、composer.json は .gitignore 済み・現役の composer 管理は行っていない。",
+    "enabledManagers を絞らないと app/Vendor 配下の第三者ライブラリ (guzzle の docs/requirements.txt 等) を Renovate が依存として拾い、実体のない更新 PR を作る。",
+    "Dependabot 時代に package-ecosystem を github-actions だけ登録していたのと同じ範囲を、Renovate では enabledManagers で表現する。",
+    "なお Dependabot security update は dependency graph 起点で動くため、本設定では止められない。恒久的に無効化する場合は genzouw.com/terraform 側で dependabot_security_updates = false を指定すること。"
+  ],
+  "vulnerabilityAlerts": {
+    "enabled": false,
+    "description": [
+      "脆弱性PRの担当は当面 Dependabot に一本化し、Renovate側は無効化しておく。",
+      "dependabot.yml の削除では Dependabot の security updates は無効にならない（dependency graph 起点で動くため、上の description 参照）。",
+      "この状態で vulnerabilityAlerts を有効にすると、同一脆弱性に対して Dependabot と Renovate の双方からPRが作られ重複する。",
+      "genzouw.com/terraform 側で dependabot_security_updates = false にして Dependabot を無効化したら、このブロックを enabled: true に戻す。",
+      "以下の minimumReleaseAge/schedule/addLabels は、有効化時に「脆弱性修正は即時PRにする」ための設定として残してある。"
+    ],
+    "minimumReleaseAge": null,
+    "schedule": [],
+    "addLabels": ["security"]
+  },
+  "packageRules": [
+    {
+      "description": [
+        "genzouw/ci-workflows のSHA更新は手動レビューする。",
+        "github-tags データソースの digest 更新は、タグの初回リリース時刻を基準に minimumReleaseAge を判定する。",
+        "既存タグが別コミットへ force-push されても判定時刻は更新されないため、7日間の待機が実効しない。",
+        "本リポジトリのCIを直接駆動する reusable workflow のため、自動更新を止めて手動レビュー必須にする。"
+      ],
+      "matchPackageNames": ["genzouw/ci-workflows"],
+      "enabled": false
+    },
+    {
+      "description": [
+        "依存更新はすべて chore プレフィックスで出す。",
+        "config:recommended に含まれる :semanticPrefixFixDepsChoreOthers は本番依存を fix にするが、",
+        "fix は release 生成ツールがリリース対象として扱うため、Dependabot 時代と同じ chore に固定する。",
+        "enabledManagers を github-actions のみに限定しているため、matchPackageNames: \"*\" は",
+        "実質的に github-actions の全依存を指す。manager を絞った別ルールは不要。"
+      ],
+      "matchPackageNames": ["*"],
+      "semanticCommitType": "chore"
+    }
+  ]
+}
