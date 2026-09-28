@@ -4,8 +4,8 @@
   "semanticCommits": "enabled",
   "semanticCommitScope": "deps",
   "timezone": "Asia/Tokyo",
-  "schedule": ["* * * * 1"],
-  "minimumReleaseAge": "7 days",
+  "minimumReleaseAge": "1 day",
+  "minimumReleaseAgeBehaviour": "timestamp-optional",
   "prConcurrentLimit": 5,
   "enabledManagers": ["github-actions"],
   "description": [
@@ -33,7 +33,7 @@
       "description": [
         "genzouw/ci-workflows のSHA更新は手動レビューする。",
         "github-tags データソースの digest 更新は、タグの初回リリース時刻を基準に minimumReleaseAge を判定する。",
-        "既存タグが別コミットへ force-push されても判定時刻は更新されないため、7日間の待機が実効しない。",
+        "既存タグが別コミットへ force-push されても判定時刻は更新されないため、1日間の待機が実効しない。",
         "本リポジトリのCIを直接駆動する reusable workflow のため、自動更新を止めて手動レビュー必須にする。"
       ],
       "matchPackageNames": ["genzouw/ci-workflows"],
