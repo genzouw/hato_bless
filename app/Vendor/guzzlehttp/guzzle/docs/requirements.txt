@@ -1,2 +1,8 @@
 Sphinx>=1.2b1
 guzzle_sphinx_theme>=0.6.0
+# Snyk が検出した推移的依存の脆弱性を修正バージョン以上に固定する
+urllib3>=2.8.0
+requests>=2.33.0
+zipp>=3.19.1
+Pygments>=2.20.0
+idna>=3.15
